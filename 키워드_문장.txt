@@ -1,0 +1,3667 @@
+# 문장별 키워드와 키워드 연결 (opic_trainer.html 빌드 때 함께 들어감)
+# 스크립트 전체 키워드는 일반_260727_1_edited.txt 의 K: 줄에 있습니다.
+#
+# 형식
+#   == Q번호
+#   문장번호: 키워드 | 키워드        문장 번호는 앱의 문장 나누기(①②③…)와 같습니다. 키워드는 그 문장에 실제로 있는 구절
+#   연결: A > B | 관계              B가 A의 이유 · 결과 · 대조 · 구체화 · 위치 · 같은(같은 대상)
+#   답변이 완전히 같은 스크립트(예: Q002 = Q001)는 원본 블록을 함께 씁니다.
+#   문장을 고쳐서 키워드가 문장에 없게 되면 앱은 그 키워드를 보여 주지 않습니다.
+
+== Q001
+1: three-bedroom apartment | 3rd floor of a 20-story | Seoul
+2: entrance area | take off your shoes
+3: Korean culture | sanitary reasons
+4: on the left | kitchen area | study room
+5: On the right | living room
+6: master bedroom | my bedroom
+7: like the most | several reasons
+8: all by myself | without any distractions
+9: view of the river
+10: collect my thoughts | look out the window
+11: not that luxurious | perfect fit
+연결: entrance area > take off your shoes | 위치
+연결: take off your shoes > sanitary reasons | 이유
+연결: Korean culture > sanitary reasons | 구체화
+연결: on the left > On the right | 대조
+연결: living room > master bedroom | 위치
+연결: my bedroom > like the most | 같은
+연결: like the most > several reasons | 이유
+연결: several reasons > all by myself | 구체화
+연결: several reasons > view of the river | 구체화
+연결: all by myself > without any distractions | 구체화
+연결: view of the river > collect my thoughts | 결과
+연결: collect my thoughts > look out the window | 결과
+연결: not that luxurious > perfect fit | 대조
+
+== Q003
+1: nice and clean
+2: as often as I can
+3: open all the windows
+4: vacuum and mop the floors
+5: dust the furniture
+6: clean the bathroom
+7: spray water | wash the toilet
+8: do the dishes | right after my meals
+9: do the laundry | every week
+10: separate the whites and the colors
+11: in the washer
+12: hang-dry | laundry rack
+13: fold the clothes | dresser
+14: iron my clothes
+15: dry cleaner’s
+16: take out the garbage | every other day
+17: recycling basket
+18: food waste
+19: daily routines
+연결: nice and clean > as often as I can | 구체화
+연결: as often as I can > open all the windows | 구체화
+연결: as often as I can > vacuum and mop the floors | 구체화
+연결: as often as I can > dust the furniture | 구체화
+연결: clean the bathroom > spray water | 구체화
+연결: clean the bathroom > wash the toilet | 구체화
+연결: do the dishes > right after my meals | 구체화
+연결: do the laundry > separate the whites and the colors | 구체화
+연결: do the laundry > in the washer | 구체화
+연결: do the laundry > hang-dry | 구체화
+연결: hang-dry > laundry rack | 위치
+연결: fold the clothes > dresser | 위치
+연결: iron my clothes > dry cleaner’s | 대조
+연결: take out the garbage > recycling basket | 구체화
+연결: take out the garbage > food waste | 구체화
+연결: daily routines > nice and clean | 같은
+
+== Q004
+1: Up until three years ago | spacious apartment | suburb
+2: grew up | very different
+3: four-bedroom | quiet neighborhood
+4: wood floors | large windows | sunlight
+5: stately atmosphere
+6: park nearby | jogging
+7: In contrast | small apartment
+8: cozy atmosphere
+9: many windows | lights turned on
+10: no balcony | fresh air
+11: On the plus side | restaurants and cafés
+12: amenities | walking distance
+13: the city | social life
+연결: spacious apartment > small apartment | 대조
+연결: spacious apartment > four-bedroom | 같은
+연결: four-bedroom > wood floors | 구체화
+연결: large windows > sunlight | 결과
+연결: large windows > many windows | 대조
+연결: many windows > lights turned on | 결과
+연결: stately atmosphere > cozy atmosphere | 대조
+연결: small apartment > cozy atmosphere | 결과
+연결: no balcony > fresh air | 결과
+연결: suburb > the city | 대조
+연결: quiet neighborhood > restaurants and cafés | 대조
+연결: restaurants and cafés > amenities | 구체화
+연결: the city > social life | 결과
+연결: very different > In contrast | 구체화
+
+== Q005
+1: massive makeover | a few years back
+2: tore everything out | started fresh
+3: old flooring | upgraded the windows | remodeled the bathroom
+4: modern wallpaper | brighten up
+5: unreal | brand-new home
+6: big investment | worth every penny
+7: new vibe | new furniture | layout
+8: a lot of work | elevated
+연결: massive makeover > tore everything out | 구체화
+연결: tore everything out > started fresh | 같은
+연결: tore everything out > old flooring | 구체화
+연결: tore everything out > upgraded the windows | 구체화
+연결: tore everything out > remodeled the bathroom | 구체화
+연결: modern wallpaper > brighten up | 결과
+연결: remodeled the bathroom > brand-new home | 결과
+연결: big investment > worth every penny | 대조
+연결: brand-new home > new vibe | 같은
+연결: new vibe > new furniture | 이유
+연결: a lot of work > elevated | 대조
+연결: new furniture > elevated | 결과
+
+== Q006
+1: favorite memories | living room
+2: growing up | weekly ritual | every Sunday
+3: gather around the TV | fried chicken | laugh and talk
+4: hilarious stories | endless laughter
+5: wasn’t anything fancy | heartwarming moments | shaped who I am
+6: feel stressed | warm family vibe | smile to my face
+연결: favorite memories > living room | 위치
+연결: weekly ritual > every Sunday | 구체화
+연결: weekly ritual > gather around the TV | 구체화
+연결: gather around the TV > fried chicken | 구체화
+연결: gather around the TV > laugh and talk | 구체화
+연결: hilarious stories > endless laughter | 결과
+연결: wasn’t anything fancy > heartwarming moments | 대조
+연결: heartwarming moments > shaped who I am | 결과
+연결: feel stressed > warm family vibe | 대조
+연결: warm family vibe > smile to my face | 결과
+연결: heartwarming moments > warm family vibe | 같은
+
+== Q007
+1: problems at home | fair share of headaches
+2: a few months ago | pipe suddenly burst | massive leak
+3: flooded the floor | absolute nightmare
+4: scorching summer | AC completely broke down
+5: unbearable heat | repairman
+6: maintenance issues | incredibly frustrating | older place
+연결: problems at home > pipe suddenly burst | 구체화
+연결: problems at home > AC completely broke down | 구체화
+연결: pipe suddenly burst > massive leak | 결과
+연결: massive leak > flooded the floor | 결과
+연결: flooded the floor > absolute nightmare | 결과
+연결: AC completely broke down > unbearable heat | 결과
+연결: scorching summer > unbearable heat | 이유
+연결: unbearable heat > repairman | 결과
+연결: maintenance issues > incredibly frustrating | 결과
+연결: maintenance issues > older place | 이유
+연결: fair share of headaches > maintenance issues | 같은
+
+== Q008
+1: broke a cup | doing the dishes
+2: accidentally dropped | slippery
+3: fell on the floor | several pieces
+4: clean up the glass
+5: picked up the big pieces | vacuumed the small pieces
+6: extra careful | cut my finger
+7: bleeding a lot | a little sore
+8: stop the bleeding
+9: cleaned the cut | bandaid
+10: Ever since that incident | more careful
+연결: broke a cup > doing the dishes | 구체화
+연결: accidentally dropped > slippery | 이유
+연결: accidentally dropped > fell on the floor | 결과
+연결: fell on the floor > several pieces | 결과
+연결: clean up the glass > picked up the big pieces | 구체화
+연결: clean up the glass > vacuumed the small pieces | 구체화
+연결: extra careful > cut my finger | 대조
+연결: cut my finger > bleeding a lot | 결과
+연결: bleeding a lot > stop the bleeding | 결과
+연결: stop the bleeding > cleaned the cut | 구체화
+연결: cleaned the cut > bandaid | 구체화
+연결: cut my finger > more careful | 결과
+
+== Q009
+1: fixing issues around the house | contrasting approaches
+2: very old-school
+3: pipe leaks | appliance breaks down | local repairmen | word-of-mouth
+4: On the other hand | digital convenience
+5: pull out my smartphone | home service app | compare quotes and reviews
+6: generational gap | human connections | speed and efficiency
+연결: fixing issues around the house > contrasting approaches | 구체화
+연결: contrasting approaches > very old-school | 구체화
+연결: contrasting approaches > digital convenience | 구체화
+연결: very old-school > digital convenience | 대조
+연결: very old-school > local repairmen | 구체화
+연결: pipe leaks > local repairmen | 결과
+연결: local repairmen > word-of-mouth | 구체화
+연결: digital convenience > home service app | 구체화
+연결: home service app > compare quotes and reviews | 구체화
+연결: human connections > speed and efficiency | 대조
+연결: generational gap > contrasting approaches | 이유
+연결: word-of-mouth > human connections | 같은
+연결: home service app > speed and efficiency | 같은
+
+== Q010
+1: Modern home appliances | changed our daily lives
+2: tedious chores | time and effort
+3: dishwasher
+4: In the past | by hand
+5: But now | press a button
+6: freed up our evenings | more time with family
+7: game-changer | laundry care appliances
+8: hang-dry clothes | rainy days
+9: personal dry-cleaner
+10: steam | wrinkles and odors | much less often
+11: manual labor | managing machines | personal time
+연결: Modern home appliances > changed our daily lives | 결과
+연결: tedious chores > time and effort | 결과
+연결: dishwasher > by hand | 대조
+연결: In the past > But now | 대조
+연결: by hand > press a button | 대조
+연결: press a button > freed up our evenings | 결과
+연결: freed up our evenings > more time with family | 구체화
+연결: laundry care appliances > hang-dry clothes | 대조
+연결: hang-dry clothes > rainy days | 구체화
+연결: laundry care appliances > personal dry-cleaner | 구체화
+연결: personal dry-cleaner > steam | 구체화
+연결: steam > wrinkles and odors | 결과
+연결: wrinkles and odors > much less often | 결과
+연결: manual labor > managing machines | 대조
+연결: managing machines > personal time | 결과
+
+== Q011
+1: Vacuum cleaners | essential home appliances
+2: manually sweeping | broom
+3: cordless models | massive step up | robot vacuum
+4: Early versions | quite clumsy | incredibly high-tech
+5: sweep and mop simultaneously | right from your smartphone
+6: smart devices | revolutionized household chores | infinitely easier
+연결: Vacuum cleaners > essential home appliances | 구체화
+연결: Vacuum cleaners > manually sweeping | 대조
+연결: manually sweeping > broom | 구체화
+연결: cordless models > robot vacuum | 대조
+연결: cordless models > massive step up | 구체화
+연결: quite clumsy > incredibly high-tech | 대조
+연결: incredibly high-tech > sweep and mop simultaneously | 구체화
+연결: incredibly high-tech > right from your smartphone | 구체화
+연결: robot vacuum > smart devices | 같은
+연결: revolutionized household chores > infinitely easier | 결과
+연결: smart devices > revolutionized household chores | 결과
+
+== Q012
+1: most striking difference | design
+2: In the past | cookie-cutter layouts | five to ten stories
+3: completely transformed
+4: customizable floor plans | individual lifestyles
+5: sheer height | mind-blowing
+6: low-rise structures | massive high-rises | over fifty floors | city skyline
+7: basic and uniform | modern and personalized
+연결: most striking difference > design | 구체화
+연결: cookie-cutter layouts > customizable floor plans | 대조
+연결: five to ten stories > over fifty floors | 대조
+연결: customizable floor plans > individual lifestyles | 이유
+연결: completely transformed > customizable floor plans | 구체화
+연결: completely transformed > sheer height | 구체화
+연결: sheer height > mind-blowing | 결과
+연결: low-rise structures > massive high-rises | 대조
+연결: massive high-rises > city skyline | 결과
+연결: basic and uniform > modern and personalized | 대조
+연결: cookie-cutter layouts > basic and uniform | 같은
+
+== Q013
+1: news | housing market
+2: rising housing prices | skyrocketed
+3: price hike | rent prices
+4: trouble finding a home
+5: paying the rent
+6: get a loan
+7: different areas | cheaper housing
+8: government | curb housing prices
+9: raising taxes | more than one home
+10: mortgages
+11: new residential cities
+12: price caps | re-sale restrictions
+13: NOT always that effective
+14: backfire | prices go up again
+15: biggest problems | high prices
+연결: housing market > rising housing prices | 구체화
+연결: rising housing prices > rent prices | 결과
+연결: rent prices > trouble finding a home | 결과
+연결: rent prices > paying the rent | 결과
+연결: paying the rent > get a loan | 결과
+연결: trouble finding a home > cheaper housing | 결과
+연결: government > curb housing prices | 구체화
+연결: curb housing prices > raising taxes | 구체화
+연결: curb housing prices > mortgages | 구체화
+연결: curb housing prices > new residential cities | 구체화
+연결: curb housing prices > price caps | 구체화
+연결: curb housing prices > NOT always that effective | 대조
+연결: NOT always that effective > backfire | 구체화
+연결: backfire > prices go up again | 결과
+연결: high prices > rising housing prices | 같은
+
+== Q014
+1: Michael Jackson
+2: greatest singers of all time
+3: alone in this opinion
+4: a fan of his music | decades
+5: peerless singer
+6: 5 years old | developing his musical talent
+7: better and better
+8: distinct pop flavor
+9: powerful and cool
+10: sing, dance, and write music
+11: well-rounded artist
+12: so famous
+13: brown eyes | dazzling smile
+14: interview | full of life
+15: number one musician
+연결: Michael Jackson > greatest singers of all time | 구체화
+연결: greatest singers of all time > alone in this opinion | 구체화
+연결: greatest singers of all time > peerless singer | 같은
+연결: 5 years old > developing his musical talent | 결과
+연결: developing his musical talent > better and better | 결과
+연결: distinct pop flavor > powerful and cool | 구체화
+연결: sing, dance, and write music > well-rounded artist | 결과
+연결: well-rounded artist > so famous | 결과
+연결: interview > full of life | 결과
+연결: number one musician > Michael Jackson | 같은
+
+== Q015
+1: big part of my life
+2: my passion
+3: Kpop
+4: beautiful vocals | upbeat melodies
+5: bus or subway | earphones
+6: in the evenings | relax after work
+7: my own room | without any distractions
+8: typical routine | surfing the Internet | K-pop dance music
+9: something quieter | go to bed
+10: calming effect
+11: worries melt away
+12: look forward to listening
+연결: big part of my life > my passion | 같은
+연결: Kpop > beautiful vocals | 이유
+연결: Kpop > upbeat melodies | 이유
+연결: bus or subway > earphones | 위치
+연결: relax after work > in the evenings | 구체화
+연결: my own room > without any distractions | 결과
+연결: typical routine > surfing the Internet | 구체화
+연결: K-pop dance music > something quieter | 대조
+연결: calming effect > worries melt away | 구체화
+연결: calming effect > look forward to listening | 결과
+연결: relax after work > calming effect | 같은
+
+== Q016
+1: teenage years | G-O-D
+2: very big | everyone listened
+3: sensational
+4: geo-jit-mal | my favorite
+5: over and over again
+6: as I get older | various types of music
+7: soft and quiet music
+8: wind down and relax
+9: upbeat music | from time to time
+10: Fast songs | keep my spirits up | keep me awake
+11: Once again
+연결: G-O-D > very big | 구체화
+연결: very big > everyone listened | 구체화
+연결: very big > sensational | 같은
+연결: geo-jit-mal > over and over again | 결과
+연결: G-O-D > geo-jit-mal | 구체화
+연결: teenage years > as I get older | 대조
+연결: various types of music > soft and quiet music | 구체화
+연결: various types of music > upbeat music | 구체화
+연결: soft and quiet music > wind down and relax | 결과
+연결: soft and quiet music > upbeat music | 대조
+연결: upbeat music > Fast songs | 같은
+연결: Fast songs > keep my spirits up | 결과
+연결: Fast songs > keep me awake | 결과
+
+== Q017
+1: concert with my friends | a couple of years ago
+2: lee-seung-cheol
+3: well-known musicians
+4: large concert hall
+5: very lively
+6: screaming
+7: jumping up and down | singing along
+8: overwhelming
+9: full of people
+10: sold-out
+11: best concerts
+12: worth the money
+13: go again
+연결: concert with my friends > lee-seung-cheol | 구체화
+연결: lee-seung-cheol > well-known musicians | 구체화
+연결: concert with my friends > large concert hall | 위치
+연결: very lively > screaming | 구체화
+연결: very lively > jumping up and down | 구체화
+연결: very lively > singing along | 구체화
+연결: screaming > overwhelming | 결과
+연결: full of people > sold-out | 구체화
+연결: well-known musicians > sold-out | 이유
+연결: best concerts > worth the money | 구체화
+연결: best concerts > go again | 결과
+
+== Q018
+1: smartphones
+2: extra device
+3: streaming service
+4: a lot of storage | hundreds of songs
+5: easy to search
+6: Bluetooth functions
+7: various types of devices
+8: car audios | audios at home
+9: very convenient | any wires
+10: latest trend | music industry
+연결: smartphones > extra device | 결과
+연결: smartphones > streaming service | 구체화
+연결: a lot of storage > hundreds of songs | 결과
+연결: smartphones > easy to search | 구체화
+연결: Bluetooth functions > various types of devices | 결과
+연결: various types of devices > car audios | 구체화
+연결: various types of devices > audios at home | 구체화
+연결: very convenient > any wires | 이유
+연결: Bluetooth functions > any wires | 결과
+연결: latest trend > Bluetooth functions | 구체화
+연결: latest trend > smartphones | 구체화
+
+== Q019
+1: hip-hop and R&B
+2: similarities and differences
+3: similarities first
+4: good mood
+5: never go out of style
+6: all the rage | past few decades
+7: differences between the two outweigh
+8: mellow melodies | soaring vocals
+9: falling in love or breaking up | my own relationships
+10: much more energy
+11: strong underlying beat
+12: get up and dance
+13: hip-hop is better
+14: the way that it is sung
+15: rapped | like a chant
+16: musical instrument
+17: both types of music
+연결: hip-hop and R&B > similarities and differences | 구체화
+연결: similarities first > good mood | 구체화
+연결: similarities first > never go out of style | 구체화
+연결: never go out of style > all the rage | 같은
+연결: similarities first > differences between the two outweigh | 대조
+연결: mellow melodies > much more energy | 대조
+연결: falling in love or breaking up > my own relationships | 결과
+연결: much more energy > strong underlying beat | 구체화
+연결: strong underlying beat > get up and dance | 결과
+연결: hip-hop is better > the way that it is sung | 이유
+연결: the way that it is sung > rapped | 구체화
+연결: rapped > like a chant | 결과
+연결: rapped > musical instrument | 구체화
+
+== Q020
+1: most renowned beach
+2: number one tourist site
+3: located along the sea | beautiful scenery 24/7
+4: go at nighttime
+5: lights from the bridge | stunning view
+6: over the moon
+7: many facilities | bicycle rental shops | drinking fountains
+8: public exercise equipment
+9: restaurants and cafes are nearby | light heart | delicious food
+10: main attractions
+연결: most renowned beach > number one tourist site | 같은
+연결: located along the sea > beautiful scenery 24/7 | 결과
+연결: beautiful scenery 24/7 > go at nighttime | 대조
+연결: go at nighttime > lights from the bridge | 이유
+연결: lights from the bridge > stunning view | 결과
+연결: stunning view > over the moon | 결과
+연결: many facilities > bicycle rental shops | 구체화
+연결: many facilities > drinking fountains | 구체화
+연결: many facilities > public exercise equipment | 구체화
+연결: restaurants and cafes are nearby > light heart | 결과
+연결: restaurants and cafes are nearby > delicious food | 구체화
+연결: main attractions > many facilities | 구체화
+연결: main attractions > stunning view | 구체화
+
+== Q021
+1: well-prepared | unnecessary stress
+2: major bookings | flights and accommodations | weeks in advance
+3: locked in | start packing
+4: heavy packer | over-prepared
+5: suitable for the weather | essential toiletries | first-aid kit
+6: the night before | final check of my tickets | fully charged
+7: completely ready to go
+연결: well-prepared > unnecessary stress | 이유
+연결: major bookings > flights and accommodations | 구체화
+연결: major bookings > weeks in advance | 구체화
+연결: locked in > start packing | 결과
+연결: heavy packer > over-prepared | 같은
+연결: start packing > suitable for the weather | 구체화
+연결: start packing > essential toiletries | 구체화
+연결: start packing > first-aid kit | 구체화
+연결: the night before > final check of my tickets | 구체화
+연결: the night before > fully charged | 구체화
+연결: final check of my tickets > completely ready to go | 결과
+연결: well-prepared > over-prepared | 같은
+
+== Q022
+1: once-in-a-lifetime experience
+2: trip to Japan | 2 nights and 3 days
+3: shopping mall | got lost
+4: beautiful woman | walking her dog
+5: love at first sight
+6: talk to her
+7: someone I knew
+8: my first love
+9: Ten years ago | dumped me
+10: butterflies in my stomach | goosebumps
+11: old memories | walked the other way
+12: really surprising | another country
+연결: once-in-a-lifetime experience > trip to Japan | 구체화
+연결: shopping mall > got lost | 위치
+연결: got lost > beautiful woman | 결과
+연결: beautiful woman > love at first sight | 결과
+연결: love at first sight > talk to her | 결과
+연결: talk to her > someone I knew | 결과
+연결: someone I knew > my first love | 구체화
+연결: my first love > dumped me | 구체화
+연결: my first love > butterflies in my stomach | 결과
+연결: old memories > walked the other way | 이유
+연결: dumped me > old memories | 같은
+연결: really surprising > another country | 이유
+연결: love at first sight > walked the other way | 대조
+
+== Q023
+1: beach with my family | when I was a kid
+2: East coast of Korea
+3: gyeong-po-dae
+4: beachside hotel | great ocean view
+5: During the day | swam in the ocean
+6: played with the sand
+7: sand castle | buried my sister
+8: In the evening | seafood | raw fish and shellfish
+9: tasted extra good | right in front of the beach
+10: At night | walk along the beach
+11: breathe in the fresh air
+12: best trips in my childhood
+13: enjoyed every minute
+연결: beach with my family > beachside hotel | 위치
+연결: beachside hotel > great ocean view | 구체화
+연결: During the day > In the evening | 대조
+연결: In the evening > At night | 대조
+연결: During the day > swam in the ocean | 구체화
+연결: played with the sand > sand castle | 구체화
+연결: played with the sand > buried my sister | 구체화
+연결: seafood > raw fish and shellfish | 구체화
+연결: tasted extra good > right in front of the beach | 이유
+연결: walk along the beach > breathe in the fresh air | 결과
+연결: best trips in my childhood > enjoyed every minute | 같은
+연결: when I was a kid > best trips in my childhood | 같은
+
+== Q024
+1: more difficult than in the past
+2: much easier
+3: transportation | faster and better
+4: bullet train | KTX
+5: ordinary trains
+6: GPS
+7: paper maps
+8: tells us where to go
+9: plane tickets or train tickets | cell phones
+10: wherever we are | whenever we want
+11: a lot easier rather than more difficult
+연결: more difficult than in the past > much easier | 대조
+연결: much easier > transportation | 이유
+연결: much easier > GPS | 이유
+연결: much easier > cell phones | 이유
+연결: transportation > bullet train | 구체화
+연결: bullet train > KTX | 같은
+연결: KTX > ordinary trains | 대조
+연결: GPS > paper maps | 대조
+연결: GPS > tells us where to go | 구체화
+연결: cell phones > plane tickets or train tickets | 구체화
+연결: plane tickets or train tickets > wherever we are | 결과
+연결: a lot easier rather than more difficult > much easier | 같은
+
+== Q025
+1: biggest concerns is safety
+2: get hurt or get sick | on the move
+3: take precautions
+4: near water | play it safe
+5: warm up
+6: cramps | heart attacks
+7: keep an eye on their children
+8: get into trouble in the water
+9: food safety
+10: eat safe food
+11: food poisoning | food allergies
+12: major concerns
+연결: biggest concerns is safety > get hurt or get sick | 구체화
+연결: get hurt or get sick > take precautions | 결과
+연결: take precautions > near water | 구체화
+연결: near water > warm up | 구체화
+연결: warm up > cramps | 대조
+연결: cramps > heart attacks | 같은
+연결: take precautions > keep an eye on their children | 구체화
+연결: keep an eye on their children > get into trouble in the water | 대조
+연결: biggest concerns is safety > food safety | 구체화
+연결: food safety > eat safe food | 구체화
+연결: eat safe food > food poisoning | 대조
+연결: food poisoning > food allergies | 같은
+연결: major concerns > biggest concerns is safety | 같은
+
+== Q026
+1: most renowned beach
+2: number one tourist site
+3: located along the sea | beautiful scenery 24/7
+4: go at nighttime
+5: lights from the bridge | stunning view
+6: over the moon
+7: many facilities | bicycle rental shops | drinking fountains
+8: public exercise equipment
+9: restaurants and cafes are nearby | light heart | delicious food
+10: main attractions
+연결: most renowned beach > number one tourist site | 같은
+연결: located along the sea > beautiful scenery 24/7 | 결과
+연결: beautiful scenery 24/7 > go at nighttime | 대조
+연결: go at nighttime > lights from the bridge | 이유
+연결: lights from the bridge > stunning view | 결과
+연결: stunning view > over the moon | 결과
+연결: many facilities > bicycle rental shops | 구체화
+연결: many facilities > drinking fountains | 구체화
+연결: many facilities > public exercise equipment | 구체화
+연결: restaurants and cafes are nearby > light heart | 결과
+연결: restaurants and cafes are nearby > delicious food | 구체화
+연결: main attractions > many facilities | 구체화
+연결: main attractions > stunning view | 구체화
+
+== Q027
+1: a lot of sightseeing
+2: historic sites | landmarks | tons of pictures | post online
+3: favorite part | local food scene
+4: online searches | ask the locals | best restaurants
+5: miss out on shopping
+6: unique souvenirs | local markets | duty-free shops | gifts
+7: pretty much what
+연결: a lot of sightseeing > historic sites | 구체화
+연결: a lot of sightseeing > landmarks | 구체화
+연결: tons of pictures > post online | 결과
+연결: a lot of sightseeing > local food scene | 대조
+연결: favorite part > local food scene | 같은
+연결: local food scene > online searches | 구체화
+연결: local food scene > ask the locals | 구체화
+연결: ask the locals > best restaurants | 결과
+연결: miss out on shopping > unique souvenirs | 구체화
+연결: unique souvenirs > local markets | 위치
+연결: duty-free shops > gifts | 구체화
+연결: miss out on shopping > duty-free shops | 구체화
+
+== Q028
+1: beach with my family | when I was a kid
+2: the Gwam
+3: Gun beach
+4: beachside hotel | great ocean view
+5: During the day | swam in the ocean
+6: played with the sand
+7: sand castle | buried my sister
+8: In the evening | seafood | raw fish and shellfish
+9: tasted extra good | right in front of the beach
+10: At night | walk along the beach
+11: breathe in the fresh air
+12: best trips in my childhood
+13: enjoyed every minute
+연결: beach with my family > beachside hotel | 위치
+연결: beachside hotel > great ocean view | 구체화
+연결: During the day > In the evening | 대조
+연결: In the evening > At night | 대조
+연결: During the day > swam in the ocean | 구체화
+연결: played with the sand > sand castle | 구체화
+연결: played with the sand > buried my sister | 구체화
+연결: seafood > raw fish and shellfish | 구체화
+연결: tasted extra good > right in front of the beach | 이유
+연결: walk along the beach > breathe in the fresh air | 결과
+연결: best trips in my childhood > enjoyed every minute | 같은
+연결: when I was a kid > best trips in my childhood | 같은
+
+== Q031
+1: a lot of sightseeing
+2: historic sites | landmarks | tons of pictures | post online
+3: favorite part | local food scene
+4: online searches | ask the locals | best restaurants
+5: miss out on shopping
+6: unique souvenirs | local markets | duty-free shops | gifts
+7: pretty much what
+연결: a lot of sightseeing > historic sites | 구체화
+연결: a lot of sightseeing > landmarks | 구체화
+연결: tons of pictures > post online | 결과
+연결: a lot of sightseeing > local food scene | 대조
+연결: favorite part > local food scene | 같은
+연결: local food scene > online searches | 구체화
+연결: local food scene > ask the locals | 구체화
+연결: ask the locals > best restaurants | 결과
+연결: miss out on shopping > unique souvenirs | 구체화
+연결: unique souvenirs > local markets | 위치
+연결: duty-free shops > gifts | 구체화
+연결: miss out on shopping > duty-free shops | 구체화
+
+== Q032
+1: close friends
+2: Life gets so busy | way too long | properly connect
+3: comfortable spot | coffee or some drinks | talk for hours
+4: not about doing anything fancy | conversation itself
+5: catch up | plans for the future | laugh like we used to
+6: reconnecting | genuine time | relaxing and fulfilling vacation
+연결: Life gets so busy > way too long | 결과
+연결: way too long > properly connect | 이유
+연결: comfortable spot > talk for hours | 위치
+연결: coffee or some drinks > talk for hours | 구체화
+연결: not about doing anything fancy > conversation itself | 대조
+연결: conversation itself > catch up | 구체화
+연결: conversation itself > plans for the future | 구체화
+연결: conversation itself > laugh like we used to | 구체화
+연결: properly connect > reconnecting | 같은
+연결: reconnecting > relaxing and fulfilling vacation | 결과
+연결: close friends > genuine time | 구체화
+
+== Q033
+1: real, quality conversations | people I care about
+2: fancy activities | sitting down and catching up
+3: big life updates | careers and future plans | casual things | mutual friends
+4: topic doesn't even matter
+5: sharing our lives | reconnecting
+6: quality time
+연결: real, quality conversations > people I care about | 구체화
+연결: fancy activities > sitting down and catching up | 대조
+연결: sitting down and catching up > big life updates | 구체화
+연결: big life updates > casual things | 대조
+연결: big life updates > careers and future plans | 구체화
+연결: casual things > mutual friends | 구체화
+연결: topic doesn't even matter > sharing our lives | 대조
+연결: sharing our lives > reconnecting | 같은
+연결: real, quality conversations > quality time | 같은
+
+== Q034
+1: watch a movie | last vacation
+2: theater | downtown area
+3: Before watching the movie | shopping
+4: coffee shop
+5: pop-corn and soft drinks
+6: After watching the movie | Mexican restaurant
+7: best tacos in town
+8: tasted extra good | starving
+9: juicy and tender
+10: various side dishes
+11: grabbed some drinks
+12: went very well with the food
+13: very happy with the meal
+14: going there again
+15: very enjoyable day
+연결: watch a movie > theater | 위치
+연결: theater > downtown area | 위치
+연결: Before watching the movie > After watching the movie | 대조
+연결: Before watching the movie > shopping | 구체화
+연결: Before watching the movie > coffee shop | 구체화
+연결: Mexican restaurant > best tacos in town | 구체화
+연결: tasted extra good > starving | 이유
+연결: best tacos in town > juicy and tender | 구체화
+연결: grabbed some drinks > went very well with the food | 결과
+연결: very happy with the meal > going there again | 결과
+연결: watch a movie > very enjoyable day | 결과
+
+== Q036
+1: pretty much the same
+2: NOT changed THAT much
+3: real, quality conversations | people they care about
+4: fancy activities | sitting down and catching up
+5: big life updates | careers and future plans | casual things | mutual friends
+6: topic doesn't even matter
+7: sharing their lives | reconnecting
+8: quality time
+연결: pretty much the same > NOT changed THAT much | 같은
+연결: NOT changed THAT much > real, quality conversations | 구체화
+연결: real, quality conversations > people they care about | 구체화
+연결: fancy activities > sitting down and catching up | 대조
+연결: sitting down and catching up > big life updates | 구체화
+연결: big life updates > casual things | 대조
+연결: big life updates > careers and future plans | 구체화
+연결: casual things > mutual friends | 구체화
+연결: topic doesn't even matter > sharing their lives | 대조
+연결: sharing their lives > reconnecting | 같은
+연결: real, quality conversations > quality time | 같은
+
+== Q037
+1: very important in many ways
+2: health, relationships, and personal growth
+3: crucial for people's health
+4: get some rest
+5: burned out
+6: regain their energy
+7: efficiently and productively
+8: important for relationships
+9: quality time with their loved ones
+10: best way to do that
+11: important for personal growth
+12: downtime | look back on their lives
+13: careers | future plans
+14: Once again
+연결: very important in many ways > health, relationships, and personal growth | 구체화
+연결: health, relationships, and personal growth > crucial for people's health | 구체화
+연결: health, relationships, and personal growth > important for relationships | 구체화
+연결: health, relationships, and personal growth > important for personal growth | 구체화
+연결: crucial for people's health > get some rest | 구체화
+연결: get some rest > burned out | 대조
+연결: get some rest > regain their energy | 결과
+연결: regain their energy > efficiently and productively | 결과
+연결: important for relationships > quality time with their loved ones | 구체화
+연결: quality time with their loved ones > best way to do that | 구체화
+연결: important for personal growth > downtime | 구체화
+연결: look back on their lives > careers | 구체화
+연결: look back on their lives > future plans | 결과
+
+== Q038
+1: all kinds of movies | romances, comedies, and thrillers
+2: enjoy most is science fiction
+3: so imaginative
+4: really out there
+5: marvel at the creativity
+6: think outside the box | outlandish and thought-provoking
+7: advanced special effects | big screen
+8: great way to unwind
+9: escape from my stress
+10: difficult week | down in the dumps
+11: entertaining | cheer me up
+연결: all kinds of movies > romances, comedies, and thrillers | 구체화
+연결: all kinds of movies > enjoy most is science fiction | 대조
+연결: enjoy most is science fiction > so imaginative | 이유
+연결: so imaginative > really out there | 구체화
+연결: so imaginative > marvel at the creativity | 결과
+연결: marvel at the creativity > think outside the box | 구체화
+연결: think outside the box > outlandish and thought-provoking | 결과
+연결: enjoy most is science fiction > advanced special effects | 이유
+연결: advanced special effects > big screen | 결과
+연결: great way to unwind > escape from my stress | 구체화
+연결: down in the dumps > cheer me up | 대조
+연결: entertaining > cheer me up | 결과
+연결: difficult week > down in the dumps | 같은
+
+== Q039
+1: going to the theater | media has changed
+2: Over the last decade | traditional TV | streaming platforms
+3: daily viewing habits | this shift
+4: anime or esports tournaments | at home
+5: ultimate experience | movie theater
+6: special routine
+7: crisp 4K 2D screening | maximum visual clarity
+8: popcorn | immerse myself
+9: so different now
+연결: traditional TV > streaming platforms | 대조
+연결: Over the last decade > traditional TV | 구체화
+연결: streaming platforms > this shift | 같은
+연결: daily viewing habits > this shift | 이유
+연결: daily viewing habits > anime or esports tournaments | 구체화
+연결: at home > movie theater | 대조
+연결: ultimate experience > movie theater | 위치
+연결: movie theater > special routine | 같은
+연결: special routine > crisp 4K 2D screening | 구체화
+연결: crisp 4K 2D screening > maximum visual clarity | 이유
+연결: special routine > popcorn | 구체화
+연결: popcorn > immerse myself | 결과
+연결: media has changed > so different now | 같은
+
+== Q040
+1: tons of movie theaters
+2: everywhere these days
+3: busy streets | foot traffic
+4: subway stations or universities
+5: Inside | modern and spacious
+6: lobbies | self-ticketing kiosks | massive digital displays
+7: concession stand | buttery popcorn
+8: best part | auditoriums
+9: comfortable seating | state-of-the-art tech | 4K screens | surround sound | totally immersive
+연결: tons of movie theaters > everywhere these days | 같은
+연결: everywhere these days > busy streets | 구체화
+연결: busy streets > foot traffic | 구체화
+연결: busy streets > subway stations or universities | 위치
+연결: Inside > lobbies | 구체화
+연결: lobbies > self-ticketing kiosks | 구체화
+연결: lobbies > massive digital displays | 구체화
+연결: concession stand > buttery popcorn | 구체화
+연결: best part > auditoriums | 같은
+연결: auditoriums > comfortable seating | 구체화
+연결: auditoriums > state-of-the-art tech | 구체화
+연결: state-of-the-art tech > 4K screens | 구체화
+연결: state-of-the-art tech > surround sound | 구체화
+연결: state-of-the-art tech > totally immersive | 결과
+
+== Q041
+1: watch a movie with my friend
+2: theater | downtown area
+3: Before watching the movie | shopping
+4: a shirt, a jacket, a hat and some earrings
+5: coffee shop
+6: After watching the movie | Italian restaurant
+7: best Italian food in town
+8: tasted extra good | starving
+9: seafood | juicy and tender
+10: various side dishes
+11: grabbed some drinks
+12: very happy with the meal
+13: going there again
+14: After dinner | bar | beer
+15: very enjoyable day
+연결: watch a movie with my friend > theater | 위치
+연결: theater > downtown area | 위치
+연결: Before watching the movie > After watching the movie | 대조
+연결: shopping > a shirt, a jacket, a hat and some earrings | 구체화
+연결: Before watching the movie > coffee shop | 구체화
+연결: Italian restaurant > best Italian food in town | 구체화
+연결: tasted extra good > starving | 이유
+연결: seafood > juicy and tender | 구체화
+연결: very happy with the meal > going there again | 결과
+연결: After dinner > bar | 구체화
+연결: bar > beer | 구체화
+연결: watch a movie with my friend > very enjoyable day | 결과
+
+== Q042
+1: most memorable movie | historical romance | Gone with the Wind
+2: first time as a child | stuck with me
+3: American Civil War
+4: Scarlet O’Hara | wealthy landowner
+5: rich husband
+6: Rhett Butler | Clark Gable
+7: destined to spend their lives together | leaves her for good
+8: alone and unhappy
+9: unforgettable | happy ending
+10: happily ever after
+11: very shocked | first romantic movie
+연결: most memorable movie > Gone with the Wind | 구체화
+연결: Gone with the Wind > historical romance | 구체화
+연결: Gone with the Wind > American Civil War | 구체화
+연결: Scarlet O’Hara > wealthy landowner | 구체화
+연결: Scarlet O’Hara > rich husband | 구체화
+연결: Rhett Butler > Clark Gable | 같은
+연결: destined to spend their lives together > leaves her for good | 대조
+연결: leaves her for good > alone and unhappy | 결과
+연결: unforgettable > happy ending | 이유
+연결: happy ending > happily ever after | 대조
+연결: happily ever after > very shocked | 대조
+연결: most memorable movie > unforgettable | 같은
+
+== Q043
+1: film enthusiast | actors that I admire
+2: overall favorite | Tom Cruise
+3: brown eyes, brown hair | dazzling smile
+4: on the short side | isn’t really noticeable
+5: early 50s | much younger
+6: man in his 30s
+7: personality | very energetic
+8: interview | full of life
+9: Mission Impossible | Jerry Maguire
+10: talent as an actor
+11: believable and authentic
+12: hallmark of a great actor
+연결: actors that I admire > Tom Cruise | 구체화
+연결: overall favorite > Tom Cruise | 같은
+연결: on the short side > isn’t really noticeable | 대조
+연결: early 50s > much younger | 대조
+연결: much younger > man in his 30s | 구체화
+연결: very energetic > full of life | 같은
+연결: Tom Cruise > Mission Impossible | 구체화
+연결: Tom Cruise > Jerry Maguire | 구체화
+연결: talent as an actor > believable and authentic | 구체화
+연결: believable and authentic > hallmark of a great actor | 같은
+
+== Q044
+1: as a kid | simple, straightforward stories | classic animation
+2: as I grew up | technological side
+3: Back then | basic practical effects | low-resolution screens
+4: cutting-edge CGI | crisp 4K resolution | seamless streaming platforms | transformed the industry
+5: visually immersive | modern releases | cinematic technology
+연결: as a kid > as I grew up | 대조
+연결: simple, straightforward stories > technological side | 대조
+연결: basic practical effects > cutting-edge CGI | 대조
+연결: low-resolution screens > crisp 4K resolution | 대조
+연결: technological side > cutting-edge CGI | 구체화
+연결: cutting-edge CGI > transformed the industry | 결과
+연결: seamless streaming platforms > transformed the industry | 결과
+연결: transformed the industry > visually immersive | 결과
+연결: visually immersive > modern releases | 결과
+연결: technological side > cinematic technology | 같은
+
+== Q045
+1: main interest | actors | Tom Cruise
+2: brown eyes, brown hair | dazzling smile
+3: on the short side | isn’t really noticeable
+4: early 50s | much younger
+5: 20s or 30s
+6: personality | very energetic
+7: interview | full of life
+8: Mission Impossible | Jerry Maguire
+9: talent as an actor
+10: believable and authentic
+11: hallmark of a great actor
+연결: main interest > actors | 구체화
+연결: actors > Tom Cruise | 구체화
+연결: on the short side > isn’t really noticeable | 대조
+연결: early 50s > much younger | 대조
+연결: much younger > 20s or 30s | 구체화
+연결: very energetic > full of life | 같은
+연결: Tom Cruise > Mission Impossible | 구체화
+연결: Tom Cruise > Jerry Maguire | 구체화
+연결: talent as an actor > believable and authentic | 구체화
+연결: believable and authentic > hallmark of a great actor | 같은
+
+== Q047
+1: viewing habits | recent trend
+2: Over the last decade | traditional TV | streaming platforms
+3: daily viewing habits | this shift
+4: anime or esports tournaments | at home
+5: ultimate experience | movie theater
+6: special routine
+7: crisp 4K 2D screening | maximum visual clarity
+8: popcorn | immerse myself
+9: so different now
+연결: traditional TV > streaming platforms | 대조
+연결: Over the last decade > traditional TV | 구체화
+연결: streaming platforms > this shift | 같은
+연결: daily viewing habits > this shift | 이유
+연결: daily viewing habits > anime or esports tournaments | 구체화
+연결: at home > movie theater | 대조
+연결: ultimate experience > movie theater | 위치
+연결: movie theater > special routine | 같은
+연결: special routine > crisp 4K 2D screening | 구체화
+연결: crisp 4K 2D screening > maximum visual clarity | 이유
+연결: special routine > popcorn | 구체화
+연결: popcorn > immerse myself | 결과
+연결: recent trend > Over the last decade | 구체화
+
+== Q048
+1: Tony Stark | Iron Man | Marvel movies
+2: eccentric genius | selfish arms dealer
+3: high-tech suits | powerful villains | protect the world
+4: fight physically | leads the Avengers | mentors younger heroes | Spider-Man
+5: character arc
+6: arrogant billionaire | selfless hero | ultimate sacrifice
+7: wit | journey of redemption
+연결: Tony Stark > Iron Man | 같은
+연결: Tony Stark > eccentric genius | 구체화
+연결: high-tech suits > powerful villains | 이유
+연결: high-tech suits > protect the world | 결과
+연결: fight physically > leads the Avengers | 대조
+연결: mentors younger heroes > Spider-Man | 구체화
+연결: character arc > arrogant billionaire | 구체화
+연결: arrogant billionaire > selfless hero | 대조
+연결: selfish arms dealer > arrogant billionaire | 같은
+연결: selfless hero > ultimate sacrifice | 구체화
+연결: character arc > journey of redemption | 같은
+
+== Q051
+1: like I said
+2: Over the last decade | traditional TV | streaming platforms
+3: daily viewing habits | this shift
+4: anime or esports tournaments | at home
+5: ultimate experience | movie theater
+6: special routine
+7: crisp 4K 2D screening | maximum visual clarity
+8: popcorn | immerse myself
+9: so different now
+연결: traditional TV > streaming platforms | 대조
+연결: Over the last decade > traditional TV | 구체화
+연결: streaming platforms > this shift | 같은
+연결: daily viewing habits > this shift | 이유
+연결: daily viewing habits > anime or esports tournaments | 구체화
+연결: at home > movie theater | 대조
+연결: ultimate experience > movie theater | 위치
+연결: movie theater > special routine | 같은
+연결: special routine > crisp 4K 2D screening | 구체화
+연결: crisp 4K 2D screening > maximum visual clarity | 이유
+연결: special routine > popcorn | 구체화
+연결: popcorn > immerse myself | 결과
+
+== Q052
+1: tons of stores and shopping centers
+2: everywhere these days
+3: busy streets | foot traffic
+4: subway stations or universities
+5: suburban outlet malls | huge game changers
+6: Hyundai or Shinsegae | all-in-one experience | designer flagship stores | open-air walkways | trendy dining spots
+7: massive discounts | high-end brands | weekend vibe | gourmet coffee | dense city rush
+8: retail therapy | mini-vacation
+연결: tons of stores and shopping centers > everywhere these days | 같은
+연결: everywhere these days > busy streets | 구체화
+연결: busy streets > foot traffic | 구체화
+연결: busy streets > subway stations or universities | 위치
+연결: busy streets > suburban outlet malls | 대조
+연결: suburban outlet malls > Hyundai or Shinsegae | 구체화
+연결: Hyundai or Shinsegae > all-in-one experience | 구체화
+연결: all-in-one experience > designer flagship stores | 구체화
+연결: all-in-one experience > open-air walkways | 구체화
+연결: all-in-one experience > trendy dining spots | 구체화
+연결: massive discounts > weekend vibe | 대조
+연결: weekend vibe > dense city rush | 대조
+연결: retail therapy > mini-vacation | 대조
+연결: weekend vibe > mini-vacation | 같은
+
+== Q053
+1: in the past | physical stores | department stores or shopping malls
+2: completely changed
+3: vast majority of my shopping online | new normal
+4: convenience
+5: no need to travel
+6: order whatever I need | delivered right to my doorstep | time and effort
+7: buy basically everything | groceries | clothes and electronics
+8: revolutionized
+연결: physical stores > vast majority of my shopping online | 대조
+연결: physical stores > department stores or shopping malls | 구체화
+연결: completely changed > new normal | 같은
+연결: vast majority of my shopping online > convenience | 이유
+연결: convenience > no need to travel | 구체화
+연결: convenience > delivered right to my doorstep | 구체화
+연결: delivered right to my doorstep > time and effort | 결과
+연결: order whatever I need > delivered right to my doorstep | 결과
+연결: buy basically everything > groceries | 구체화
+연결: buy basically everything > clothes and electronics | 구체화
+연결: completely changed > revolutionized | 같은
+
+== Q054
+1: typical shopping day | strategic
+2: dress down | comfiest sneakers | a lot of walking
+3: hit the mall | window shopping | scout out the best items | compare prices
+4: catches my eye | try it on | check the fit
+5: check out | credit card or smartphone
+6: cashless society | rarely carry any cash
+7: go-to shopping routine
+연결: strategic > dress down | 구체화
+연결: comfiest sneakers > a lot of walking | 이유
+연결: dress down > comfiest sneakers | 구체화
+연결: hit the mall > window shopping | 구체화
+연결: window shopping > scout out the best items | 구체화
+연결: window shopping > compare prices | 구체화
+연결: catches my eye > try it on | 결과
+연결: try it on > check the fit | 구체화
+연결: check out > credit card or smartphone | 구체화
+연결: credit card or smartphone > cashless society | 이유
+연결: cashless society > rarely carry any cash | 결과
+연결: go-to shopping routine > strategic | 같은
+
+== Q055
+1: vivid childhood memories | grocery shopping | every weekend
+2: local supermarket | absolutely enormous | giant treasure chest
+3: endless, colorful aisles
+4: wasn't a chore | thrilling weekly adventure
+5: snack aisle
+6: cookies and chips | beg my parents | favorite chocolate
+7: exciting world | every single week
+연결: grocery shopping > local supermarket | 위치
+연결: local supermarket > absolutely enormous | 구체화
+연결: absolutely enormous > giant treasure chest | 같은
+연결: local supermarket > endless, colorful aisles | 구체화
+연결: wasn't a chore > thrilling weekly adventure | 대조
+연결: endless, colorful aisles > snack aisle | 구체화
+연결: snack aisle > cookies and chips | 구체화
+연결: cookies and chips > beg my parents | 결과
+연결: beg my parents > favorite chocolate | 구체화
+연결: thrilling weekly adventure > exciting world | 같은
+연결: every weekend > every single week | 같은
+
+== Q058
+1: Hi there
+2: heard about [events] | some details
+3: planning to [do] | a few questions
+4: what kinds of [options]
+5: what my options are
+6: how much they generally cost
+7: fits within my budget
+8: additional discounts | ongoing promotions
+9: get a good deal
+10: best way to move forward
+11: visit in person | sort this out online
+12: let me know
+13: Thanks, bye
+연결: heard about [events] > some details | 결과
+연결: planning to [do] > a few questions | 이유
+연결: what kinds of [options] > what my options are | 같은
+연결: how much they generally cost > fits within my budget | 이유
+연결: additional discounts > ongoing promotions | 같은
+연결: additional discounts > get a good deal | 이유
+연결: best way to move forward > visit in person | 구체화
+연결: visit in person > sort this out online | 대조
+연결: a few questions > what kinds of [options] | 구체화
+연결: a few questions > how much they generally cost | 구체화
+연결: a few questions > additional discounts | 구체화
+연결: a few questions > best way to move forward | 구체화
+
+== Q059
+1: Hi there
+2: heard about [events] | some details
+3: planning to [do] | a few questions
+4: what kinds of [options]
+5: what my options are
+6: specific hours or schedules
+7: fits within my timeline
+8: strict rules or guidelines
+9: don't make any mistakes
+10: best way to move forward
+11: visit in person | sort this out online
+12: let me know
+13: Thanks, bye
+연결: heard about [events] > some details | 결과
+연결: planning to [do] > a few questions | 이유
+연결: what kinds of [options] > what my options are | 같은
+연결: best way to move forward > visit in person | 구체화
+연결: visit in person > sort this out online | 대조
+연결: a few questions > what kinds of [options] | 구체화
+연결: a few questions > best way to move forward | 구체화
+연결: specific hours or schedules > fits within my timeline | 이유
+연결: strict rules or guidelines > don't make any mistakes | 이유
+연결: a few questions > specific hours or schedules | 구체화
+연결: a few questions > strict rules or guidelines | 구체화
+
+== Q060
+1: Hi there
+2: heard about [events] | some details
+3: planning to [do] | a few questions
+4: what kinds of [options]
+5: what my options are
+6: prepare or bring
+7: don't miss anything
+8: preferences you want me to focus on
+9: fully satisfied with my help
+10: best way to move forward
+11: "meet up" in person | sort this out online
+12: let me know
+13: Thanks, bye
+연결: heard about [events] > some details | 결과
+연결: planning to [do] > a few questions | 이유
+연결: what kinds of [options] > what my options are | 같은
+연결: a few questions > what kinds of [options] | 구체화
+연결: a few questions > best way to move forward | 구체화
+연결: prepare or bring > don't miss anything | 이유
+연결: preferences you want me to focus on > fully satisfied with my help | 이유
+연결: a few questions > prepare or bring | 구체화
+연결: a few questions > preferences you want me to focus on | 구체화
+연결: best way to move forward > "meet up" in person | 구체화
+연결: "meet up" in person > sort this out online | 대조
+
+== Q061
+1: Hi there
+2: heard about [events] | some details
+3: planning to [do] | a few questions
+4: what kinds of [options]
+5: what my options are
+6: typical working hours | standard schedule
+7: aligns with my lifestyle
+8: key employee benefits | professional growth opportunities
+9: company culture
+10: best way to move forward
+11: visit in person | sort this out online
+12: let me know
+13: Thanks, bye
+연결: heard about [events] > some details | 결과
+연결: planning to [do] > a few questions | 이유
+연결: what kinds of [options] > what my options are | 같은
+연결: best way to move forward > visit in person | 구체화
+연결: visit in person > sort this out online | 대조
+연결: a few questions > what kinds of [options] | 구체화
+연결: a few questions > best way to move forward | 구체화
+연결: typical working hours > standard schedule | 같은
+연결: typical working hours > aligns with my lifestyle | 이유
+연결: key employee benefits > professional growth opportunities | 같은
+연결: key employee benefits > company culture | 구체화
+연결: a few questions > typical working hours | 구체화
+연결: a few questions > key employee benefits | 구체화
+
+== Q062
+1: Hi, Brian
+2: It's me
+3: [our appointment today] | serious problem
+4: completely unexpected
+5: very sick | severe food poisoning
+6: upset stomach | high fever | unable to do anything
+7: [So, I cannot make it today]
+8: feel so bad | really sorry for all the trouble
+9: a few alternatives | resolve this situation
+10: [reschedule for next week]
+11: I can manage it
+12: [canceling the plan]
+13: understand my situation
+14: call back | check this message
+15: Thank you
+연결: [our appointment today] > serious problem | 구체화
+연결: serious problem > completely unexpected | 같은
+연결: completely unexpected > very sick | 구체화
+연결: very sick > severe food poisoning | 구체화
+연결: severe food poisoning > upset stomach | 구체화
+연결: severe food poisoning > high fever | 구체화
+연결: unable to do anything > [So, I cannot make it today] | 결과
+연결: [So, I cannot make it today] > really sorry for all the trouble | 결과
+연결: a few alternatives > [reschedule for next week] | 구체화
+연결: a few alternatives > [canceling the plan] | 구체화
+연결: [reschedule for next week] > [canceling the plan] | 대조
+연결: [reschedule for next week] > I can manage it | 구체화
+
+== Q063
+1: Hi, Brian
+2: It's me
+3: [your bicycle] | serious problem
+4: completely unexpected
+5: very sick | severe food poisoning
+6: upset stomach | high fever | unable to do anything
+7: accidentally dropped and broke it
+8: feel so bad | really sorry for all the trouble
+9: a few alternatives | resolve this situation
+10: [buy you a new one next week]
+11: I can manage it
+12: [giving you a full refund in cash]
+13: understand my situation
+14: call back | check this message
+15: Thank you
+연결: serious problem > completely unexpected | 같은
+연결: completely unexpected > very sick | 구체화
+연결: very sick > severe food poisoning | 구체화
+연결: severe food poisoning > upset stomach | 구체화
+연결: severe food poisoning > high fever | 구체화
+연결: [your bicycle] > serious problem | 구체화
+연결: unable to do anything > accidentally dropped and broke it | 결과
+연결: accidentally dropped and broke it > really sorry for all the trouble | 결과
+연결: a few alternatives > [buy you a new one next week] | 구체화
+연결: a few alternatives > [giving you a full refund in cash] | 구체화
+연결: [buy you a new one next week] > [giving you a full refund in cash] | 대조
+연결: [buy you a new one next week] > I can manage it | 구체화
+
+== Q064
+1: Hi, [manager]
+2: It's me
+3: [the furniture I bought] | serious problem
+4: completely unexpected
+5: very sick | severe food poisoning
+6: upset stomach | high fever | unable to do anything
+7: completely damaged
+8: feel so bad | really sorry for all the trouble
+9: a few alternatives | resolve this situation
+10: [get an exchange next week]
+11: I can manage it
+12: [a full refund]
+13: understand my situation
+14: call back | check this message
+15: Thank you
+연결: serious problem > completely unexpected | 같은
+연결: completely unexpected > very sick | 구체화
+연결: very sick > severe food poisoning | 구체화
+연결: severe food poisoning > upset stomach | 구체화
+연결: severe food poisoning > high fever | 구체화
+연결: [the furniture I bought] > serious problem | 구체화
+연결: [the furniture I bought] > completely damaged | 구체화
+연결: completely damaged > really sorry for all the trouble | 결과
+연결: a few alternatives > [get an exchange next week] | 구체화
+연결: a few alternatives > [a full refund] | 구체화
+연결: [get an exchange next week] > [a full refund] | 대조
+연결: [get an exchange next week] > I can manage it | 구체화
+
+== Q065
+1: similar experience
+2: a few months ago | remember it clearly
+3: [doing something]
+4: fine at first | quite excited
+5: unexpected problem
+6: [the item was broken]
+7: embarrassed and frustrated | didn't know what to do
+8: total mess
+9: person in charge | explained the whole situation
+10: what I wanted | quick solution
+11: very helpful | right away
+12: so relieved | settled
+13: double-check everything | avoid such problems
+연결: fine at first > unexpected problem | 대조
+연결: unexpected problem > [the item was broken] | 구체화
+연결: [the item was broken] > embarrassed and frustrated | 결과
+연결: embarrassed and frustrated > didn't know what to do | 이유
+연결: embarrassed and frustrated > total mess | 같은
+연결: person in charge > explained the whole situation | 구체화
+연결: explained the whole situation > quick solution | 구체화
+연결: very helpful > right away | 구체화
+연결: right away > so relieved | 결과
+연결: so relieved > settled | 이유
+연결: unexpected problem > double-check everything | 결과
+연결: double-check everything > avoid such problems | 이유
+
+== Q066
+1: functional pieces | collected over time
+2: main living area | comfy sectional sofa | center of attention
+3: dining setup | decent-sized desk | work remotely
+4: pretty minimalist | overflowing bookshelf
+5: favorite | my armchair
+6: mid-century modern | dark green velvet | sunniest corner
+7: ultimate reading nook | sip coffee | decompress
+8: personal sanctuary
+연결: functional pieces > collected over time | 대조
+연결: main living area > comfy sectional sofa | 위치
+연결: comfy sectional sofa > center of attention | 구체화
+연결: decent-sized desk > work remotely | 이유
+연결: pretty minimalist > overflowing bookshelf | 대조
+연결: favorite > my armchair | 같은
+연결: my armchair > mid-century modern | 구체화
+연결: my armchair > dark green velvet | 구체화
+연결: my armchair > sunniest corner | 위치
+연결: sunniest corner > ultimate reading nook | 결과
+연결: ultimate reading nook > sip coffee | 구체화
+연결: ultimate reading nook > decompress | 구체화
+연결: ultimate reading nook > personal sanctuary | 같은
+
+== Q067
+1: On a typical day | distinct zones | relaxing and working
+2: most heavily used piece | large sectional sofa | living room
+3: decompression zone
+4: In the evening | sprawled out | streaming show | scrolling through social media | quick meal
+연결: distinct zones > relaxing and working | 구체화
+연결: most heavily used piece > large sectional sofa | 같은
+연결: large sectional sofa > living room | 위치
+연결: large sectional sofa > decompression zone | 같은
+연결: decompression zone > sprawled out | 구체화
+연결: sprawled out > streaming show | 구체화
+연결: sprawled out > scrolling through social media | 구체화
+연결: sprawled out > quick meal | 구체화
+연결: relaxing and working > decompression zone | 구체화
+
+== Q068
+1: takes me back
+2: a little fuzzy | overall vibe | childhood home
+3: incredibly practical | much cozier | built to last | aesthetics
+4: biggest difference | sheer scale and style
+5: light pine pieces | twin bed | chunky desk | miniature
+6: clean lines | darker woods | adult comfort | queen-sized bed
+연결: a little fuzzy > overall vibe | 대조
+연결: overall vibe > incredibly practical | 구체화
+연결: overall vibe > much cozier | 구체화
+연결: built to last > aesthetics | 대조
+연결: biggest difference > sheer scale and style | 같은
+연결: light pine pieces > twin bed | 구체화
+연결: light pine pieces > chunky desk | 구체화
+연결: light pine pieces > darker woods | 대조
+연결: twin bed > queen-sized bed | 대조
+연결: miniature > adult comfort | 대조
+연결: sheer scale and style > miniature | 구체화
+연결: sheer scale and style > clean lines | 구체화
+
+== Q069
+1: worst incident | new sectional sofa
+2: light-colored | tightly woven fabric
+3: guests over | glass of red wine | main seat cushion
+4: panic | expensive piece
+5: Simply scrubbing | set the stain permanently
+6: online furniture forums | swift blotting | enzymatic cleaner
+7: upholstery cleaning foam | soak into the fabric
+8: dwell | wet vacuum extractor
+9: two full cleaning cycles | lift the stain completely | water ring
+10: huge relief | stain readiness
+연결: worst incident > new sectional sofa | 구체화
+연결: new sectional sofa > light-colored | 구체화
+연결: guests over > glass of red wine | 구체화
+연결: glass of red wine > main seat cushion | 위치
+연결: light-colored > panic | 이유
+연결: expensive piece > panic | 이유
+연결: Simply scrubbing > set the stain permanently | 결과
+연결: Simply scrubbing > swift blotting | 대조
+연결: online furniture forums > swift blotting | 구체화
+연결: online furniture forums > enzymatic cleaner | 구체화
+연결: enzymatic cleaner > upholstery cleaning foam | 같은
+연결: upholstery cleaning foam > soak into the fabric | 구체화
+연결: dwell > wet vacuum extractor | 구체화
+연결: two full cleaning cycles > lift the stain completely | 결과
+연결: lift the stain completely > huge relief | 결과
+연결: huge relief > stain readiness | 구체화
+
+== Q070
+1: isn’t just voluntary | strict, mandatory system | daily lives
+2: meticulous separation at home
+3: rinse it out | peel off all labels | material type
+4: specific collection points | clear PET bottles | colored plastics | Styrofoam and vinyl
+5: scheduled days | apartment complex
+6: time-consuming | high purity rate | process and reuse
+7: collective effort | second nature
+연결: isn’t just voluntary > strict, mandatory system | 대조
+연결: strict, mandatory system > daily lives | 구체화
+연결: meticulous separation at home > rinse it out | 구체화
+연결: meticulous separation at home > peel off all labels | 구체화
+연결: meticulous separation at home > material type | 구체화
+연결: material type > clear PET bottles | 구체화
+연결: material type > colored plastics | 구체화
+연결: material type > Styrofoam and vinyl | 구체화
+연결: specific collection points > apartment complex | 위치
+연결: scheduled days > apartment complex | 위치
+연결: time-consuming > high purity rate | 대조
+연결: high purity rate > process and reuse | 결과
+연결: collective effort > second nature | 결과
+
+== Q071
+1: standard municipal guidelines
+2: mixed stream | cardboard boxes | office paper | plastic containers | milk jugs and detergent bottles
+3: aluminum cans and glass jars
+4: rinsed out | contaminating the batch
+5: smaller sorting container | kitchen | big blue wheeled bin
+6: bi-weekly curbside collection | every other Tuesday morning
+7: pretty easy routine
+연결: standard municipal guidelines > mixed stream | 구체화
+연결: mixed stream > cardboard boxes | 구체화
+연결: mixed stream > office paper | 구체화
+연결: mixed stream > plastic containers | 구체화
+연결: plastic containers > milk jugs and detergent bottles | 구체화
+연결: mixed stream > aluminum cans and glass jars | 구체화
+연결: rinsed out > contaminating the batch | 이유
+연결: smaller sorting container > kitchen | 위치
+연결: smaller sorting container > big blue wheeled bin | 결과
+연결: bi-weekly curbside collection > every other Tuesday morning | 구체화
+연결: big blue wheeled bin > every other Tuesday morning | 구체화
+연결: standard municipal guidelines > pretty easy routine | 결과
+
+== Q072
+1: a few decades | decentralized and voluntary
+2: curbside pickup | drive materials | glass bottles and aluminum cans | drop-off centers
+3: Paper collection | charity or school drives
+4: government priority | participation was low | significant effort
+5: shift to the present | dramatic
+6: environmental policy | normalized | mandatory, service
+7: single-stream | one bin | convenience and participation
+8: weekly routine | occasional special effort | household waste management
+연결: a few decades > decentralized and voluntary | 구체화
+연결: decentralized and voluntary > drive materials | 구체화
+연결: drive materials > drop-off centers | 위치
+연결: drive materials > glass bottles and aluminum cans | 구체화
+연결: decentralized and voluntary > charity or school drives | 구체화
+연결: participation was low > significant effort | 이유
+연결: participation was low > government priority | 이유
+연결: shift to the present > dramatic | 구체화
+연결: decentralized and voluntary > mandatory, service | 대조
+연결: environmental policy > mandatory, service | 결과
+연결: single-stream > one bin | 구체화
+연결: one bin > convenience and participation | 결과
+연결: participation was low > convenience and participation | 대조
+연결: occasional special effort > weekly routine | 대조
+
+== Q073
+1: most impactful news | sudden policy reversal | single-use plastics
+2: strict ban | plastic straws and paper cups
+3: indefinitely postponed | heavy economic burden | small business owners
+4: huge controversy
+5: Shop owners were confused | expensive paper alternatives | environmentalists were furious | major step backward
+6: tug-of-war | economic reality | environmental goals
+연결: most impactful news > sudden policy reversal | 같은
+연결: strict ban > plastic straws and paper cups | 구체화
+연결: strict ban > indefinitely postponed | 대조
+연결: indefinitely postponed > heavy economic burden | 이유
+연결: heavy economic burden > small business owners | 구체화
+연결: indefinitely postponed > huge controversy | 결과
+연결: huge controversy > Shop owners were confused | 구체화
+연결: huge controversy > environmentalists were furious | 구체화
+연결: Shop owners were confused > expensive paper alternatives | 이유
+연결: environmentalists were furious > major step backward | 이유
+연결: economic reality > environmental goals | 대조
+연결: huge controversy > tug-of-war | 같은
+
+== Q074
+1: consumer electronics industry
+2: very competitive
+3: exported overseas | changing our lives
+4: dishwasher
+5: In the past | by hand
+6: But now | press a button
+7: freed up our evenings | more time with family
+8: game-changer | laundry care appliances
+9: hang-dry clothes | rainy days
+10: personal dry-cleaner
+11: steam | wrinkles and odors | much less often
+12: manual labor | managing machines | personal time
+연결: consumer electronics industry > very competitive | 구체화
+연결: very competitive > exported overseas | 결과
+연결: changing our lives > dishwasher | 구체화
+연결: changing our lives > laundry care appliances | 구체화
+연결: dishwasher > by hand | 대조
+연결: In the past > But now | 대조
+연결: by hand > press a button | 대조
+연결: press a button > freed up our evenings | 결과
+연결: freed up our evenings > more time with family | 구체화
+연결: laundry care appliances > hang-dry clothes | 대조
+연결: hang-dry clothes > rainy days | 구체화
+연결: laundry care appliances > personal dry-cleaner | 구체화
+연결: personal dry-cleaner > steam | 구체화
+연결: steam > wrinkles and odors | 결과
+연결: manual labor > managing machines | 대조
+연결: managing machines > personal time | 결과
+
+== Q075
+1: stands out globally | Samsung
+2: Founded in 1938 | small trading company | dried-fish and groceries
+3: late 1960s | electronics market | in the 1990s
+4: new leadership | radical quality improvement | global branding | production volume
+5: R&D | memory chip market | smartphone and high-end display
+6: advanced semiconductors | global tech supply chain | foldable phones
+연결: Samsung > Founded in 1938 | 구체화
+연결: small trading company > dried-fish and groceries | 구체화
+연결: small trading company > electronics market | 대조
+연결: late 1960s > electronics market | 구체화
+연결: in the 1990s > new leadership | 구체화
+연결: radical quality improvement > production volume | 대조
+연결: new leadership > global branding | 구체화
+연결: R&D > memory chip market | 결과
+연결: memory chip market > smartphone and high-end display | 결과
+연결: memory chip market > advanced semiconductors | 같은
+연결: advanced semiconductors > global tech supply chain | 결과
+연결: stands out globally > foldable phones | 구체화
+
+== Q076
+1: most important products | immediate hits
+2: lower-cost, generic manufacturer
+3: overcoming this reputation | Japanese giants
+4: quality over volume
+5: immense capital into R&D | manufacturing excellence | memory chips | technological lead
+6: long-term investment strategy | internal efficiency | market dominance | smartphone era
+연결: most important products > immediate hits | 대조
+연결: immediate hits > lower-cost, generic manufacturer | 이유
+연결: lower-cost, generic manufacturer > overcoming this reputation | 결과
+연결: overcoming this reputation > Japanese giants | 구체화
+연결: overcoming this reputation > quality over volume | 결과
+연결: quality over volume > immense capital into R&D | 구체화
+연결: immense capital into R&D > manufacturing excellence | 구체화
+연결: manufacturing excellence > memory chips | 구체화
+연결: memory chips > technological lead | 결과
+연결: long-term investment strategy > market dominance | 결과
+연결: internal efficiency > market dominance | 결과
+연결: market dominance > smartphone era | 구체화
+
+== Q078
+1: career development proactively | formal skills | practical application
+2: Computer Engineering | hands-on efforts
+3: six-month internship | major tech firm | theoretical knowledge | early exposure
+4: Post-graduation | continuous upskilling
+5: professional certification | Cloud Architecture | modern industry demands
+6: communication skills | industry conferences | professional network | business English
+7: skill set relevant | market value strong
+연결: career development proactively > formal skills | 구체화
+연결: career development proactively > practical application | 구체화
+연결: formal skills > Computer Engineering | 구체화
+연결: practical application > hands-on efforts | 같은
+연결: hands-on efforts > six-month internship | 구체화
+연결: six-month internship > theoretical knowledge | 구체화
+연결: six-month internship > early exposure | 결과
+연결: continuous upskilling > professional certification | 구체화
+연결: Cloud Architecture > modern industry demands | 이유
+연결: communication skills > industry conferences | 구체화
+연결: communication skills > professional network | 구체화
+연결: communication skills > business English | 구체화
+연결: continuous upskilling > skill set relevant | 결과
+연결: skill set relevant > market value strong | 결과
+
+== Q079
+1: vacuum cleaners | most useful home appliances
+2: Back in the day | broom
+3: took a long time
+4: But now
+5: suck up the dust | a breeze
+6: dust bag
+7: wireless vacuum cleaners
+8: plug them in
+9: NO wires | tangled up
+10: robotic vacuum cleaners | themselves
+11: first-generation models | not that good
+12: good job
+13: new models | much better
+14: really high-tech | come a long way
+15: controlled by an app | status updates
+16: charger
+17: mop pads
+18: sweep up the dust | mop up the floors
+19: changed the way we clean
+20: a lot easier than in the past
+연결: Back in the day > But now | 대조
+연결: broom > took a long time | 결과
+연결: took a long time > a breeze | 대조
+연결: suck up the dust > a breeze | 결과
+연결: wireless vacuum cleaners > plug them in | 대조
+연결: wireless vacuum cleaners > NO wires | 구체화
+연결: NO wires > tangled up | 대조
+연결: first-generation models > new models | 대조
+연결: not that good > good job | 같은
+연결: not that good > much better | 대조
+연결: really high-tech > controlled by an app | 구체화
+연결: really high-tech > charger | 구체화
+연결: mop pads > mop up the floors | 결과
+연결: robotic vacuum cleaners > really high-tech | 구체화
+연결: changed the way we clean > a lot easier than in the past | 결과
+
+== Q080
+1: typical restaurants | barbeque restaurants
+2: tons of barbeque restaurants
+3: everywhere these days
+4: busy streets | foot traffic
+5: subway stations or universities
+6: various types of meat | pork, beef, chicken, duck and lamb
+7: grill the meat themselves
+8: local barbeque place
+9: the food and the mood
+10: close to my home
+11: nice and friendly
+12: cheaper than other places
+13: prices are reasonable
+14: a regular
+15: once or twice a month
+16: my favorite local restaurant
+연결: tons of barbeque restaurants > everywhere these days | 같은
+연결: everywhere these days > busy streets | 구체화
+연결: busy streets > foot traffic | 구체화
+연결: busy streets > subway stations or universities | 위치
+연결: various types of meat > pork, beef, chicken, duck and lamb | 구체화
+연결: local barbeque place > the food and the mood | 이유
+연결: local barbeque place > close to my home | 이유
+연결: local barbeque place > nice and friendly | 이유
+연결: local barbeque place > cheaper than other places | 이유
+연결: cheaper than other places > prices are reasonable | 같은
+연결: a regular > once or twice a month | 구체화
+연결: local barbeque place > my favorite local restaurant | 같은
+
+== Q081
+1: decide where to sit
+2: on my own
+3: shows me to my table
+4: get the menu | what to get
+5: ask for help
+6: food comes out | dig in
+7: more water or sauce
+8: main dish | dessert
+9: counter | pay for my meal
+10: credit card or my debit card
+11: rarely pay in cash
+12: things I do
+연결: decide where to sit > on my own | 구체화
+연결: on my own > shows me to my table | 대조
+연결: what to get > ask for help | 결과
+연결: food comes out > dig in | 결과
+연결: main dish > dessert | 대조
+연결: pay for my meal > counter | 위치
+연결: pay for my meal > credit card or my debit card | 구체화
+연결: credit card or my debit card > rarely pay in cash | 대조
+연결: things I do > decide where to sit | 구체화
+
+== Q082
+1: American fast food places | from time to time
+2: Burger King | most often
+3: what to get in advance | pre-set menu
+4: Whopper combo | signature menus
+5: soft drink, juice or a milk shake
+6: French fries or onion rings | side dish
+7: chicken nuggets, chicken wings or tenders
+8: biscuits or ice cream
+9: to go | on the spot
+10: tastes amazing | starving
+11: crispy and crunchy
+12: very tasty
+13: only downside | very greasy | high in calories
+14: gain weight
+15: favorite foreign restaurants
+연결: American fast food places > Burger King | 구체화
+연결: what to get in advance > pre-set menu | 이유
+연결: Whopper combo > signature menus | 구체화
+연결: Whopper combo > soft drink, juice or a milk shake | 구체화
+연결: Whopper combo > French fries or onion rings | 구체화
+연결: to go > on the spot | 대조
+연결: tastes amazing > starving | 이유
+연결: French fries or onion rings > crispy and crunchy | 구체화
+연결: tastes amazing > only downside | 대조
+연결: very greasy > high in calories | 같은
+연결: high in calories > gain weight | 결과
+연결: Burger King > favorite foreign restaurants | 같은
+
+== Q083
+1: tons of take-out restaurants
+2: everywhere these days
+3: busy streets | foot traffic
+4: subway stations or universities
+5: burger chains
+6: food to go
+7: drive thru
+8: what to get in advance
+9: Burger King | Whopper combo
+10: go-to menu
+11: favorite take-out restaurant
+연결: tons of take-out restaurants > everywhere these days | 같은
+연결: everywhere these days > busy streets | 구체화
+연결: busy streets > foot traffic | 구체화
+연결: busy streets > subway stations or universities | 위치
+연결: tons of take-out restaurants > burger chains | 구체화
+연결: burger chains > food to go | 구체화
+연결: food to go > drive thru | 구체화
+연결: what to get in advance > Whopper combo | 구체화
+연결: burger chains > Burger King | 구체화
+연결: Whopper combo > go-to menu | 같은
+연결: Burger King > favorite take-out restaurant | 같은
+
+== Q084
+1: a lot busier
+2: time to cook
+3: eat out or order in
+4: much more health-conscious
+5: even when they go out to eat
+6: healthy for them
+7: Due to this trend | healthy menus
+8: health benefits
+9: main marketing strategies
+10: changed a lot
+11: a lot better than in the past
+연결: a lot busier > time to cook | 결과
+연결: time to cook > eat out or order in | 결과
+연결: a lot busier > much more health-conscious | 대조
+연결: much more health-conscious > even when they go out to eat | 구체화
+연결: much more health-conscious > healthy for them | 결과
+연결: Due to this trend > healthy menus | 결과
+연결: much more health-conscious > Due to this trend | 같은
+연결: healthy menus > health benefits | 구체화
+연결: health benefits > main marketing strategies | 같은
+연결: changed a lot > a lot better than in the past | 구체화
+
+== Q085
+1: tons of delivery restaurants
+2: everywhere these days
+3: busy streets | foot traffic
+4: subway stations or universities
+5: food delivery apps
+6: tons of menus | a lot of options
+7: very convenient
+8: delivery address | already stored
+9: pay for the food directly
+10: how long it will take
+11: less time and effort
+12: a lot easier than in the past
+연결: tons of delivery restaurants > everywhere these days | 같은
+연결: everywhere these days > busy streets | 구체화
+연결: busy streets > foot traffic | 구체화
+연결: busy streets > subway stations or universities | 위치
+연결: food delivery apps > tons of menus | 구체화
+연결: tons of menus > a lot of options | 결과
+연결: food delivery apps > very convenient | 구체화
+연결: very convenient > delivery address | 구체화
+연결: very convenient > pay for the food directly | 구체화
+연결: very convenient > how long it will take | 구체화
+연결: very convenient > less time and effort | 결과
+연결: less time and effort > a lot easier than in the past | 같은
+
+== Q086
+1: gatherings, celebrations or parties | bars
+2: social gatherings
+3: grab some drinks
+4: break the ice | loosen up the mood
+5: drinking games
+6: several rounds | one bar to another
+7: staff-dinners
+8: bond with their co-workers
+9: get closer
+10: after-parties
+11: after a main event
+12: special occasions | birthday parties and year-end parties
+13: spice up the mood
+14: types of gatherings
+연결: gatherings, celebrations or parties > bars | 위치
+연결: gatherings, celebrations or parties > social gatherings | 구체화
+연결: social gatherings > grab some drinks | 구체화
+연결: grab some drinks > break the ice | 결과
+연결: break the ice > loosen up the mood | 같은
+연결: social gatherings > drinking games | 구체화
+연결: social gatherings > several rounds | 구체화
+연결: gatherings, celebrations or parties > staff-dinners | 구체화
+연결: staff-dinners > bond with their co-workers | 결과
+연결: bond with their co-workers > get closer | 같은
+연결: gatherings, celebrations or parties > after-parties | 구체화
+연결: after-parties > after a main event | 구체화
+연결: gatherings, celebrations or parties > special occasions | 구체화
+연결: special occasions > birthday parties and year-end parties | 구체화
+연결: special occasions > spice up the mood | 결과
+
+== Q087
+1: gathering recently
+2: decent Japanese restaurant
+3: best Japanese food in town
+4: tasted extra good | starving
+5: main dish | very tasty
+6: fish and shrimp | juicy and tender
+7: sauce and the seasoning
+8: side dishes
+9: grabbed some drinks
+10: went very well with the food
+11: very enjoyable dinner
+12: very happy with the meal
+13: going there again
+연결: gathering recently > decent Japanese restaurant | 위치
+연결: decent Japanese restaurant > best Japanese food in town | 구체화
+연결: tasted extra good > starving | 이유
+연결: main dish > fish and shrimp | 구체화
+연결: fish and shrimp > juicy and tender | 구체화
+연결: main dish > sauce and the seasoning | 구체화
+연결: grabbed some drinks > went very well with the food | 결과
+연결: very enjoyable dinner > very happy with the meal | 같은
+연결: very happy with the meal > going there again | 결과
+
+== Q088
+1: party with my friends | several weeks ago
+2: typical bar | beer
+3: extra good | starving
+4: However | quite a lot
+5: very drunk | mixed drinks
+6: dizzy | walk straight
+7: wasted | blacked out | how I got home
+8: terrible hangover | miserable
+9: stomach was upset | throwing up
+10: drug store | hangover relief medication
+11: sober up
+12: take it easy
+13: more careful
+연결: party with my friends > typical bar | 위치
+연결: typical bar > beer | 구체화
+연결: extra good > quite a lot | 결과
+연결: quite a lot > very drunk | 결과
+연결: very drunk > mixed drinks | 이유
+연결: very drunk > dizzy | 결과
+연결: dizzy > walk straight | 구체화
+연결: blacked out > how I got home | 결과
+연결: wasted > terrible hangover | 결과
+연결: terrible hangover > stomach was upset | 구체화
+연결: terrible hangover > hangover relief medication | 결과
+연결: hangover relief medication > drug store | 위치
+연결: sober up > take it easy | 구체화
+연결: terrible hangover > more careful | 결과
+
+== Q089
+1: pretty much the same wherever you are
+2: big city or a small town
+3: social gatherings at bars
+4: grab some drinks
+5: break the ice | loosen up the mood
+6: drinking games
+7: several rounds | one bar to another
+8: staff-dinners
+9: bond with their co-workers
+10: get closer
+11: after-parties
+12: after a main event
+13: special occasions | birthday parties and year-end parties
+14: spice up the mood
+15: Once again
+연결: pretty much the same wherever you are > big city or a small town | 구체화
+연결: social gatherings at bars > grab some drinks | 구체화
+연결: grab some drinks > break the ice | 결과
+연결: break the ice > loosen up the mood | 같은
+연결: social gatherings at bars > drinking games | 구체화
+연결: social gatherings at bars > several rounds | 구체화
+연결: staff-dinners > bond with their co-workers | 결과
+연결: bond with their co-workers > get closer | 같은
+연결: after-parties > after a main event | 구체화
+연결: special occasions > birthday parties and year-end parties | 구체화
+연결: special occasions > spice up the mood | 결과
+연결: Once again > pretty much the same wherever you are | 같은
+
+== Q090
+1: biggest concerns | overdrinking
+2: drink moderately
+3: drink too much | get drunk
+4: Bad things
+5: embarrassing mistakes
+6: fall asleep at odd places
+7: trouble and noise
+8: get into fights
+9: Worse things | get wasted
+10: get into accidents
+11: get hurt or get injured
+12: lose something important
+13: terrible hangover | get sick the next day
+14: overdrinking at gatherings
+15: drink in moderation
+연결: drink moderately > drink too much | 대조
+연결: drink too much > Bad things | 결과
+연결: Bad things > embarrassing mistakes | 구체화
+연결: Bad things > fall asleep at odd places | 구체화
+연결: Bad things > trouble and noise | 구체화
+연결: trouble and noise > get into fights | 구체화
+연결: Bad things > Worse things | 대조
+연결: get wasted > Worse things | 결과
+연결: Worse things > get into accidents | 구체화
+연결: get into accidents > get hurt or get injured | 결과
+연결: Worse things > lose something important | 구체화
+연결: terrible hangover > get sick the next day | 구체화
+연결: overdrinking > overdrinking at gatherings | 같은
+연결: overdrinking at gatherings > drink in moderation | 대조
+
+== Q091
+1: nutrition advice | core principles
+2: whole, minimally processed foods
+3: plant-based options | colorful vegetables, fruits, and whole grains
+4: fiber and antioxidants | stable energy | good digestion | cellular health
+5: quality protein | lean meats, fish | beans, lentils, and tofu
+6: satiated | building blocks | body repair
+7: healthy fats | nuts, seeds, and avocados
+8: fat-soluble vitamins | brain function
+9: maximum nutritional return | added sugars or artificial ingredients
+연결: nutrition advice > core principles | 대조
+연결: core principles > whole, minimally processed foods | 구체화
+연결: whole, minimally processed foods > plant-based options | 구체화
+연결: plant-based options > colorful vegetables, fruits, and whole grains | 구체화
+연결: plant-based options > fiber and antioxidants | 이유
+연결: fiber and antioxidants > stable energy | 결과
+연결: fiber and antioxidants > good digestion | 결과
+연결: quality protein > lean meats, fish | 구체화
+연결: quality protein > beans, lentils, and tofu | 구체화
+연결: quality protein > satiated | 결과
+연결: quality protein > building blocks | 결과
+연결: healthy fats > nuts, seeds, and avocados | 구체화
+연결: healthy fats > fat-soluble vitamins | 결과
+연결: healthy fats > brain function | 결과
+연결: maximum nutritional return > added sugars or artificial ingredients | 대조
+
+== Q092
+1: When I was a kid | very health-conscious
+2: nutrients we needed
+3: balanced meals
+4: vegetables and meat every day
+5: milk or juice
+6: learn about eating healthy
+7: more conscious about what I eat
+8: As an adult | eat healthy myself
+9: cut back on unhealthy food | junk food
+10: learned about eating healthy from my mom
+연결: very health-conscious > nutrients we needed | 구체화
+연결: nutrients we needed > balanced meals | 구체화
+연결: balanced meals > vegetables and meat every day | 구체화
+연결: nutrients we needed > milk or juice | 구체화
+연결: very health-conscious > learn about eating healthy | 결과
+연결: learn about eating healthy > more conscious about what I eat | 결과
+연결: When I was a kid > As an adult | 대조
+연결: more conscious about what I eat > eat healthy myself | 결과
+연결: eat healthy myself > cut back on unhealthy food | 구체화
+연결: cut back on unhealthy food > junk food | 구체화
+연결: learn about eating healthy > learned about eating healthy from my mom | 같은
+
+== Q093
+1: bad stomachache | a few months ago
+2: ate too fast | so hungry
+3: indigestion
+4: stomach was upset | throwing up
+5: fever | light-headed
+6: could NOT find any
+7: drug store
+8: pharmacist | symptoms
+9: feel better
+10: took some medicine
+11: stay inside | plenty of rest
+12: more careful when I eat
+연결: ate too fast > so hungry | 이유
+연결: ate too fast > indigestion | 결과
+연결: indigestion > bad stomachache | 같은
+연결: indigestion > stomach was upset | 구체화
+연결: indigestion > fever | 구체화
+연결: fever > light-headed | 구체화
+연결: could NOT find any > drug store | 결과
+연결: pharmacist > drug store | 위치
+연결: pharmacist > symptoms | 구체화
+연결: took some medicine > feel better | 결과
+연결: stay inside > plenty of rest | 구체화
+연결: ate too fast > more careful when I eat | 결과
+
+== Q094
+1: much easier | last 20 years
+2: online shopping
+3: In the past | actual stores
+4: discount stores or grocery stores
+5: But now | shop online very often
+6: the norm
+7: very convenient | NO need to go
+8: pick and choose | computer or phone
+9: pay for it instantly | delivered to your home
+10: much less time and effort
+11: a lot of options | great deals
+12: a lot easier than in the past
+연결: much easier > online shopping | 이유
+연결: In the past > But now | 대조
+연결: actual stores > shop online very often | 대조
+연결: actual stores > discount stores or grocery stores | 구체화
+연결: shop online very often > the norm | 같은
+연결: very convenient > NO need to go | 이유
+연결: pick and choose > computer or phone | 구체화
+연결: pay for it instantly > delivered to your home | 구체화
+연결: very convenient > much less time and effort | 결과
+연결: a lot of options > great deals | 결과
+연결: much easier > a lot easier than in the past | 같은
+
+== Q095
+1: most shocking food scare
+2: coli outbreak | McDonald’s
+3: huge global news story
+4: contaminated slivered onions | Quarter Pounders
+5: consequences were severe
+6: hospitalized | fatality
+7: massive panic | trust global franchises
+8: temporarily pull the item
+9: never 100% guaranteed | big brands
+연결: most shocking food scare > coli outbreak | 구체화
+연결: coli outbreak > McDonald’s | 구체화
+연결: coli outbreak > contaminated slivered onions | 이유
+연결: contaminated slivered onions > Quarter Pounders | 위치
+연결: consequences were severe > hospitalized | 구체화
+연결: consequences were severe > fatality | 구체화
+연결: massive panic > trust global franchises | 이유
+연결: coli outbreak > massive panic | 결과
+연결: massive panic > temporarily pull the item | 결과
+연결: trust global franchises > never 100% guaranteed | 대조
+연결: never 100% guaranteed > big brands | 구체화
+
+== Q096
+1: several things to stay healthy
+2: work out | as often as I can
+3: exercise at the gym | take walks at the park
+4: hiking | ride bikes
+5: yoga lessons
+6: eat properly | balanced meals
+7: too much or too late
+8: too fast or too much salt
+9: cut back on unhealthy food | junk food
+10: mental health
+11: positive mindset
+12: bright side | less stress
+13: things I do to stay healthy
+연결: several things to stay healthy > work out | 구체화
+연결: work out > exercise at the gym | 구체화
+연결: work out > take walks at the park | 구체화
+연결: work out > hiking | 구체화
+연결: work out > yoga lessons | 구체화
+연결: several things to stay healthy > eat properly | 구체화
+연결: eat properly > balanced meals | 같은
+연결: eat properly > too much or too late | 구체화
+연결: eat properly > too fast or too much salt | 구체화
+연결: eat properly > cut back on unhealthy food | 구체화
+연결: several things to stay healthy > mental health | 구체화
+연결: mental health > positive mindset | 구체화
+연결: positive mindset > bright side | 같은
+연결: bright side > less stress | 결과
+
+== Q097
+1: cook healthy food | fresh ingredients
+2: always make sure
+3: expiration date | processed foods
+4: local supermarket chain
+5: very large in size
+6: fresh vegetables | all kinds of seafood
+7: a lot of options
+8: good prices | good-quality goods | great deals
+9: a regular | once or twice a week
+10: where I buy
+연결: cook healthy food > fresh ingredients | 이유
+연결: fresh ingredients > always make sure | 구체화
+연결: fresh ingredients > expiration date | 구체화
+연결: expiration date > processed foods | 구체화
+연결: local supermarket chain > very large in size | 구체화
+연결: very large in size > fresh vegetables | 구체화
+연결: fresh vegetables > all kinds of seafood | 대조
+연결: very large in size > a lot of options | 결과
+연결: good prices > great deals | 결과
+연결: good-quality goods > great deals | 결과
+연결: a regular > once or twice a week | 구체화
+연결: where I buy > local supermarket chain | 같은
+
+== Q098
+1: most impactful change | intense workouts | consistent stress management | mindfulness breaks
+2: constantly ‘on’ | chronic stress | every other healthy habit
+3: realistic way | baseline anxiety | mental clarity | physical appearance
+4: meditation app | every morning | completely unplug
+5: worked out incredibly well
+6: improved focus | much deeper sleep
+7: sustainable energy | emotional resilience
+8: biggest health improvements | calming your nervous system | pushing your body harder
+연결: intense workouts > consistent stress management | 대조
+연결: consistent stress management > mindfulness breaks | 구체화
+연결: constantly ‘on’ > chronic stress | 결과
+연결: chronic stress > every other healthy habit | 결과
+연결: consistent stress management > chronic stress | 이유
+연결: realistic way > baseline anxiety | 구체화
+연결: mental clarity > physical appearance | 대조
+연결: mindfulness breaks > meditation app | 구체화
+연결: mindfulness breaks > completely unplug | 구체화
+연결: worked out incredibly well > improved focus | 구체화
+연결: worked out incredibly well > much deeper sleep | 구체화
+연결: worked out incredibly well > sustainable energy | 구체화
+연결: sustainable energy > emotional resilience | 같은
+연결: calming your nervous system > pushing your body harder | 대조
+연결: biggest health improvements > calming your nervous system | 이유
+
+== Q099
+1: In the past | thought less about their health
+2: NOT being sick
+3: NOT THAT much information
+4: these days | a lot different
+5: find out about their health more easily
+6: health information on the internet
+7: a lot more health-conscious
+8: medical check-ups | regular basis
+9: what is wrong
+10: more quickly
+11: work out as often as they can
+12: gyms | a lot better
+13: yoga, pilates and cross-fit
+14: sign up for these classes
+15: more conscious about their health
+연결: In the past > these days | 대조
+연결: thought less about their health > NOT being sick | 구체화
+연결: thought less about their health > NOT THAT much information | 이유
+연결: NOT THAT much information > health information on the internet | 대조
+연결: health information on the internet > find out about their health more easily | 이유
+연결: find out about their health more easily > a lot more health-conscious | 결과
+연결: medical check-ups > what is wrong | 결과
+연결: what is wrong > more quickly | 결과
+연결: work out as often as they can > gyms | 결과
+연결: gyms > yoga, pilates and cross-fit | 구체화
+연결: yoga, pilates and cross-fit > sign up for these classes | 결과
+연결: a lot more health-conscious > more conscious about their health | 같은
+
+== Q100
+5: major health crisis | mass walkout | junior doctors
+6: resident doctors resigned | government's plan | medical school admissions
+7: immediate and frightening
+8: cancel scheduled surgeries | turned away patients | severe shortage of staff
+9: anxiety and frustration
+10: terrified | emergency
+11: chaotic time | deep cracks | national healthcare system
+연결: major health crisis > mass walkout | 이유
+연결: mass walkout > resident doctors resigned | 같은
+연결: resident doctors resigned > government's plan | 이유
+연결: government's plan > medical school admissions | 구체화
+연결: mass walkout > immediate and frightening | 결과
+연결: immediate and frightening > cancel scheduled surgeries | 구체화
+연결: immediate and frightening > turned away patients | 구체화
+연결: turned away patients > severe shortage of staff | 이유
+연결: anxiety and frustration > terrified | 구체화
+연결: turned away patients > terrified | 결과
+연결: chaotic time > deep cracks | 결과
+연결: deep cracks > national healthcare system | 위치
+
+== Q101
+1: extreme heat | summer annoyance | recurring public health issue
+2: record-setting heat event | nearly two weeks | oppressive nighttime temperatures
+3: surge in ER admissions | heatstroke | severe dehydration | older residents | working outdoors
+4: public health emergency
+5: swift and organized
+6: specialized cooling centers | libraries and transit hubs
+7: mutual aid | vulnerable residents | sharing information
+8: weather story | systemic health threat | prepare for
+연결: summer annoyance > recurring public health issue | 대조
+연결: extreme heat > record-setting heat event | 구체화
+연결: record-setting heat event > oppressive nighttime temperatures | 구체화
+연결: record-setting heat event > surge in ER admissions | 결과
+연결: surge in ER admissions > heatstroke | 구체화
+연결: surge in ER admissions > severe dehydration | 구체화
+연결: surge in ER admissions > older residents | 구체화
+연결: surge in ER admissions > working outdoors | 구체화
+연결: surge in ER admissions > public health emergency | 결과
+연결: swift and organized > specialized cooling centers | 구체화
+연결: specialized cooling centers > libraries and transit hubs | 위치
+연결: swift and organized > mutual aid | 구체화
+연결: mutual aid > vulnerable residents | 구체화
+연결: weather story > systemic health threat | 대조
+연결: systemic health threat > prepare for | 결과
+연결: recurring public health issue > systemic health threat | 같은
+
+== Q102
+1: diverse geography | many mountains, beaches and rivers
+2: rivers that flow through large cities
+3: provide water
+4: many mountains in Korea
+5: 70 percent
+6: pretty landscape | beautiful colors in the fall
+7: tons of beaches | peninsula
+8: popular vacation spots | very scenic
+9: various types of seafood
+10: very diverse
+연결: diverse geography > many mountains, beaches and rivers | 이유
+연결: many mountains, beaches and rivers > rivers that flow through large cities | 구체화
+연결: rivers that flow through large cities > provide water | 결과
+연결: many mountains, beaches and rivers > many mountains in Korea | 구체화
+연결: many mountains in Korea > 70 percent | 구체화
+연결: many mountains in Korea > pretty landscape | 결과
+연결: pretty landscape > beautiful colors in the fall | 구체화
+연결: many mountains, beaches and rivers > tons of beaches | 구체화
+연결: tons of beaches > peninsula | 이유
+연결: tons of beaches > popular vacation spots | 구체화
+연결: tons of beaches > various types of seafood | 결과
+연결: diverse geography > very diverse | 같은
+
+== Q103
+1: various types of outdoor activities | free time
+2: many rivers | riverside parks
+3: get some exercise | fresh air
+4: many mountains | hiking or camping
+5: ski resorts | skiing or snowboarding | winter season
+6: many beaches | coastal areas
+7: Once again
+연결: various types of outdoor activities > riverside parks | 구체화
+연결: many rivers > riverside parks | 결과
+연결: riverside parks > get some exercise | 구체화
+연결: riverside parks > fresh air | 구체화
+연결: many mountains > hiking or camping | 결과
+연결: many mountains > ski resorts | 결과
+연결: ski resorts > skiing or snowboarding | 구체화
+연결: skiing or snowboarding > winter season | 구체화
+연결: many beaches > coastal areas | 결과
+연결: various types of outdoor activities > hiking or camping | 구체화
+연결: Once again > various types of outdoor activities | 같은
+
+== Q104
+1: peninsula
+2: three sides | the west, the east and the south
+3: many beaches
+4: several times with my family | when I was a kid
+5: favorite beaches | south coast
+6: most well-known beaches
+7: popular vacation spot
+8: extremely crowded | peak season
+9: tons of things to do
+10: hotels and motels
+11: bars and cafes
+12: fast food places | served seafood
+13: quite often
+연결: peninsula > three sides | 구체화
+연결: three sides > many beaches | 결과
+연결: favorite beaches > south coast | 위치
+연결: favorite beaches > most well-known beaches | 구체화
+연결: most well-known beaches > popular vacation spot | 같은
+연결: popular vacation spot > extremely crowded | 결과
+연결: extremely crowded > peak season | 구체화
+연결: tons of things to do > hotels and motels | 구체화
+연결: tons of things to do > bars and cafes | 구체화
+연결: tons of things to do > served seafood | 구체화
+연결: several times with my family > quite often | 같은
+
+== Q105
+1: beach with my family | a few years ago
+2: well-known beach | south coast of Korea
+3: beachside cabin | great ocean view
+4: During the day | walk along the beach
+5: swam in the ocean | played in the sand
+6: a lot of pictures
+7: For lunch | seafood
+8: fish, shrimp, squid, octopus and crab
+9: For dinner | barbeque at our cabin
+10: tasted extra good | starving
+11: some drinks
+12: partied all night long
+13: drank a lot | a little drunk
+14: hangover the next day
+15: most memorable trips in my life
+16: worth the money and time
+연결: beach with my family > well-known beach | 구체화
+연결: well-known beach > south coast of Korea | 위치
+연결: beachside cabin > great ocean view | 구체화
+연결: During the day > walk along the beach | 구체화
+연결: During the day > swam in the ocean | 구체화
+연결: For lunch > For dinner | 대조
+연결: seafood > fish, shrimp, squid, octopus and crab | 구체화
+연결: barbeque at our cabin > beachside cabin | 위치
+연결: tasted extra good > starving | 이유
+연결: partied all night long > drank a lot | 구체화
+연결: drank a lot > a little drunk | 결과
+연결: a little drunk > hangover the next day | 결과
+연결: most memorable trips in my life > worth the money and time | 구체화
+
+== Q106
+1: relationship between Korea and Japan
+2: very complex dynamic | shared history | remarkable
+3: post-2019 period | really strained | boycotts and travel restrictions
+4: almost completely reversed
+5: massive surge | cultural and tourist exchange
+6: constantly full | Japanese spoken everywhere
+7: younger generations
+8: K-culture is huge in Japan | Japanese anime, fashion, and food brands
+9: historical issues | much more hopeful and pragmatic | culture and economics | immediate political tension
+연결: very complex dynamic > shared history | 이유
+연결: really strained > boycotts and travel restrictions | 결과
+연결: really strained > almost completely reversed | 대조
+연결: almost completely reversed > massive surge | 구체화
+연결: massive surge > cultural and tourist exchange | 구체화
+연결: cultural and tourist exchange > constantly full | 구체화
+연결: cultural and tourist exchange > Japanese spoken everywhere | 구체화
+연결: younger generations > massive surge | 결과
+연결: K-culture is huge in Japan > Japanese anime, fashion, and food brands | 대조
+연결: younger generations > K-culture is huge in Japan | 구체화
+연결: historical issues > much more hopeful and pragmatic | 대조
+연결: culture and economics > immediate political tension | 대조
+
+== Q107
+1: 1953 Korean War Armistice Agreement
+2: pivotal event | South Korea and its neighbor, the North
+3: three years of brutal fighting | devastated the peninsula | ceasefire
+4: temporary suspension of hostilities | permanent peace treaty
+5: distant history | live wire | constant global flashpoint
+연결: 1953 Korean War Armistice Agreement > pivotal event | 같은
+연결: pivotal event > South Korea and its neighbor, the North | 구체화
+연결: three years of brutal fighting > devastated the peninsula | 결과
+연결: three years of brutal fighting > ceasefire | 결과
+연결: 1953 Korean War Armistice Agreement > ceasefire | 같은
+연결: ceasefire > temporary suspension of hostilities | 구체화
+연결: temporary suspension of hostilities > permanent peace treaty | 대조
+연결: distant history > live wire | 대조
+연결: temporary suspension of hostilities > constant global flashpoint | 결과
+연결: live wire > constant global flashpoint | 같은
+
+== Q108
+1: connected all day
+2: first thing I reach for | news headlines | weather forecast | responding to messages
+3: search engines | new restaurant | store hours | travel info
+4: For entertainment | stream music | short-form video content | YouTube or TikTok
+5: chores online
+6: mobile banking | e-commerce app
+7: faster and more convenient | physical store
+연결: connected all day > first thing I reach for | 구체화
+연결: first thing I reach for > news headlines | 구체화
+연결: first thing I reach for > weather forecast | 구체화
+연결: first thing I reach for > responding to messages | 구체화
+연결: search engines > new restaurant | 구체화
+연결: search engines > store hours | 구체화
+연결: search engines > travel info | 구체화
+연결: For entertainment > stream music | 구체화
+연결: For entertainment > short-form video content | 구체화
+연결: short-form video content > YouTube or TikTok | 위치
+연결: chores online > mobile banking | 구체화
+연결: chores online > e-commerce app | 구체화
+연결: faster and more convenient > physical store | 대조
+연결: chores online > faster and more convenient | 이유
+
+== Q109
+1: favorite websites | YouTube
+2: tons of video clips | every day
+3: much better than in the past
+4: fun to watch | entertaining
+5: whatever is fun
+6: news clips, music clips or movie trailers
+7: comedy clips, sports clips or TV show clips
+8: YouTube channels | subscribe
+9: food channel
+10: regular updates | new postings
+11: online courses
+12: helpful and informative
+13: less time and effort
+14: video clips I watch
+연결: favorite websites > YouTube | 같은
+연결: YouTube > tons of video clips | 구체화
+연결: tons of video clips > much better than in the past | 구체화
+연결: much better than in the past > fun to watch | 구체화
+연결: whatever is fun > news clips, music clips or movie trailers | 구체화
+연결: whatever is fun > comedy clips, sports clips or TV show clips | 구체화
+연결: YouTube channels > food channel | 구체화
+연결: subscribe > regular updates | 결과
+연결: online courses > helpful and informative | 구체화
+연결: online courses > less time and effort | 결과
+
+== Q110
+1: first surfed the internet | very slow
+2: long time to log on
+3: on my computer
+4: always needed a computer
+5: But now | a lot better
+6: come a long way
+7: on my smartphone | on the move
+8: mobile internet | a lot faster
+9: 5G networks | amazingly fast
+10: free wi-fi | coffee shops
+11: wireless routers
+12: unlimited phone plans
+13: become the norm
+14: mobile-friendly
+15: much easier than in the past
+연결: very slow > long time to log on | 결과
+연결: on my computer > always needed a computer | 결과
+연결: always needed a computer > on my smartphone | 대조
+연결: a lot better > come a long way | 같은
+연결: a lot better > on my smartphone | 구체화
+연결: mobile internet > a lot faster | 구체화
+연결: a lot faster > 5G networks | 이유
+연결: free wi-fi > coffee shops | 위치
+연결: mobile internet > free wi-fi | 구체화
+연결: mobile internet > wireless routers | 구체화
+연결: mobile internet > unlimited phone plans | 구체화
+연결: mobile internet > become the norm | 결과
+연결: become the norm > mobile-friendly | 결과
+연결: very slow > much easier than in the past | 대조
+
+== Q111
+1: top security concern | social engineering | phishing and ransomware | identity theft and financial fraud
+2: privacy concern | fundamentally changed
+3: simple password protection | surveillance capitalism | harvesting of our data | huge tech platforms
+4: feared viruses | institutional data breaches | weaponized for manipulation | political influence
+5: safety has become critical | misinformation, deepfakes, and algorithmic bias | societal, not just personal
+연결: top security concern > social engineering | 같은
+연결: social engineering > phishing and ransomware | 구체화
+연결: phishing and ransomware > identity theft and financial fraud | 결과
+연결: privacy concern > fundamentally changed | 구체화
+연결: simple password protection > surveillance capitalism | 대조
+연결: surveillance capitalism > harvesting of our data | 구체화
+연결: harvesting of our data > huge tech platforms | 구체화
+연결: feared viruses > institutional data breaches | 대조
+연결: institutional data breaches > weaponized for manipulation | 결과
+연결: weaponized for manipulation > political influence | 구체화
+연결: safety has become critical > misinformation, deepfakes, and algorithmic bias | 구체화
+연결: misinformation, deepfakes, and algorithmic bias > societal, not just personal | 결과
+
+== Q112
+1: younger generations | much more tech-savvy
+2: active and creative
+3: on their phones
+4: mobile internet | a lot faster
+5: 5G networks | amazingly fast
+6: free wi-fi | coffee shops
+7: wireless routers
+8: unlimited phone plans
+9: become the norm
+10: mobile-friendly
+11: older generations | less tech-savvy
+12: on their computers
+13: small number of activities
+14: differences between the younger and the older generations
+연결: younger generations > older generations | 대조
+연결: much more tech-savvy > less tech-savvy | 대조
+연결: much more tech-savvy > active and creative | 구체화
+연결: on their phones > on their computers | 대조
+연결: on their phones > mobile internet | 이유
+연결: a lot faster > 5G networks | 이유
+연결: free wi-fi > coffee shops | 위치
+연결: mobile internet > free wi-fi | 구체화
+연결: mobile internet > wireless routers | 구체화
+연결: mobile internet > unlimited phone plans | 구체화
+연결: become the norm > mobile-friendly | 결과
+연결: less tech-savvy > small number of activities | 결과
+
+== Q114
+1: first cell phone | regular phone
+2: make phone calls | send text messages
+3: bulky and heavy
+4: come a long way
+5: called smartphones | become the norm
+6: surf the internet on my phone
+7: almost everything
+8: mobile internet | a lot faster
+9: 5G networks | amazingly fast
+10: free wi-fi | coffee shops
+11: wireless routers
+12: unlimited phone plans
+13: latest smartphone models | faster, lighter and thinner
+14: easier to use and carry around
+15: world of difference
+연결: first cell phone > regular phone | 같은
+연결: regular phone > make phone calls | 구체화
+연결: regular phone > called smartphones | 대조
+연결: bulky and heavy > faster, lighter and thinner | 대조
+연결: come a long way > called smartphones | 구체화
+연결: surf the internet on my phone > almost everything | 결과
+연결: mobile internet > a lot faster | 구체화
+연결: a lot faster > 5G networks | 이유
+연결: free wi-fi > coffee shops | 위치
+연결: mobile internet > free wi-fi | 구체화
+연결: mobile internet > wireless routers | 구체화
+연결: mobile internet > unlimited phone plans | 구체화
+연결: faster, lighter and thinner > easier to use and carry around | 결과
+연결: come a long way > world of difference | 같은
+
+== Q115
+1: several problems with my phone
+2: most common problems | phone battery
+3: all day long | runs out of battery
+4: my phone died | outside
+5: very inconvenient
+6: check some messages
+7: online searches
+8: very frustrating
+9: regretted NOT having charged
+10: after I got home
+11: my charger or my battery pack
+12: a bit of a hassle | no choice
+13: last longer
+연결: several problems with my phone > phone battery | 구체화
+연결: all day long > runs out of battery | 이유
+연결: runs out of battery > my phone died | 구체화
+연결: my phone died > very inconvenient | 결과
+연결: very inconvenient > check some messages | 구체화
+연결: very inconvenient > online searches | 구체화
+연결: very inconvenient > very frustrating | 같은
+연결: very frustrating > regretted NOT having charged | 결과
+연결: my phone died > after I got home | 결과
+연결: my phone died > my charger or my battery pack | 결과
+연결: my charger or my battery pack > a bit of a hassle | 구체화
+연결: phone battery > last longer | 구체화
+
+== Q116
+1: 5 years ago | smartphones
+2: quite slow
+3: online searches | checked the news | that was it
+4: these days | a lot faster
+5: 5G networks | amazingly fast
+6: free wi-fi | coffee shops
+7: wireless routers
+8: unlimited phone plans
+9: various types of things
+10: messaging apps
+11: stream music | YouTube
+12: social media | Facebook or Instagram
+13: online games | online courses
+14: tons of things
+연결: 5 years ago > these days | 대조
+연결: quite slow > a lot faster | 대조
+연결: quite slow > that was it | 결과
+연결: a lot faster > 5G networks | 이유
+연결: free wi-fi > coffee shops | 위치
+연결: a lot faster > free wi-fi | 구체화
+연결: a lot faster > wireless routers | 구체화
+연결: a lot faster > unlimited phone plans | 구체화
+연결: a lot faster > various types of things | 결과
+연결: various types of things > messaging apps | 구체화
+연결: various types of things > stream music | 구체화
+연결: various types of things > social media | 구체화
+연결: social media > Facebook or Instagram | 구체화
+연결: various types of things > online games | 구체화
+연결: various types of things > tons of things | 같은
+
+== Q117
+1: addicted to their phones
+2: cannot put them down
+3: chat with friends | messaging apps
+4: social media | very frequently
+5: many side effects | too much phone use
+6: physical side effects
+7: eyesight gets worse | small screen
+8: back problems, neck problems or shoulder pain | bad posture
+9: social side effects
+10: less conversations
+11: face-to-face communication skills
+12: concerned about this problem
+13: phone addiction | major issue
+연결: addicted to their phones > cannot put them down | 같은
+연결: cannot put them down > chat with friends | 구체화
+연결: cannot put them down > social media | 구체화
+연결: too much phone use > many side effects | 결과
+연결: many side effects > physical side effects | 구체화
+연결: many side effects > social side effects | 구체화
+연결: physical side effects > eyesight gets worse | 구체화
+연결: eyesight gets worse > small screen | 이유
+연결: physical side effects > back problems, neck problems or shoulder pain | 구체화
+연결: back problems, neck problems or shoulder pain > bad posture | 이유
+연결: social side effects > less conversations | 구체화
+연결: less conversations > face-to-face communication skills | 결과
+연결: addicted to their phones > phone addiction | 같은
+
+== Q118
+1: rarely scheduled
+2: quick text | ten-minute call | vent | minor crises
+3: chaos updates | complaining about traffic | latest dating situation
+4: media recommendations
+5: swapping links | viral moment on TikTok
+6: controversial Netflix docuseries
+연결: rarely scheduled > quick text | 구체화
+연결: quick text > ten-minute call | 결과
+연결: ten-minute call > vent | 이유
+연결: ten-minute call > minor crises | 이유
+연결: minor crises > chaos updates | 구체화
+연결: chaos updates > complaining about traffic | 구체화
+연결: chaos updates > latest dating situation | 구체화
+연결: media recommendations > swapping links | 구체화
+연결: swapping links > viral moment on TikTok | 구체화
+연결: media recommendations > controversial Netflix docuseries | 구체화
+
+== Q119
+1: who I’m talking to
+2: family and a few close friends | late evenings | professional contacts | office hours
+3: duration varies dramatically
+4: 20 to 30 minutes | quick five-minute logistics check
+5: almost always multitask
+6: walking | doing the dishes | straightening up the apartment
+7: wireless earbuds | hands-free convenience | juggling other tasks
+연결: who I’m talking to > family and a few close friends | 구체화
+연결: who I’m talking to > professional contacts | 구체화
+연결: family and a few close friends > late evenings | 구체화
+연결: professional contacts > office hours | 구체화
+연결: late evenings > office hours | 대조
+연결: duration varies dramatically > 20 to 30 minutes | 구체화
+연결: 20 to 30 minutes > quick five-minute logistics check | 대조
+연결: almost always multitask > walking | 구체화
+연결: almost always multitask > doing the dishes | 구체화
+연결: almost always multitask > straightening up the apartment | 구체화
+연결: almost always multitask > wireless earbuds | 이유
+연결: wireless earbuds > hands-free convenience | 결과
+연결: hands-free convenience > juggling other tasks | 구체화
+
+== Q120
+1: locked into Samsung | old phone started dying | right flagship model | switching brands
+2: did my research
+3: a whole evening | comparison videos on YouTube | specific features | tech Reddit threads | realistic user feedback
+연결: old phone started dying > right flagship model | 결과
+연결: locked into Samsung > switching brands | 대조
+연결: locked into Samsung > right flagship model | 결과
+연결: did my research > comparison videos on YouTube | 구체화
+연결: did my research > tech Reddit threads | 구체화
+연결: comparison videos on YouTube > specific features | 결과
+연결: tech Reddit threads > realistic user feedback | 결과
+연결: did my research > a whole evening | 구체화
+
+== Q122
+1: dominant technology | traditional desktop computers
+2: mobile-first | daily tasks
+3: mobile banking | paying bills instantly | managing finances | e-commerce
+4: groceries to clothes and electronics
+5: Communication is also key
+6: instant messaging apps | TikTok or Instagram | consuming news | short-form video content
+7: on the internet | through their smartphone
+연결: dominant technology > traditional desktop computers | 대조
+연결: dominant technology > mobile-first | 구체화
+연결: mobile-first > daily tasks | 구체화
+연결: daily tasks > mobile banking | 구체화
+연결: mobile banking > paying bills instantly | 구체화
+연결: mobile banking > managing finances | 구체화
+연결: daily tasks > e-commerce | 구체화
+연결: e-commerce > groceries to clothes and electronics | 구체화
+연결: Communication is also key > instant messaging apps | 구체화
+연결: Communication is also key > TikTok or Instagram | 구체화
+연결: TikTok or Instagram > consuming news | 구체화
+연결: TikTok or Instagram > short-form video content | 구체화
+연결: dominant technology > through their smartphone | 같은
+
+== Q123
+1: rely on most heavily | my smartphone
+2: mobile command center | continuous internet connection | truly indispensable
+3: practical coordination
+4: work schedule | quick payments | social plans | WhatsApp or Signal
+5: beyond the logistics | information and entertainment
+6: quick Google searches | casual trivia | music and podcasts
+7: news feeds | mindlessly scrolling | TikTok
+8: singular device | connects me to everything | 24/7
+연결: my smartphone > mobile command center | 같은
+연결: continuous internet connection > truly indispensable | 이유
+연결: practical coordination > work schedule | 구체화
+연결: practical coordination > quick payments | 구체화
+연결: practical coordination > social plans | 구체화
+연결: social plans > WhatsApp or Signal | 구체화
+연결: practical coordination > beyond the logistics | 대조
+연결: information and entertainment > quick Google searches | 구체화
+연결: information and entertainment > music and podcasts | 구체화
+연결: information and entertainment > news feeds | 구체화
+연결: mindlessly scrolling > TikTok | 위치
+연결: my smartphone > singular device | 같은
+연결: singular device > connects me to everything | 구체화
+
+== Q124
+1: first cell phone | regular phone
+2: make phone calls | send text messages
+3: bulky and heavy
+4: come a long way
+5: called smartphones | become the norm
+6: surf the internet on my phone
+7: almost everything
+8: mobile internet | a lot faster
+9: 5G networks | amazingly fast
+10: free wi-fi | coffee shops
+11: wireless routers
+12: unlimited phone plans
+13: latest smartphone models | faster, lighter and thinner
+14: easier to use and carry around
+15: world of difference
+연결: first cell phone > regular phone | 같은
+연결: regular phone > make phone calls | 구체화
+연결: regular phone > called smartphones | 대조
+연결: bulky and heavy > faster, lighter and thinner | 대조
+연결: come a long way > called smartphones | 구체화
+연결: surf the internet on my phone > almost everything | 결과
+연결: mobile internet > a lot faster | 구체화
+연결: a lot faster > 5G networks | 이유
+연결: free wi-fi > coffee shops | 위치
+연결: mobile internet > free wi-fi | 구체화
+연결: mobile internet > wireless routers | 구체화
+연결: mobile internet > unlimited phone plans | 구체화
+연결: faster, lighter and thinner > easier to use and carry around | 결과
+연결: come a long way > world of difference | 같은
+
+== Q125
+1: genuinely annoying experience | meet a colleague downtown
+2: rely entirely on my phone | navigation | ride-share apps | contactless payment
+3: plenty of charge | 30 percent | GPS and running background apps | drained it
+4: It died | confirming my Lyft
+5: stranded | late for the meeting | pay for a taxi | cross streets
+6: genuinely helpless
+7: missing a text | cut off from all basic logistics
+8: how fragile that reliance is
+9: extremely disciplined | fully charged power bank
+10: annoying extra step | losing access to the modern world
+연결: rely entirely on my phone > navigation | 구체화
+연결: rely entirely on my phone > ride-share apps | 구체화
+연결: rely entirely on my phone > contactless payment | 구체화
+연결: plenty of charge > drained it | 대조
+연결: GPS and running background apps > drained it | 이유
+연결: drained it > It died | 결과
+연결: It died > stranded | 결과
+연결: stranded > late for the meeting | 구체화
+연결: stranded > pay for a taxi | 구체화
+연결: stranded > genuinely helpless | 결과
+연결: missing a text > cut off from all basic logistics | 대조
+연결: cut off from all basic logistics > how fragile that reliance is | 결과
+연결: how fragile that reliance is > fully charged power bank | 결과
+연결: annoying extra step > losing access to the modern world | 대조
+연결: fully charged power bank > annoying extra step | 같은
+
+== Q126
+1: four distinct seasons
+2: very nice in spring and fall
+3: mild | outdoor activities
+4: hiking or camping | picnics
+5: outdoor sports | soccer, basketball or tennis
+6: summer is scorching hot
+7: humid and sticky | sweat a lot
+8: rainy season | it pours
+9: complete opposite
+10: freezing cold | -10 degrees Celsius
+11: bundle up | keep ourselves warm
+12: a lot of snow
+13: very slippery | slip and fall
+14: Once again
+연결: four distinct seasons > very nice in spring and fall | 구체화
+연결: very nice in spring and fall > mild | 구체화
+연결: mild > outdoor activities | 결과
+연결: outdoor activities > hiking or camping | 구체화
+연결: outdoor activities > outdoor sports | 구체화
+연결: outdoor sports > soccer, basketball or tennis | 구체화
+연결: very nice in spring and fall > summer is scorching hot | 대조
+연결: summer is scorching hot > humid and sticky | 구체화
+연결: humid and sticky > sweat a lot | 결과
+연결: summer is scorching hot > rainy season | 구체화
+연결: summer is scorching hot > complete opposite | 대조
+연결: complete opposite > freezing cold | 구체화
+연결: freezing cold > -10 degrees Celsius | 구체화
+연결: freezing cold > bundle up | 결과
+연결: a lot of snow > very slippery | 결과
+연결: very slippery > slip and fall | 결과
+연결: Once again > four distinct seasons | 같은
+
+== Q127
+1: quite miserable
+2: rain and wet snow | Seoul
+3: not cold enough | just above freezing | turning into slush
+4: completely gray and gloomy
+5: slippery and wet | stay indoors
+6: warm blanket | hot cup of coffee
+연결: quite miserable > rain and wet snow | 이유
+연결: not cold enough > just above freezing | 같은
+연결: just above freezing > turning into slush | 결과
+연결: rain and wet snow > completely gray and gloomy | 구체화
+연결: turning into slush > slippery and wet | 결과
+연결: slippery and wet > stay indoors | 결과
+연결: stay indoors > warm blanket | 구체화
+연결: warm blanket > hot cup of coffee | 구체화
+
+== Q128
+1: tropical storms | every summer
+2: big typhoons | made landfall
+3: strong winds | heavy rainfall
+4: rivers overflowed | too much rain
+5: floods and landslides
+6: houses and cars went underwater
+7: natural disasters | a lot of damage
+8: very nerve-racking
+9: some casualties
+10: got injured | lost their lives
+11: long time to recover
+12: severe weather
+연결: tropical storms > big typhoons | 같은
+연결: big typhoons > strong winds | 구체화
+연결: big typhoons > heavy rainfall | 구체화
+연결: rivers overflowed > too much rain | 이유
+연결: heavy rainfall > rivers overflowed | 결과
+연결: rivers overflowed > floods and landslides | 결과
+연결: floods and landslides > houses and cars went underwater | 결과
+연결: natural disasters > a lot of damage | 결과
+연결: a lot of damage > very nerve-racking | 결과
+연결: some casualties > got injured | 구체화
+연결: some casualties > lost their lives | 구체화
+연결: a lot of damage > long time to recover | 결과
+연결: big typhoons > severe weather | 같은
+
+== Q129
+1: four distinct seasons
+2: hotter and hotter every year
+3: when I was a kid
+4: hard time 2 years ago | unbearably hot
+5: much hotter than we had expected
+6: 40 degrees Celsius
+7: very hot at night | cool off
+8: hottest summer in Korean history
+9: Europe and Australia | record-breaking
+10: a lot hotter than in the past
+연결: four distinct seasons > hotter and hotter every year | 대조
+연결: hotter and hotter every year > when I was a kid | 대조
+연결: hotter and hotter every year > hard time 2 years ago | 구체화
+연결: hard time 2 years ago > unbearably hot | 이유
+연결: unbearably hot > much hotter than we had expected | 같은
+연결: unbearably hot > 40 degrees Celsius | 구체화
+연결: very hot at night > cool off | 이유
+연결: unbearably hot > hottest summer in Korean history | 구체화
+연결: hottest summer in Korean history > record-breaking | 같은
+연결: hotter and hotter every year > a lot hotter than in the past | 같은
+
+== Q130
+1: various ways
+2: quite easy to move around | very well-organized
+3: bus | subway | daily basis
+4: trains | planes | go on trips
+5: drive their own cars
+6: 50 million | 23 million cars
+7: traffic gets very bad | rush hours
+8: stuck in traffic
+9: parking | headache | NOT enough parking space
+10: public transportation or drive their own cars
+연결: quite easy to move around > very well-organized | 이유
+연결: various ways > bus | 구체화
+연결: various ways > trains | 구체화
+연결: various ways > drive their own cars | 구체화
+연결: 23 million cars > traffic gets very bad | 결과
+연결: traffic gets very bad > rush hours | 구체화
+연결: traffic gets very bad > stuck in traffic | 결과
+연결: headache > NOT enough parking space | 이유
+연결: drive their own cars > parking | 결과
+연결: various ways > public transportation or drive their own cars | 같은
+
+== Q131
+1: subway most often
+2: go to work (school)
+3: bus sometimes | depending on where
+4: cheapest ways
+5: taxi | in a rush
+6: taxi fares are NOT cheap | absolutely have to
+7: drive (my car) sometimes
+8: very convenient | wherever I want
+9: driver's license | 2013 | good driver
+10: public transportation
+연결: subway most often > go to work (school) | 구체화
+연결: subway most often > cheapest ways | 이유
+연결: bus sometimes > cheapest ways | 이유
+연결: cheapest ways > taxi fares are NOT cheap | 대조
+연결: taxi > in a rush | 이유
+연결: taxi fares are NOT cheap > absolutely have to | 결과
+연결: drive (my car) sometimes > very convenient | 이유
+연결: very convenient > wherever I want | 구체화
+연결: drive (my car) sometimes > driver's license | 구체화
+연결: public transportation > subway most often | 구체화
+
+== Q132
+1: a lot better | when I was a kid
+2: come a long way
+3: trains used to be slower
+4: much faster than in the past
+5: bullet trains | twice as fast
+6: half the time
+7: very pricey
+8: much cheaper | low-cost carriers
+9: half the price
+10: paper maps
+11: much easier because we now have GPS
+12: tells us where to go | get lost
+13: a lot better over the years
+14: As a result | travelling has become much easier
+연결: a lot better > come a long way | 같은
+연결: trains used to be slower > much faster than in the past | 대조
+연결: much faster than in the past > bullet trains | 이유
+연결: twice as fast > half the time | 결과
+연결: very pricey > much cheaper | 대조
+연결: much cheaper > low-cost carriers | 이유
+연결: low-cost carriers > half the price | 구체화
+연결: paper maps > much easier because we now have GPS | 대조
+연결: tells us where to go > get lost | 대조
+연결: a lot better over the years > travelling has become much easier | 결과
+연결: a lot better > a lot better over the years | 같은
+
+== Q133
+1: trip with my family | during the holidays
+2: NOT moving at all | bumper-to-bumper
+3: stuck in traffic
+4: heavy traffic | much longer than usual
+5: two and a half hours
+6: exhausted | too long
+7: carsick | light-headed
+8: head out early
+연결: during the holidays > bumper-to-bumper | 이유
+연결: bumper-to-bumper > NOT moving at all | 같은
+연결: bumper-to-bumper > stuck in traffic | 결과
+연결: heavy traffic > much longer than usual | 결과
+연결: much longer than usual > two and a half hours | 구체화
+연결: too long > exhausted | 결과
+연결: too long > carsick | 결과
+연결: carsick > light-headed | 구체화
+연결: stuck in traffic > head out early | 결과
+
+== Q134
+1: latest fashion trends
+2: very stylish | dress well
+3: For work | dress formally
+4: wear suits
+5: For play | dress casually
+6: comfortable clothes | go out with friends
+7: four distinct seasons
+8: different clothes for each season | seasonal
+9: very fashionable
+연결: latest fashion trends > very stylish | 결과
+연결: very stylish > dress well | 같은
+연결: For work > For play | 대조
+연결: dress formally > wear suits | 구체화
+연결: dress casually > comfortable clothes | 구체화
+연결: dress formally > dress casually | 대조
+연결: four distinct seasons > different clothes for each season | 결과
+연결: different clothes for each season > seasonal | 같은
+연결: very fashionable > very stylish | 같은
+
+== Q135
+1: my own style
+2: look good on me
+3: suitable clothes for the weather
+4: dress light | hot and humid
+5: brighter colors in summer
+6: dress warm | freezing cold
+7: bundle up
+8: darker colors in winter
+9: NOT that fashionable
+10: pay attention to detail | special occasions
+11: weddings, funerals, dates or job interviews
+연결: my own style > look good on me | 구체화
+연결: suitable clothes for the weather > dress light | 구체화
+연결: suitable clothes for the weather > dress warm | 구체화
+연결: dress light > hot and humid | 이유
+연결: dress warm > freezing cold | 이유
+연결: dress light > dress warm | 대조
+연결: brighter colors in summer > darker colors in winter | 대조
+연결: dress warm > bundle up | 같은
+연결: NOT that fashionable > pay attention to detail | 대조
+연결: special occasions > weddings, funerals, dates or job interviews | 구체화
+
+== Q136
+1: decide what to buy
+2: where to go
+3: dress light | comfortable shoes | walk around a lot
+4: shopping mall | window shopping
+5: compare prices | try things on
+6: pay for it
+7: credit card or debit card
+8: rarely pay in cash
+9: buy new clothes
+연결: decide what to buy > where to go | 구체화
+연결: comfortable shoes > walk around a lot | 이유
+연결: dress light > comfortable shoes | 구체화
+연결: shopping mall > window shopping | 위치
+연결: window shopping > compare prices | 결과
+연결: compare prices > try things on | 구체화
+연결: try things on > pay for it | 결과
+연결: pay for it > credit card or debit card | 구체화
+연결: credit card or debit card > rarely pay in cash | 대조
+연결: buy new clothes > decide what to buy | 구체화
+
+== Q137
+1: When I was a kid | NOT that stylish
+2: rather old-fashioned
+3: come a long way
+4: much more sophisticated
+5: new fashion trends | very easily
+6: fashion tips on the internet
+7: online shopping malls
+8: specialize in fashion | TV or YouTube
+9: a lot more fashionable
+10: more sophisticated than in the past
+연결: NOT that stylish > rather old-fashioned | 같은
+연결: rather old-fashioned > much more sophisticated | 대조
+연결: come a long way > much more sophisticated | 구체화
+연결: new fashion trends > fashion tips on the internet | 이유
+연결: new fashion trends > online shopping malls | 이유
+연결: new fashion trends > specialize in fashion | 이유
+연결: specialize in fashion > TV or YouTube | 위치
+연결: very easily > a lot more fashionable | 결과
+연결: much more sophisticated > more sophisticated than in the past | 같은
+
+== Q138
+1: dress shoes
+2: a pair of shoes
+3: NOT have my size in stock | sold-out
+4: another store
+5: sweater online
+6: tried it on at home | NOT fit well
+7: too tight and too short
+8: sent it back | exchange
+9: bought a coat
+10: NOT look good on me
+11: get a refund
+12: problems I have had while shopping
+연결: dress shoes > a pair of shoes | 같은
+연결: NOT have my size in stock > sold-out | 이유
+연결: NOT have my size in stock > another store | 결과
+연결: sweater online > NOT fit well | 구체화
+연결: NOT fit well > too tight and too short | 구체화
+연결: NOT fit well > sent it back | 결과
+연결: sent it back > exchange | 구체화
+연결: bought a coat > NOT look good on me | 구체화
+연결: NOT look good on me > get a refund | 결과
+연결: exchange > get a refund | 대조
+연결: problems I have had while shopping > dress shoes | 구체화
+
+== Q139
+1: so many banks
+2: everywhere these days
+3: busy streets | foot traffic
+4: subway stations or universities
+5: walk into a typical bank | ATMs | get cash
+6: tellers | counters
+7: chairs | sit and wait
+8: security guard | on duty
+9: screens on the walls | exchange rates | foreign currencies
+10: what banks in Korea are like
+연결: so many banks > everywhere these days | 같은
+연결: everywhere these days > busy streets | 구체화
+연결: busy streets > foot traffic | 구체화
+연결: busy streets > subway stations or universities | 위치
+연결: walk into a typical bank > ATMs | 구체화
+연결: ATMs > get cash | 결과
+연결: walk into a typical bank > tellers | 구체화
+연결: tellers > counters | 위치
+연결: walk into a typical bank > chairs | 구체화
+연결: chairs > sit and wait | 결과
+연결: walk into a typical bank > security guard | 구체화
+연결: screens on the walls > exchange rates | 구체화
+연결: exchange rates > foreign currencies | 구체화
+
+== Q140
+1: routine banking | checking my balance | quick transfers | mobile app
+2: avoid the lines
+3: physical branch | face-to-face interaction | specialized services
+4: large amount of cash | ATM limits | safe deposit box
+5: relationship manager | paperwork | cashier’s check | refinancing a loan | new investment account
+6: simple transactions | administrative or high-value tasks
+연결: routine banking > mobile app | 위치
+연결: routine banking > checking my balance | 구체화
+연결: routine banking > quick transfers | 구체화
+연결: mobile app > avoid the lines | 결과
+연결: mobile app > physical branch | 대조
+연결: physical branch > face-to-face interaction | 이유
+연결: physical branch > specialized services | 이유
+연결: specialized services > large amount of cash | 구체화
+연결: large amount of cash > ATM limits | 이유
+연결: specialized services > safe deposit box | 구체화
+연결: specialized services > relationship manager | 구체화
+연결: relationship manager > paperwork | 구체화
+연결: relationship manager > refinancing a loan | 구체화
+연결: relationship manager > new investment account | 구체화
+연결: simple transactions > administrative or high-value tasks | 대조
+
+== Q141
+1: NOT remember | when I was a kid
+2: long time ago | unclear
+3: go to actual banks
+4: mobile banking on my phone | whenever I need to
+5: banking chores | wherever I am
+6: on the move
+7: much less time
+8: several passwords
+9: wire transfers
+10: biggest changes
+11: a lot easier than in the past
+연결: NOT remember > long time ago | 이유
+연결: long time ago > unclear | 결과
+연결: go to actual banks > mobile banking on my phone | 대조
+연결: mobile banking on my phone > wherever I am | 구체화
+연결: wherever I am > on the move | 구체화
+연결: mobile banking on my phone > much less time | 결과
+연결: mobile banking on my phone > several passwords | 구체화
+연결: mobile banking on my phone > wire transfers | 구체화
+연결: mobile banking on my phone > biggest changes | 같은
+연결: biggest changes > a lot easier than in the past | 결과
+
+== Q142
+1: going to the bank | pay a bill
+2: so many customers
+3: crowded with people | lunch time
+4: pulled out a number
+5: at least 10 people
+6: waited and waited | NOT my turn
+7: wait any longer | leave the bank
+8: very frustrating
+9: avoid busy hours
+연결: going to the bank > pay a bill | 구체화
+연결: so many customers > crowded with people | 같은
+연결: crowded with people > lunch time | 이유
+연결: pulled out a number > at least 10 people | 결과
+연결: at least 10 people > waited and waited | 결과
+연결: waited and waited > NOT my turn | 대조
+연결: wait any longer > leave the bank | 결과
+연결: leave the bank > very frustrating | 결과
+연결: lunch time > avoid busy hours | 결과
+
+== Q143
+1: tons of hotels
+2: everywhere these days
+3: very luxurious | quite big in size
+4: five-star hotels
+5: hundreds of guest rooms | service is excellent
+6: chains all across the world
+7: popular vacation spots
+8: vary in size | great views
+9: very crowded | peak season
+10: higher rates
+11: what hotels in Korea are like
+연결: tons of hotels > everywhere these days | 같은
+연결: very luxurious > five-star hotels | 같은
+연결: five-star hotels > hundreds of guest rooms | 구체화
+연결: five-star hotels > service is excellent | 구체화
+연결: five-star hotels > chains all across the world | 구체화
+연결: five-star hotels > popular vacation spots | 대조
+연결: popular vacation spots > vary in size | 구체화
+연결: popular vacation spots > great views | 구체화
+연결: very crowded > peak season | 구체화
+연결: peak season > higher rates | 결과
+
+== Q144
+1: vacations or business trips
+2: front desk | check in
+3: reservation | my name and my credit card
+4: room keys | head to my room
+5: first look around
+6: the bed, the bathroom and the closet
+7: open the curtains | view outside
+8: unpack my bags | hang my clothes
+9: comfortable clothes
+10: things I do when I arrive
+연결: front desk > check in | 위치
+연결: check in > reservation | 구체화
+연결: reservation > my name and my credit card | 구체화
+연결: check in > room keys | 결과
+연결: first look around > the bed, the bathroom and the closet | 구체화
+연결: open the curtains > view outside | 결과
+연결: hang my clothes > the bed, the bathroom and the closet | 위치
+연결: unpack my bags > hang my clothes | 구체화
+연결: things I do when I arrive > check in | 구체화
+
+== Q145
+1: beachside hotel | several years ago
+2: best hotels in the area
+3: view from the room | breathtaking
+4: sunrise and the sunset
+5: tasted amazing
+6: enjoyed everything I ate
+7: massage | hotel spa
+8: swimming pool
+9: souvenirs | gift shop
+10: enjoyed my stay
+11: most memorable hotels
+12: worth the money
+연결: beachside hotel > best hotels in the area | 구체화
+연결: best hotels in the area > view from the room | 이유
+연결: view from the room > breathtaking | 구체화
+연결: breathtaking > sunrise and the sunset | 구체화
+연결: tasted amazing > enjoyed everything I ate | 같은
+연결: best hotels in the area > tasted amazing | 이유
+연결: massage > hotel spa | 위치
+연결: souvenirs > gift shop | 위치
+연결: enjoyed my stay > most memorable hotels | 같은
+연결: most memorable hotels > worth the money | 구체화
+
+== Q146
+1: beachside hotel | last vacation
+2: very nice and pretty
+3: front desk | check in
+4: reservation | my name and my credit card
+5: room keys | headed to my room
+6: first looked around
+7: the bed, the bathroom and the closet
+8: opened the curtains | view outside
+9: view of the beach | amazing
+10: unpacked my bags | hung my clothes
+11: comfortable clothes
+12: last time I stayed at a hotel
+연결: beachside hotel > very nice and pretty | 구체화
+연결: front desk > check in | 위치
+연결: check in > reservation | 구체화
+연결: reservation > my name and my credit card | 구체화
+연결: check in > room keys | 결과
+연결: first looked around > the bed, the bathroom and the closet | 구체화
+연결: opened the curtains > view outside | 결과
+연결: view outside > view of the beach | 같은
+연결: beachside hotel > view of the beach | 이유
+연결: unpacked my bags > hung my clothes | 구체화
+연결: last time I stayed at a hotel > last vacation | 같은
+
+== Q147
+1: two main categories | health and maintenance
+2: For health | doctor’s office | annual check-ups | specialists | dentist | optometrist
+3: Beyond medical | routine self-care appointments
+4: hair salon | specialized wellness spots
+5: physical therapist | lingering injury | Pilates session
+6: book, confirm, or change things instantly | dedicated app or online portal | much easier
+연결: two main categories > health and maintenance | 구체화
+연결: For health > doctor’s office | 구체화
+연결: doctor’s office > annual check-ups | 구체화
+연결: For health > specialists | 구체화
+연결: specialists > dentist | 구체화
+연결: specialists > optometrist | 구체화
+연결: For health > Beyond medical | 대조
+연결: routine self-care appointments > hair salon | 구체화
+연결: routine self-care appointments > specialized wellness spots | 구체화
+연결: specialized wellness spots > physical therapist | 구체화
+연결: physical therapist > lingering injury | 이유
+연결: specialized wellness spots > Pilates session | 구체화
+연결: dedicated app or online portal > book, confirm, or change things instantly | 구체화
+연결: book, confirm, or change things instantly > much easier | 결과
+
+== Q148
+1: look for a phone number
+2: on my phone
+3: do a search online
+4: make a call
+5: when they are available
+6: fix the time
+7: text message | confirming my appointment
+8: make appointments
+연결: look for a phone number > on my phone | 위치
+연결: on my phone > do a search online | 대조
+연결: look for a phone number > make a call | 결과
+연결: make a call > when they are available | 구체화
+연결: when they are available > fix the time | 결과
+연결: fix the time > text message | 결과
+연결: text message > confirming my appointment | 구체화
+연결: make appointments > look for a phone number | 구체화
+
+== Q149
+1: wasn't scary | totally new | first proper haircut | real salon | local barber
+2: overwhelming
+3: chemicals | hairdryers | buzzing with activity
+4: felt tiny | huge chair | massive mirror | harsh fluorescent lights
+5: bright purple hair | impossibly cool
+6: nervousness and excitement | snip my ear
+7: finished style | grown up and proud
+8: completely transformed
+연결: wasn't scary > totally new | 대조
+연결: real salon > local barber | 대조
+연결: overwhelming > chemicals | 구체화
+연결: overwhelming > hairdryers | 구체화
+연결: hairdryers > buzzing with activity | 결과
+연결: felt tiny > huge chair | 이유
+연결: felt tiny > massive mirror | 위치
+연결: bright purple hair > impossibly cool | 결과
+연결: nervousness and excitement > snip my ear | 이유
+연결: nervousness and excitement > grown up and proud | 대조
+연결: finished style > grown up and proud | 결과
+연결: grown up and proud > completely transformed | 같은
+
+== Q150
+1: standard dentist appointment | last month | memorable, and hilarious
+2: hygienist | quite new | recent engagement | still in my mouth
+3: pulled out her phone | see this ring
+4: Isn't he cute
+5: single word | muffled "Mmmph" noises | nod enthusiastically
+6: wedding venues | totally oblivious | one-sided conversation
+7: rinse | burst out laughing
+8: how ridiculous | apologized profusely
+9: silly, genuine moment | most human interaction | teeth cleaned
+연결: standard dentist appointment > memorable, and hilarious | 대조
+연결: hygienist > recent engagement | 구체화
+연결: recent engagement > see this ring | 구체화
+연결: still in my mouth > single word | 이유
+연결: single word > muffled "Mmmph" noises | 결과
+연결: muffled "Mmmph" noises > nod enthusiastically | 구체화
+연결: wedding venues > one-sided conversation | 결과
+연결: totally oblivious > one-sided conversation | 같은
+연결: rinse > burst out laughing | 결과
+연결: how ridiculous > apologized profusely | 결과
+연결: silly, genuine moment > most human interaction | 같은
+
+== Q152
+1: gatherings at bars | free time
+2: social gatherings
+3: grab some drinks
+4: break the ice | loosen up the mood
+5: drinking games
+6: several rounds | one bar to another
+7: staff-dinners
+8: bond with their co-workers
+9: get closer
+10: after-parties
+11: after a main event
+12: special occasions | birthday parties
+13: spice up the mood
+14: types of gatherings | in their free time
+연결: social gatherings > grab some drinks | 구체화
+연결: grab some drinks > break the ice | 결과
+연결: break the ice > loosen up the mood | 같은
+연결: social gatherings > drinking games | 구체화
+연결: social gatherings > several rounds | 구체화
+연결: staff-dinners > bond with their co-workers | 결과
+연결: bond with their co-workers > get closer | 같은
+연결: after-parties > after a main event | 구체화
+연결: special occasions > spice up the mood | 결과
+연결: gatherings at bars > social gatherings | 구체화
+연결: gatherings at bars > staff-dinners | 구체화
+연결: gatherings at bars > after-parties | 구체화
+연결: gatherings at bars > special occasions | 구체화
+연결: special occasions > birthday parties | 구체화
+연결: free time > in their free time | 같은
+
+== Q153
+1: great question
+2: significantly more free time | when I was younger | still feels packed
+3: student years | high school | absolutely relentless
+4: regular classes | early morning | cram schools or academies | late at night
+5: wasn't about relaxing | small, panicked gaps | next major exam
+6: staying up all night | midterms or final applications
+7: biggest shift | *nature* of that time
+8: Back then | external | grades and college requirements
+9: busy with work | intentional
+10: hobbies, fitness, or socializing | *choose* to spend
+11: ability to choose | 'more' free time
+연결: significantly more free time > still feels packed | 대조
+연결: when I was younger > student years | 같은
+연결: absolutely relentless > regular classes | 구체화
+연결: regular classes > cram schools or academies | 구체화
+연결: cram schools or academies > late at night | 구체화
+연결: wasn't about relaxing > small, panicked gaps | 대조
+연결: small, panicked gaps > next major exam | 이유
+연결: absolutely relentless > staying up all night | 구체화
+연결: biggest shift > *nature* of that time | 같은
+연결: external > grades and college requirements | 구체화
+연결: external > intentional | 대조
+연결: intentional > hobbies, fitness, or socializing | 구체화
+연결: *choose* to spend > ability to choose | 같은
+연결: ability to choose > 'more' free time | 구체화
+
+== Q155
+1: two most important holidays | Seollal | Lunar New Year | Chuseok | Harvest Festival
+2: family reunion | ‘great migration’ | hometowns | grandparents’ home
+3: food and tradition
+4: huge festive tables | ancestor rites | *charye* | *tteokguk* or *songpyeon*
+5: modern gift sets
+6: small trinkets | practical, high-value items | premium beef | health supplements | large gift certificates
+7: hectic but cherished | family connections
+연결: Seollal > Lunar New Year | 같은
+연결: Chuseok > Harvest Festival | 같은
+연결: two most important holidays > family reunion | 구체화
+연결: family reunion > ‘great migration’ | 같은
+연결: ‘great migration’ > hometowns | 구체화
+연결: hometowns > grandparents’ home | 위치
+연결: food and tradition > huge festive tables | 구체화
+연결: huge festive tables > ancestor rites | 이유
+연결: ancestor rites > *charye* | 같은
+연결: food and tradition > *tteokguk* or *songpyeon* | 구체화
+연결: modern gift sets > practical, high-value items | 구체화
+연결: small trinkets > practical, high-value items | 대조
+연결: practical, high-value items > premium beef | 구체화
+연결: practical, high-value items > health supplements | 구체화
+연결: practical, high-value items > large gift certificates | 구체화
+연결: hectic but cherished > family connections | 이유
+
+== Q156
+1: Chuseok | Korean Thanksgiving
+2: biggest family holiday | massive national travel | ancestral homes | highway traffic is always insane
+3: ancestral respect and food
+4: massive feast | *songpyeon* rice cakes
+5: ancestral memorial ceremony | *charye* | thank them for the harvest
+6: family graves | pay our respects
+7: feasting | traditional rice wine | catching up | *yutnori*
+8: honoring the past | celebrating the present
+연결: Chuseok > Korean Thanksgiving | 같은
+연결: Chuseok > biggest family holiday | 구체화
+연결: massive national travel > ancestral homes | 구체화
+연결: massive national travel > highway traffic is always insane | 결과
+연결: ancestral respect and food > massive feast | 구체화
+연결: massive feast > *songpyeon* rice cakes | 구체화
+연결: ancestral respect and food > ancestral memorial ceremony | 구체화
+연결: ancestral memorial ceremony > *charye* | 같은
+연결: ancestral memorial ceremony > thank them for the harvest | 이유
+연결: family graves > pay our respects | 이유
+연결: feasting > traditional rice wine | 구체화
+연결: feasting > *yutnori* | 구체화
+연결: honoring the past > celebrating the present | 대조
+연결: ancestral respect and food > honoring the past | 같은
+
+== Q157
+1: theme park | during the holidays
+2: jumping up and down | so excited
+3: many rides | amusement park
+4: could NOT wait
+5: rollercoaster
+6: long line | worth the wait
+7: a bit scared at first | fun at the end
+8: For lunch | burgers and fries
+9: pizza and pasta
+10: tasted extra good | starving
+11: ice-cream and cotton candy
+12: what I did
+연결: theme park > amusement park | 같은
+연결: jumping up and down > so excited | 이유
+연결: many rides > could NOT wait | 결과
+연결: many rides > rollercoaster | 구체화
+연결: long line > worth the wait | 대조
+연결: a bit scared at first > fun at the end | 대조
+연결: For lunch > burgers and fries | 구체화
+연결: For lunch > pizza and pasta | 구체화
+연결: tasted extra good > starving | 이유
+연결: what I did > theme park | 같은
+
+== Q158
+1: biggest concerns | overdrinking
+2: drink moderately
+3: drink too much | get drunk
+4: Bad things
+5: embarrassing mistakes
+6: fall asleep at odd places
+7: trouble and noise
+8: get into fights
+9: Worse things | get wasted
+10: get into accidents
+11: get hurt or get injured
+12: lose something important
+13: terrible hangover | get sick the next day
+14: I think one of the biggest concerns
+15: drink in moderation
+연결: drink moderately > drink too much | 대조
+연결: drink too much > Bad things | 결과
+연결: Bad things > embarrassing mistakes | 구체화
+연결: Bad things > fall asleep at odd places | 구체화
+연결: Bad things > trouble and noise | 구체화
+연결: trouble and noise > get into fights | 구체화
+연결: Bad things > Worse things | 대조
+연결: get wasted > Worse things | 결과
+연결: Worse things > get into accidents | 구체화
+연결: get into accidents > get hurt or get injured | 결과
+연결: Worse things > lose something important | 구체화
+연결: terrible hangover > get sick the next day | 구체화
+연결: I think one of the biggest concerns > biggest concerns | 같은
+연결: biggest concerns > drink in moderation | 대조
+
+== Q159
+1: my parents
+2: similar in many ways
+3: very family-oriented
+4: family gatherings
+5: grandchildren
+6: very active | outdoor activities
+7: hiking, play golf or go on trips
+8: different in some ways
+9: mom likes animals
+10: dad likes drinking
+11: different tastes for food
+12: dad likes meat
+13: seafood instead
+14: similarities and some differences
+연결: similar in many ways > different in some ways | 대조
+연결: similar in many ways > very family-oriented | 구체화
+연결: very family-oriented > family gatherings | 구체화
+연결: very family-oriented > grandchildren | 구체화
+연결: similar in many ways > very active | 구체화
+연결: very active > outdoor activities | 결과
+연결: outdoor activities > hiking, play golf or go on trips | 구체화
+연결: different in some ways > mom likes animals | 구체화
+연결: different in some ways > dad likes drinking | 구체화
+연결: different in some ways > different tastes for food | 구체화
+연결: different tastes for food > dad likes meat | 구체화
+연결: dad likes meat > seafood instead | 대조
+연결: my parents > similarities and some differences | 구체화
+
+== Q160
+1: recharge and connect deeply
+2: necessary catching up | big life changes | general status update
+3: centers on work | career challenges | evolving job market | financial steps
+4: not all serious
+5: swapping recommendations | streaming services | new spots | future trips
+6: supportive advice | light gossip | unedited conversations | feel understood
+연결: recharge and connect deeply > necessary catching up | 구체화
+연결: necessary catching up > big life changes | 구체화
+연결: necessary catching up > general status update | 같은
+연결: centers on work > career challenges | 구체화
+연결: centers on work > evolving job market | 구체화
+연결: centers on work > financial steps | 구체화
+연결: centers on work > not all serious | 대조
+연결: not all serious > swapping recommendations | 구체화
+연결: swapping recommendations > streaming services | 구체화
+연결: swapping recommendations > new spots | 구체화
+연결: swapping recommendations > future trips | 구체화
+연결: supportive advice > light gossip | 대조
+연결: unedited conversations > feel understood | 결과
+연결: recharge and connect deeply > unedited conversations | 같은
+
+== Q161
+1: beach with my friends | a few years ago
+2: well-known beach | south coast of Korea
+3: beachside cabin | great ocean view
+4: During the day | walk along the beach
+5: swam in the ocean | played in the sand
+6: a lot of pictures
+7: For lunch | seafood
+8: fish, shrimp, squid, octopus and crab
+9: For dinner | barbeque at our cabin
+10: tasted extra good | starving
+11: some drinks
+12: partied all night long
+13: most memorable trips in my life
+14: worth the money and time
+연결: beach with my friends > well-known beach | 구체화
+연결: well-known beach > south coast of Korea | 위치
+연결: beachside cabin > great ocean view | 구체화
+연결: During the day > walk along the beach | 구체화
+연결: During the day > swam in the ocean | 구체화
+연결: For lunch > For dinner | 대조
+연결: seafood > fish, shrimp, squid, octopus and crab | 구체화
+연결: barbeque at our cabin > beachside cabin | 위치
+연결: tasted extra good > starving | 이유
+연결: some drinks > partied all night long | 결과
+연결: most memorable trips in my life > worth the money and time | 구체화
+
+== Q162
+1: best friend, Mike | moved to Austin
+2: Friday evening | grab tacos | legendary food truck
+3: incredible
+4: exploring his new neighborhood
+5: vintage market downtown | local roastery
+6: most memorable part
+7: Instead of going out | Thai green curry
+8: laughing | messing up the recipe | catching up deeply | skyline from his balcony
+9: back in college | life’s big updates | despite the distance
+연결: best friend, Mike > moved to Austin | 구체화
+연결: grab tacos > legendary food truck | 위치
+연결: grab tacos > incredible | 구체화
+연결: exploring his new neighborhood > vintage market downtown | 구체화
+연결: exploring his new neighborhood > local roastery | 구체화
+연결: most memorable part > Thai green curry | 구체화
+연결: Instead of going out > Thai green curry | 대조
+연결: Thai green curry > messing up the recipe | 결과
+연결: messing up the recipe > laughing | 결과
+연결: catching up deeply > skyline from his balcony | 위치
+연결: catching up deeply > back in college | 결과
+연결: back in college > despite the distance | 대조
+연결: moved to Austin > despite the distance | 같은
+
+== Q163
+1: grandmother's place | when I was a kid
+2: sat together | nice dinner
+3: ate too fast | so hungry
+4: indigestion
+5: stomach was upset | throwing up
+6: fever | light-headed
+7: could NOT find any
+8: drug store
+9: pharmacist | symptoms
+10: feel better
+11: took some medicine
+12: stay inside | plenty of rest
+13: more careful when I eat
+연결: grandmother's place > nice dinner | 위치
+연결: ate too fast > so hungry | 이유
+연결: ate too fast > indigestion | 결과
+연결: indigestion > stomach was upset | 구체화
+연결: indigestion > fever | 구체화
+연결: fever > light-headed | 구체화
+연결: could NOT find any > drug store | 결과
+연결: pharmacist > drug store | 위치
+연결: pharmacist > symptoms | 구체화
+연결: took some medicine > feel better | 결과
+연결: stay inside > plenty of rest | 구체화
+연결: ate too fast > more careful when I eat | 결과

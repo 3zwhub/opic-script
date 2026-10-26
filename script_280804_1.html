@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#ffffff">
+    <title>스마트 스크립트 브라우저</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        html, body { height: 100%; margin: 0; padding: 0; overflow: hidden; font-family: 'Pretendard', sans-serif; background-color: #f3f4f6; }
+        .app-container { display: flex; width: 100vw; height: 100vh; overflow: hidden; }
+        aside { flex-shrink: 0; z-index: 50; height: 100%; width: 320px; }
+        main { flex: 1; height: 100%; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .script-item.active { background-color: #eff6ff; border-left: 4px solid #3b82f6; }
+        .script-item.in-range { border-right: 3px solid #818cf8; }
+        .script-item .pos-num { color: #94a3b8; font-size: 0.7rem; font-weight: 700; min-width: 1.6rem; }
+        .script-item.drag-over { border-top: 3px solid #3b82f6 !important; border-top-left-radius: 0; border-top-right-radius: 0; }
+        .script-item { touch-action: manipulation; }
+
+        .sentence { transition: background-color 0.2s; padding: 2px 4px; border-radius: 4px; }
+        @media (hover: hover) {
+            .sentence:hover { background-color: #fef08a; cursor: pointer; }
+        }
+        .sentence-num { color: #3b82f6; font-weight: 600; font-size: 0.85em; margin-right: 4px; }
+
+        /* 안드로이드에서 탭 후 회색 잔상/hover 상태가 남는 것 방지 */
+        button, a, label, select, input { -webkit-tap-highlight-color: transparent; }
+
+        @media (max-width: 767px) {
+            aside { width: min(88vw, 340px); }
+            .script-item { padding: 0.5rem 0.6rem; margin-bottom: 0.3rem; }
+            .script-item .text-sm { font-size: 0.8rem; }
+        }
+
+        .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 3px solid #fff; width: 20px; height: 20px; animation: spin 1s linear infinite; display: inline-block; vertical-align: middle; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div id="mobileOverlay" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden transition-opacity"></div>
+
+        <aside class="fixed md:relative left-0 bg-white border-r border-gray-200 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 shadow-2xl md:shadow-none" id="sidebar">
+            <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+                <h1 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                    <i class="fas fa-book-open text-blue-500"></i> 스크립트 브라우저
+                </h1>
+                <button id="closeSidebarBtn" class="md:hidden text-gray-500 hover:text-gray-700 p-2 -mr-2">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <button id="fileToolsToggle" class="md:hidden w-full flex items-center justify-between px-4 py-2.5 text-xs font-bold text-gray-500 uppercase tracking-wider hover:bg-gray-50 border-b border-gray-100 transition-colors">
+                <span class="flex items-center gap-2"><i class="fas fa-folder-open text-blue-400"></i> 파일 관리</span>
+                <i id="fileToolsChevron" class="fas fa-chevron-down text-[10px] transition-transform"></i>
+            </button>
+
+            <div id="fileTools" class="p-4 border-b border-gray-100 flex-col gap-3 hidden md:flex">
+                <button id="syncCodeBtn" class="w-full flex items-center justify-between bg-gray-50 border border-gray-200 hover:bg-indigo-50 hover:border-indigo-200 text-gray-700 py-2.5 px-4 rounded-lg transition-colors font-medium">
+                    <div class="flex items-center gap-2"><i class="fas fa-link text-indigo-500"></i> 동기화 연결 설정</div>
+                    <span id="syncStatusBadge" class="text-xs bg-gray-300 text-gray-700 px-2 py-0.5 rounded-full font-bold">오프라인</span>
+                </button>
+
+                <div class="h-px bg-gray-100 w-full my-1"></div>
+
+                <label for="fileUpload" class="w-full flex items-center justify-center gap-2 bg-blue-50 text-blue-600 hover:bg-blue-100 py-2.5 px-4 rounded-lg cursor-pointer transition-colors border border-blue-200 font-medium">
+                    <i class="fas fa-upload"></i> 새 파일 업로드
+                </label>
+                <input type="file" id="fileUpload" accept=".txt" class="hidden">
+
+                <button id="newScriptBtn" class="w-full flex items-center justify-center gap-2 bg-indigo-50 text-indigo-600 hover:bg-indigo-100 py-2.5 px-4 rounded-lg transition-colors border border-indigo-200 font-medium opacity-50 cursor-not-allowed" disabled>
+                    <i class="fas fa-plus"></i> 새 스크립트 추가
+                </button>
+
+                <button id="downloadBtn" class="w-full flex items-center justify-center gap-2 bg-gray-800 text-white hover:bg-gray-700 py-2.5 px-4 rounded-lg transition-colors font-medium opacity-50 cursor-not-allowed" disabled>
+                    <i class="fas fa-download"></i> 현재 파일 다운로드
+                </button>
+
+                <div class="mt-2">
+                    <h3 class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider flex items-center gap-1">
+                        <i class="fas fa-cloud text-blue-400"></i> 저장된 파일 목록
+                    </h3>
+                    <ul id="fileList" class="space-y-1 max-h-32 overflow-y-auto pr-1"></ul>
+                </div>
+            </div>
+
+            <div class="px-4 py-3 bg-gray-50 border-b border-gray-200">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="searchInput" placeholder="스크립트 검색..." class="w-full bg-white border border-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all shadow-sm">
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-2 bg-gray-50 relative" id="scriptList">
+                <div class="h-full flex flex-col items-center justify-center text-gray-400 text-sm p-4 text-center">
+                    <i class="fas fa-file-alt text-4xl mb-3 text-gray-300"></i>
+                    <p>파일을 업로드하거나 선택하면<br>여기에 스크립트가 표시됩니다.</p>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <div class="md:hidden bg-white border-b p-4 flex items-center justify-between shadow-sm z-30 relative">
+                <button id="openSidebarBtn" class="text-gray-600 hover:text-gray-900 p-2 -ml-2">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <span class="font-bold text-gray-800 truncate px-4" id="mobileTitle">스크립트 내용</span>
+                <div class="w-6"></div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10" id="mainContentArea">
+
+                <div id="emptyState" class="h-full flex flex-col items-center justify-center text-gray-500">
+                    <div class="bg-white p-8 rounded-2xl shadow-sm text-center max-w-md border border-gray-100">
+                        <div class="bg-blue-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-blue-500"></i>
+                        </div>
+                        <h2 class="text-xl font-bold text-gray-800 mb-3">스크립트 파일 업로드</h2>
+                        <p class="text-sm text-gray-500 mb-6 leading-relaxed">학습할 영어 스크립트 파일(.txt)을 업로드해주세요.<br>수정된 내용은 클라우드 및 기기에 자동 저장됩니다.</p>
+                        <label for="fileUploadMain" class="w-full inline-flex items-center justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 py-3 px-6 rounded-lg cursor-pointer transition-colors font-semibold shadow-sm">
+                            <i class="fas fa-folder-open"></i> 내 PC에서 파일 선택
+                        </label>
+                        <input type="file" id="fileUploadMain" accept=".txt" class="hidden">
+                    </div>
+                </div>
+
+                <div id="scriptPanel" class="max-w-4xl mx-auto glass-panel rounded-2xl p-6 sm:p-8 hidden">
+
+                    <div id="topNav" class="flex items-center justify-between gap-2 mb-5 pb-4 border-b border-gray-100">
+                        <button id="prevScriptTopBtn" class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            <i class="fas fa-chevron-left text-xs"></i> 이전
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <button id="openListBtnTop" class="md:hidden flex items-center gap-1.5 px-3 py-2 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                <i class="fas fa-list-ul"></i> 목록
+                            </button>
+                            <span id="scriptPositionTop" class="text-sm font-bold text-gray-400">1 / 1</span>
+                        </div>
+                        <button id="nextScriptTopBtn" class="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                            다음 <i class="fas fa-chevron-right text-xs"></i>
+                        </button>
+                    </div>
+
+                    <div id="viewHeader" class="flex justify-between items-start mb-6">
+                        <div>
+                            <div class="flex items-center gap-2 mb-2">
+                                <span id="displayCategory" class="px-2.5 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-md"></span>
+                                <span id="displayId" class="text-gray-400 text-sm font-mono"></span>
+                            </div>
+                            <h2 id="displayTitle" class="text-2xl font-bold text-gray-900 leading-tight"></h2>
+                        </div>
+                        <div class="flex gap-2 flex-shrink-0">
+                            <button id="insertAboveBtn" title="이 스크립트 위에 새로 삽입" class="bg-gray-100 hover:bg-indigo-50 hover:text-indigo-600 text-gray-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors">
+                                <i class="fas fa-arrow-up text-xs"></i><i class="fas fa-plus text-xs ml-0.5"></i>
+                            </button>
+                            <button id="insertBelowBtn" title="이 스크립트 아래에 새로 삽입" class="bg-gray-100 hover:bg-indigo-50 hover:text-indigo-600 text-gray-700 py-2 px-3 rounded-lg text-sm font-medium transition-colors">
+                                <i class="fas fa-arrow-down text-xs"></i><i class="fas fa-plus text-xs ml-0.5"></i>
+                            </button>
+                            <button id="editBtn" class="bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 px-4 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                                <i class="fas fa-edit"></i> 수정
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="editHeader" class="flex justify-between items-start mb-6 hidden">
+                        <h2 class="text-2xl font-bold text-gray-900"><i class="fas fa-pen-nib text-blue-500 mr-2"></i>스크립트 수정</h2>
+                        <div class="flex gap-2">
+                            <button id="deleteScriptBtn" class="bg-gray-100 hover:bg-red-50 text-gray-600 hover:text-red-600 py-2 px-4 rounded-lg text-sm font-medium transition-colors"><i class="fas fa-trash-alt"></i> 개별 삭제</button>
+                            <button id="cancelEditBtn" class="bg-red-50 hover:bg-red-100 text-red-600 py-2 px-4 rounded-lg text-sm font-medium transition-colors">취소</button>
+                            <button id="saveEditBtn" class="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg text-sm font-medium transition-colors shadow-sm">저장</button>
+                        </div>
+                    </div>
+
+                    <div class="h-px w-full bg-gray-200 mb-6"></div>
+
+                    <div id="viewMode" class="space-y-8">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2"><i class="fas fa-question-circle mr-1"></i> Question</h3>
+                            <p id="displayQuestion" class="text-lg font-medium text-gray-800 bg-gray-50 p-4 rounded-xl border border-gray-100 leading-relaxed"></p>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider mb-2"><i class="fas fa-key mr-1"></i> Keywords</h3>
+                            <div id="displayKeywords" class="flex flex-wrap gap-2"></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-end mb-2 flex-wrap gap-2">
+                                <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider"><i class="fas fa-comment-dots mr-1"></i> Answer</h3>
+
+                                <div class="flex items-center flex-wrap gap-2 bg-gray-50 p-1.5 rounded-lg border border-gray-200">
+                                    <div class="relative">
+                                        <select id="ttsModeSelect" class="appearance-none text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 rounded-md outline-none focus:ring-2 focus:ring-indigo-500 py-1.5 pl-2.5 pr-7 cursor-pointer hover:bg-indigo-100 transition-colors shadow-sm h-8">
+                                            <option value="once" selected>1번 읽기</option>
+                                            <option value="repeat">현재 항목 반복</option>
+                                            <option value="continuous">이후 항목 연속</option>
+                                            <option value="range">구간 순서대로 반복</option>
+                                            <option value="random">구간 랜덤 반복</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-indigo-500">
+                                            <i class="fas fa-sync-alt text-[10px]"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="relative mr-1">
+                                        <select id="ttsEngineSelect" class="appearance-none text-xs font-bold text-gray-700 bg-white border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500 py-1.5 pl-2.5 pr-7 cursor-pointer hover:bg-gray-50 transition-colors shadow-sm h-8">
+                                            <option value="browser">내장 음성</option>
+                                            <option value="edge" selected>Edge TTS</option>
+                                            <option value="gemini">Gemini AI</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                            <i class="fas fa-chevron-down text-[10px]"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="relative mr-1" id="voiceWrap">
+                                        <select id="ttsVoiceSelect" title="성우 목소리 선택" class="appearance-none text-xs font-bold text-gray-700 bg-white border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500 py-1.5 pl-2.5 pr-7 cursor-pointer hover:bg-gray-50 transition-colors shadow-sm h-8 max-w-[190px] truncate">
+                                            <option value="">음성 불러오는 중...</option>
+                                        </select>
+                                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                            <i class="fas fa-microphone text-[10px]"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="relative mr-1">
+                                        <select id="ttsRateSelect" title="읽기 속도" class="appearance-none text-xs font-bold text-gray-700 bg-white border border-gray-200 rounded-md outline-none focus:ring-2 focus:ring-blue-500 py-1.5 pl-2.5 pr-6 cursor-pointer hover:bg-gray-50 transition-colors shadow-sm h-8">
+                                            <option value="0.7">0.7x</option>
+                                            <option value="0.85">0.85x</option>
+                                            <option value="1" selected>1.0x</option>
+                                            <option value="1.15">1.15x</option>
+                                        </select>
+                                    </div>
+                                    <button id="ttsPlayBtn" class="w-8 h-8 flex items-center justify-center bg-green-500 hover:bg-green-600 text-white rounded-md transition-colors shadow-sm">
+                                        <i class="fas fa-play text-sm"></i>
+                                    </button>
+                                    <button id="ttsStopBtn" class="w-8 h-8 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-md transition-colors shadow-sm">
+                                        <i class="fas fa-stop text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="rangePanel" class="hidden mb-3 flex items-center flex-wrap gap-2 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-2">
+                                <span class="text-xs font-bold text-indigo-700 flex items-center gap-1"><i class="fas fa-repeat"></i> 반복 구간</span>
+                                <input id="rangeStart" type="number" min="1" value="1" class="w-16 text-center text-sm font-bold border border-indigo-200 rounded-md py-1 outline-none focus:ring-2 focus:ring-indigo-400">
+                                <span class="text-indigo-400 font-bold">~</span>
+                                <input id="rangeEnd" type="number" min="1" value="1" class="w-16 text-center text-sm font-bold border border-indigo-200 rounded-md py-1 outline-none focus:ring-2 focus:ring-indigo-400">
+                                <button id="rangeFromCurrent" class="text-xs font-medium text-indigo-700 bg-white border border-indigo-200 rounded-md px-2 py-1 hover:bg-indigo-100 transition-colors">시작＝현재</button>
+                                <button id="rangeToCurrent" class="text-xs font-medium text-indigo-700 bg-white border border-indigo-200 rounded-md px-2 py-1 hover:bg-indigo-100 transition-colors">끝＝현재</button>
+                                <button id="rangeAll" class="text-xs font-medium text-indigo-700 bg-white border border-indigo-200 rounded-md px-2 py-1 hover:bg-indigo-100 transition-colors">전체</button>
+                                <span id="rangeInfo" class="text-xs text-indigo-600 ml-auto"></span>
+                            </div>
+
+                            <div id="displayAnswer" class="text-gray-700 bg-white p-5 rounded-xl border border-gray-200 leading-loose text-lg shadow-inner min-h-[150px]"></div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 pt-6 border-t border-gray-200">
+                            <button id="prevScriptBtn" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                <i class="fas fa-chevron-left"></i> 이전 스크립트
+                            </button>
+                            <div class="flex items-center gap-3">
+                                <button id="openListBtnBottom" class="md:hidden flex items-center gap-2 px-4 py-2 text-sm font-bold text-blue-600 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                    <i class="fas fa-list-ul"></i> 목록 열기
+                                </button>
+                                <span id="scriptPosition" class="text-sm font-bold text-gray-400">1 / 1</span>
+                            </div>
+                            <button id="nextScriptBtn" class="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                                다음 스크립트 <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="editMode" class="space-y-6 hidden">
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="col-span-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <label class="block text-sm font-bold text-gray-700">Category</label>
+                                    <label class="flex items-center gap-1 text-xs text-blue-600 cursor-pointer">
+                                        <input type="checkbox" id="autoCascade" checked class="rounded border-gray-300">
+                                        <span class="hidden sm:inline">이후 항목 일괄 적용</span>
+                                        <span class="sm:hidden">일괄적용</span>
+                                    </label>
+                                </div>
+                                <input type="text" id="editCategory" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-sm font-bold text-gray-700 mb-1">ID</label>
+                                <input type="text" id="editId" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                            <div class="col-span-1">
+                                <label class="block text-sm font-bold text-gray-700 mb-1">Title</label>
+                                <input type="text" id="editTitle" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none focus:ring-2 focus:ring-blue-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Question</label>
+                            <textarea id="editQuestion" rows="2" class="w-full border border-gray-300 rounded-lg p-3 outline-none resize-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Keywords (쉼표로 구분)</label>
+                            <input type="text" id="editKeywords" class="w-full border border-gray-300 rounded-lg p-2.5 outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">Answer</label>
+                            <textarea id="editAnswer" rows="8" class="w-full border border-gray-300 rounded-lg p-3 outline-none resize-y focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 커스텀 삭제 모달 -->
+            <div id="confirmModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+                <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4 transform transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500">
+                            <i class="fas fa-exclamation-triangle text-lg"></i>
+                        </div>
+                        <h3 id="confirmTitle" class="text-xl font-bold text-gray-900">삭제 확인</h3>
+                    </div>
+                    <p id="confirmMessage" class="text-gray-600 mb-6 text-sm leading-relaxed">이 항목을 삭제하시겠습니까?</p>
+                    <div class="flex justify-end gap-2">
+                        <button id="confirmCancelBtn" class="px-5 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors">취소</button>
+                        <button id="confirmOkBtn" class="px-5 py-2 text-white bg-red-500 hover:bg-red-600 rounded-xl font-medium transition-colors shadow-sm shadow-red-200">삭제</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 동기화 연결 모달 -->
+            <div id="syncModal" class="fixed inset-0 bg-black/60 z-[100] hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+                <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-sm w-full mx-4 transform transition-all">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-500">
+                            <i class="fas fa-link text-lg"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">동기화 방 연결</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4 text-sm leading-relaxed">
+                        스마트폰과 PC에서 동일한 <b>비밀 코드(방 이름)</b>를 입력하면 파일이 실시간으로 연동됩니다. (영문/숫자 조합 추천)
+                    </p>
+                    <input type="text" id="syncCodeInput" placeholder="예: myroom123" class="w-full border border-gray-300 rounded-xl p-3 outline-none focus:ring-2 focus:ring-indigo-500 mb-6 font-bold text-center tracking-wider text-lg">
+
+                    <div class="flex justify-end gap-2">
+                        <button id="syncCancelBtn" class="px-5 py-2 text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl font-medium transition-colors">닫기</button>
+                        <button id="syncOkBtn" class="px-5 py-2 text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl font-medium transition-colors shadow-sm shadow-indigo-200">연결하기</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="toast" class="fixed bottom-6 right-6 transform translate-y-20 opacity-0 transition-all duration-300 bg-gray-900 text-white px-6 py-3 rounded-lg shadow-lg flex items-center gap-3 z-50 pointer-events-none">
+                <i id="toastIcon" class="fas fa-info-circle text-blue-400"></i>
+                <span id="toastMsg">알림 메시지</span>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, onSnapshot, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // =========================================================================
+        // 🚀 [필수 1] Firebase 설정
+        // =========================================================================
+        const USER_FIREBASE_CONFIG = {
+            apiKey: "AIzaSyCpbhk4d6EtSh7p-nQ8z88WQyIukqtYSMQ",
+            authDomain: "scriptbrowser-fd181.firebaseapp.com",
+            projectId: "scriptbrowser-fd181",
+            storageBucket: "scriptbrowser-fd181.firebasestorage.app",
+            messagingSenderId: "282301386111",
+            appId: "1:282301386111:web:774389b7cc453e14a05e4a",
+            measurementId: "G-8L7P4P2FMT"
+        };
+
+        // =========================================================================
+        // 🚀 [필수 2] Cloudflare Worker (TTS 중계 서버) 주소
+        //    배포 후 받은 주소를 그대로 붙여넣으세요. 끝에 / 는 빼주세요.
+        //    예) https://tts-proxy.내계정이름.workers.dev
+        // =========================================================================
+        const TTS_PROXY_URL   = "https://tts-proxy.sleepingwalk.workers.dev";
+        const TTS_PROXY_TOKEN = "";   // Worker에 AUTH_TOKEN 시크릿을 걸었다면 같은 값
+
+        // Edge TTS 성우 목록 (원하는 이름을 지우거나 추가해도 됩니다)
+        const EDGE_VOICES = [
+            { id: "en-US-AriaNeural",              label: "Aria · 미국 여성 (차분)" },
+            { id: "en-US-JennyNeural",             label: "Jenny · 미국 여성 (친근)" },
+            { id: "en-US-MichelleNeural",          label: "Michelle · 미국 여성 (또렷)" },
+            { id: "en-US-EmmaMultilingualNeural",  label: "Emma · 미국 여성 (자연스러움)" },
+            { id: "en-US-AvaMultilingualNeural",   label: "Ava · 미국 여성 (밝음)" },
+            { id: "en-US-GuyNeural",               label: "Guy · 미국 남성 (표준)" },
+            { id: "en-US-ChristopherNeural",       label: "Christopher · 미국 남성 (중저음)" },
+            { id: "en-US-AndrewMultilingualNeural", label: "Andrew · 미국 남성 (편안)" },
+            { id: "en-US-BrianMultilingualNeural", label: "Brian · 미국 남성 (뉴스톤)" },
+            { id: "en-GB-SoniaNeural",             label: "Sonia · 영국 여성" },
+            { id: "en-GB-LibbyNeural",             label: "Libby · 영국 여성 (young)" },
+            { id: "en-GB-RyanNeural",              label: "Ryan · 영국 남성" },
+            { id: "en-AU-NatashaNeural",           label: "Natasha · 호주 여성" },
+            { id: "en-AU-WilliamNeural",           label: "William · 호주 남성" },
+            { id: "en-CA-ClaraNeural",             label: "Clara · 캐나다 여성" },
+            { id: "en-IN-NeerjaNeural",            label: "Neerja · 인도 여성" }
+        ];
+
+        // Gemini TTS 성우 목록
+        const GEMINI_VOICES = [
+            { id: "Aoede",  label: "Aoede · 부드러움" },
+            { id: "Kore",   label: "Kore · 또렷함" },
+            { id: "Leda",   label: "Leda · 밝음" },
+            { id: "Zephyr", label: "Zephyr · 가벼움" },
+            { id: "Puck",   label: "Puck · 경쾌함" },
+            { id: "Charon", label: "Charon · 차분함" },
+            { id: "Fenrir", label: "Fenrir · 힘있음" },
+            { id: "Orus",   label: "Orus · 중저음" }
+        ];
+
+        const EDGE_PITCH = "+0Hz";
+        // 연속/구간 재생에서 항목 사이의 쉼(ms). 오디오 안에 넣기 때문에
+        // 안드로이드 백그라운드에서도 타이머 없이 이어집니다.
+        const CHAIN_GAP_MS = 500;
+        // =========================================================================
+
+        const AppState = { files: [], currentFileId: null, scripts: [], currentScript: null, selectedUuids: [], lastSelectedUuid: null, originalFileName: 'scripts.txt', range: { start: 1, end: 1 } };
+
+        const Storage = {
+            save: () => {
+                if (AppState.currentFileId) {
+                    const f = AppState.files.find(f => f.fileId === AppState.currentFileId);
+                    if (f) f.scripts = [...AppState.scripts];
+                }
+                localStorage.setItem('scriptBrowserDataFiles', JSON.stringify(AppState.files));
+            },
+            load: () => {
+                const data = localStorage.getItem('scriptBrowserDataFiles');
+                if (data) { try { AppState.files = JSON.parse(data); } catch (e) { AppState.files = []; } }
+            }
+        };
+
+        const DOM = {
+            fileUpload: document.getElementById('fileUpload'), fileUploadMain: document.getElementById('fileUploadMain'), downloadBtn: document.getElementById('downloadBtn'),
+            searchInput: document.getElementById('searchInput'), scriptList: document.getElementById('scriptList'), fileList: document.getElementById('fileList'),
+            mobileOverlay: document.getElementById('mobileOverlay'), sidebar: document.getElementById('sidebar'), openSidebarBtn: document.getElementById('openSidebarBtn'), closeSidebarBtn: document.getElementById('closeSidebarBtn'),
+            emptyState: document.getElementById('emptyState'), scriptPanel: document.getElementById('scriptPanel'), viewMode: document.getElementById('viewMode'), editMode: document.getElementById('editMode'),
+            viewHeader: document.getElementById('viewHeader'), editHeader: document.getElementById('editHeader'),
+            editBtn: document.getElementById('editBtn'), cancelEditBtn: document.getElementById('cancelEditBtn'), saveEditBtn: document.getElementById('saveEditBtn'), deleteScriptBtn: document.getElementById('deleteScriptBtn'),
+            dCategory: document.getElementById('displayCategory'), dId: document.getElementById('displayId'), dTitle: document.getElementById('displayTitle'),
+            dQuestion: document.getElementById('displayQuestion'), dKeywords: document.getElementById('displayKeywords'), dAnswer: document.getElementById('displayAnswer'),
+            eId: document.getElementById('editId'), eCategory: document.getElementById('editCategory'), eTitle: document.getElementById('editTitle'),
+            eQuestion: document.getElementById('editQuestion'), eKeywords: document.getElementById('editKeywords'), eAnswer: document.getElementById('editAnswer'), autoCascade: document.getElementById('autoCascade'),
+            ttsPlayBtn: document.getElementById('ttsPlayBtn'), ttsStopBtn: document.getElementById('ttsStopBtn'),
+            ttsEngineSelect: document.getElementById('ttsEngineSelect'), ttsModeSelect: document.getElementById('ttsModeSelect'),
+            ttsVoiceSelect: document.getElementById('ttsVoiceSelect'), ttsRateSelect: document.getElementById('ttsRateSelect'), voiceWrap: document.getElementById('voiceWrap'),
+            rangePanel: document.getElementById('rangePanel'), rangeStart: document.getElementById('rangeStart'), rangeEnd: document.getElementById('rangeEnd'),
+            rangeFromCurrent: document.getElementById('rangeFromCurrent'), rangeToCurrent: document.getElementById('rangeToCurrent'),
+            rangeAll: document.getElementById('rangeAll'), rangeInfo: document.getElementById('rangeInfo'),
+            insertAboveBtn: document.getElementById('insertAboveBtn'), insertBelowBtn: document.getElementById('insertBelowBtn'), newScriptBtn: document.getElementById('newScriptBtn'),
+            prevScriptBtn: document.getElementById('prevScriptBtn'), nextScriptBtn: document.getElementById('nextScriptBtn'), scriptPosition: document.getElementById('scriptPosition'), openListBtnBottom: document.getElementById('openListBtnBottom'),
+            topNav: document.getElementById('topNav'), prevScriptTopBtn: document.getElementById('prevScriptTopBtn'), nextScriptTopBtn: document.getElementById('nextScriptTopBtn'),
+            scriptPositionTop: document.getElementById('scriptPositionTop'), openListBtnTop: document.getElementById('openListBtnTop'), mobileTitle: document.getElementById('mobileTitle'),
+            fileTools: document.getElementById('fileTools'), fileToolsToggle: document.getElementById('fileToolsToggle'), fileToolsChevron: document.getElementById('fileToolsChevron'),
+            toast: document.getElementById('toast'), toastMsg: document.getElementById('toastMsg'), toastIcon: document.getElementById('toastIcon'),
+            syncCodeBtn: document.getElementById('syncCodeBtn'), syncStatusBadge: document.getElementById('syncStatusBadge'),
+            syncModal: document.getElementById('syncModal'), syncCodeInput: document.getElementById('syncCodeInput'),
+            syncCancelBtn: document.getElementById('syncCancelBtn'), syncOkBtn: document.getElementById('syncOkBtn')
+        };
+
+        const CustomModal = {
+            show: (title, message, onConfirm) => {
+                document.getElementById('confirmTitle').textContent = title; document.getElementById('confirmMessage').textContent = message;
+                const modal = document.getElementById('confirmModal'); modal.classList.remove('hidden');
+                const okBtn = document.getElementById('confirmOkBtn'); const cancelBtn = document.getElementById('confirmCancelBtn');
+                const newOkBtn = okBtn.cloneNode(true); okBtn.parentNode.replaceChild(newOkBtn, okBtn);
+                const newCancelBtn = cancelBtn.cloneNode(true); cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
+                newOkBtn.onclick = () => { modal.classList.add('hidden'); if (onConfirm) onConfirm(); };
+                newCancelBtn.onclick = () => { modal.classList.add('hidden'); };
+            }
+        };
+
+        let db, auth, currentUser = null;
+        let unsubscribeSync = null;
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'script-browser-app';
+        let syncId = localStorage.getItem('scriptBrowserSyncId') || '';
+
+        function updateSyncUI() {
+            if (syncId) {
+                DOM.syncStatusBadge.textContent = syncId;
+                DOM.syncStatusBadge.classList.replace('bg-gray-300', 'bg-indigo-100');
+                DOM.syncStatusBadge.classList.replace('text-gray-700', 'text-indigo-700');
+            } else {
+                DOM.syncStatusBadge.textContent = "오프라인";
+                DOM.syncStatusBadge.classList.replace('bg-indigo-100', 'bg-gray-300');
+                DOM.syncStatusBadge.classList.replace('text-indigo-700', 'text-gray-700');
+            }
+        }
+
+        DOM.syncCodeBtn.onclick = () => { DOM.syncCodeInput.value = syncId; DOM.syncModal.classList.remove('hidden'); };
+        DOM.syncCancelBtn.onclick = () => DOM.syncModal.classList.add('hidden');
+        DOM.syncOkBtn.onclick = () => {
+            const val = DOM.syncCodeInput.value.trim();
+            if (!val) { showToast("동기화 코드를 입력해주세요."); return; }
+            syncId = val; localStorage.setItem('scriptBrowserSyncId', syncId);
+            DOM.syncModal.classList.add('hidden'); updateSyncUI(); showToast(`'${syncId}' 방에 연결 중...`, "fa-sync-alt");
+            if (currentUser) listenToCloudFiles(); else initCloudSync();
+        };
+
+        async function initCloudSync() {
+            try {
+                let firebaseConfig = null;
+                if (USER_FIREBASE_CONFIG && USER_FIREBASE_CONFIG.apiKey !== "") {
+                    firebaseConfig = USER_FIREBASE_CONFIG;
+                } else {
+                    const configStr = typeof __firebase_config !== 'undefined' && __firebase_config ? __firebase_config : null;
+                    if (configStr && configStr !== '{}') { try { firebaseConfig = JSON.parse(configStr); } catch(e) {} }
+                }
+
+                if (!firebaseConfig || Object.keys(firebaseConfig).length === 0) { console.log("Firebase 설정이 없어 로컬 전용으로 동작합니다."); return; }
+
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app); db = getFirestore(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token && !USER_FIREBASE_CONFIG.apiKey) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    currentUser = user;
+                    if (user && syncId) listenToCloudFiles();
+                });
+            } catch (error) { console.error("Firebase init failed:", error); showToast("클라우드 연결 실패", "fa-exclamation-triangle"); }
+        }
+
+        function listenToCloudFiles() {
+            if (!currentUser || !syncId) return;
+            if (unsubscribeSync) unsubscribeSync();
+
+            const filesRef = collection(db, 'artifacts', appId, 'public', 'data', 'room_' + syncId);
+
+            unsubscribeSync = onSnapshot(filesRef, (snapshot) => {
+                const files = []; snapshot.forEach(docSnap => files.push(docSnap.data()));
+                files.sort((a, b) => b.updatedAt - a.updatedAt);
+                AppState.files = files; renderFileList();
+
+                if (files.length === 0) {
+                    AppState.currentFileId = null; AppState.scripts = [];
+                    DOM.scriptPanel.classList.add('hidden'); DOM.emptyState.classList.remove('hidden');
+                    DOM.downloadBtn.disabled = true; renderScriptList();
+                    return;
+                }
+
+                const isCurrentFileValid = AppState.currentFileId && files.some(f => f.fileId === AppState.currentFileId);
+
+                if (!isCurrentFileValid) {
+                    loadFileContent(files[0].fileId, true);
+                    if (!snapshot.metadata.hasPendingWrites) { showToast("☁️ 새로운 동기화 데이터를 불러왔습니다.", "fa-sync-alt"); }
+                } else {
+                    const currentFile = files.find(f => f.fileId === AppState.currentFileId);
+                    AppState.scripts = [...currentFile.scripts];
+                    renderScriptList(DOM.searchInput.value);
+
+                    if (DOM.viewMode.classList.contains('hidden') === false) {
+                        if (AppState.currentScript) {
+                            const updatedScript = AppState.scripts.find(s => s.uuid === AppState.currentScript.uuid);
+                            if (updatedScript) { loadScriptToMain(updatedScript, false, true); }
+                            else {
+                                if (AppState.scripts.length > 0) loadScriptToMain(AppState.scripts[0], true, true);
+                                else { DOM.scriptPanel.classList.add('hidden'); DOM.emptyState.classList.remove('hidden'); }
+                            }
+                        }
+                    }
+                    if (!snapshot.metadata.hasPendingWrites) { showToast("☁️ 원격 동기화 완료", "fa-sync-alt"); }
+                }
+            }, (error) => { console.error("동기화 에러:", error); });
+        }
+
+        async function saveCurrentFileToCloud() {
+            Storage.save();
+            if (!currentUser || !AppState.currentFileId || !syncId) return;
+            const fileObj = AppState.files.find(f => f.fileId === AppState.currentFileId);
+            if (!fileObj) return;
+            fileObj.scripts = [...AppState.scripts]; fileObj.updatedAt = Date.now();
+            try { await setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'room_' + syncId, fileObj.fileId), fileObj); } catch (e) { console.error(e); }
+        }
+
+        function handleFileUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const fileName = file.name.replace('.txt', '') + '_edited.txt';
+            const reader = new FileReader();
+            reader.onload = (event) => parseScripts(event.target.result, fileName);
+            reader.readAsText(file, "UTF-8");
+            e.target.value = '';
+        }
+        DOM.fileUpload.addEventListener('change', handleFileUpload);
+        DOM.fileUploadMain.addEventListener('change', handleFileUpload);
+
+        function parseScripts(text, fileName) {
+            let tempScripts = [];
+            const lines = text.split('\n');
+            let currentScript = null; let isAnswerBlock = false;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+
+                const lineLower = line.toLowerCase();
+                const isAnswer = lineLower.startsWith('a:') || lineLower.startsWith('answer:');
+                const isKeyword = lineLower.startsWith('k:') || lineLower.startsWith('keywords:');
+
+                let isHeader = false;
+                const colonIndex = line.indexOf(':');
+
+                if (!isAnswer && !isKeyword && colonIndex > 0) {
+                    const prefix = line.substring(0, colonIndex).trim();
+                    const hyphens = prefix.split('-');
+
+                    if (hyphens.length >= 2 || (prefix.length > 0 && prefix.length <= 15 && !prefix.includes(' '))) {
+                        isHeader = true;
+                        if (currentScript) tempScripts.push(currentScript);
+
+                        let part0 = hyphens[0].trim();
+                        let part1 = hyphens.length > 1 ? hyphens[1].trim() : 'Q000';
+
+                        let category, id;
+                        if (/^Q?\d+$/i.test(part0) && /[가-힣a-zA-Z]/.test(part1)) { category = part1; id = part0; }
+                        else if (/^Q?\d+$/i.test(part1) && /[가-힣a-zA-Z]/.test(part0)) { category = part0; id = part1; }
+                        else { category = part0; id = part1; }
+
+                        const title = hyphens.length > 2 ? hyphens.slice(2).join('-').trim() : (hyphens.length > 1 ? '제목 없음' : prefix);
+                        const question = line.substring(colonIndex + 1).trim();
+                        const safeUUID = (window.crypto && window.crypto.randomUUID) ? window.crypto.randomUUID() : 'id-'+Math.random().toString(36).substring(2);
+
+                        currentScript = { uuid: safeUUID, category, id, title, question, answer: "", keywords: "" };
+                        isAnswerBlock = false;
+                    }
+                }
+
+                if (!isHeader && currentScript) {
+                    if (isAnswer) { isAnswerBlock = true; currentScript.answer += (currentScript.answer ? "\n" : "") + line.substring(line.indexOf(':') + 1).trim(); }
+                    else if (isKeyword) { isAnswerBlock = false; currentScript.keywords = line.substring(line.indexOf(':') + 1).trim(); }
+                    else if (isAnswerBlock) { currentScript.answer += (currentScript.answer ? "\n" : "") + line; }
+                }
+            }
+            if (currentScript) tempScripts.push(currentScript);
+
+            if (tempScripts.length > 0) {
+                smartRenumber(tempScripts);
+                const newFileId = 'file-' + Date.now().toString() + '-' + Math.random().toString(36).substr(2, 5);
+                const newFile = { fileId: newFileId, fileName: fileName, scripts: tempScripts, updatedAt: Date.now() };
+
+                if (currentUser && syncId) {
+                    setDoc(doc(db, 'artifacts', appId, 'public', 'data', 'room_' + syncId, newFileId), newFile)
+                        .then(() => { showToast(`업로드 완료!`, "fa-check-circle"); loadFileContent(newFileId); })
+                        .catch(e => { AppState.files.push(newFile); Storage.save(); loadFileContent(newFileId); });
+                } else {
+                    AppState.files.push(newFile); Storage.save();
+                    if(!syncId) showToast(`로컬 저장 완료! (동기화를 원하시면 방을 연결하세요)`, "fa-check");
+                    else showToast(`저장 완료!`);
+                    loadFileContent(newFileId);
+                }
+            } else { showToast("스크립트 형식을 찾을 수 없습니다."); }
+        }
+
+        function loadFileContent(fileId, silent = false) {
+            const fileObj = AppState.files.find(f => f.fileId === fileId);
+            if (!fileObj) return;
+            AppState.currentFileId = fileObj.fileId; AppState.originalFileName = fileObj.fileName;
+            AppState.scripts = [...fileObj.scripts]; AppState.currentScript = null; AppState.selectedUuids = [];
+            AppState.range = { start: 1, end: Math.max(1, AppState.scripts.length) };
+            TTSManager.clearCache();
+            DOM.downloadBtn.disabled = false; DOM.downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            DOM.newScriptBtn.disabled = false; DOM.newScriptBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+
+            renderFileList(); renderScriptList(); updateRangeUI(false);
+
+            if (AppState.scripts.length > 0) loadScriptToMain(AppState.scripts[0], true);
+            else { DOM.scriptPanel.classList.add('hidden'); DOM.emptyState.classList.remove('hidden'); }
+
+            if (!silent) toggleSidebar(true);   // 목록에서 고른 경우에만 사이드바를 엽니다
+        }
+
+        function renderFileList() {
+            DOM.fileList.innerHTML = '';
+            if (AppState.files.length === 0) return;
+            AppState.files.forEach(f => {
+                const li = document.createElement('li');
+                const isActive = f.fileId === AppState.currentFileId;
+                li.className = `flex justify-between items-center text-sm p-2 rounded-md cursor-pointer transition-colors ${isActive ? 'bg-blue-100 text-blue-700 font-bold' : 'hover:bg-gray-200 text-gray-600'}`;
+
+                const nameSpan = document.createElement('span'); nameSpan.className = "truncate flex-1"; nameSpan.textContent = f.fileName;
+                nameSpan.onclick = () => { if(!isActive) loadFileContent(f.fileId); };
+
+                const delBtn = document.createElement('button'); delBtn.className = "ml-2 text-gray-400 hover:text-red-500 p-1"; delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                delBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    CustomModal.show("파일 삭제", `'${f.fileName}' 파일을 영구적으로 삭제하시겠습니까?`, () => {
+                        AppState.files = AppState.files.filter(file => file.fileId !== f.fileId); Storage.save();
+
+                        if(AppState.currentFileId === f.fileId) {
+                            if(AppState.files.length > 0) { loadFileContent(AppState.files[0].fileId); }
+                            else { AppState.currentFileId = null; AppState.scripts = []; DOM.scriptPanel.classList.add('hidden'); DOM.emptyState.classList.remove('hidden'); DOM.downloadBtn.disabled = true; renderScriptList(); renderFileList(); }
+                        } else { renderFileList(); }
+                        showToast("파일이 삭제되었습니다.", "fa-trash");
+
+                        if(currentUser && syncId) { deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'room_' + syncId, f.fileId)).catch(err => console.error(err)); }
+                    });
+                };
+                li.appendChild(nameSpan); li.appendChild(delBtn); DOM.fileList.appendChild(li);
+            });
+        }
+
+        function smartRenumber(scriptArray) {
+            if (!scriptArray || scriptArray.length === 0) return;
+
+            let globalCounter = 1;
+            let prefixCounters = {};
+
+            let firstGlobalMatch = scriptArray[0].id.match(/\d+/);
+            if (firstGlobalMatch) globalCounter = parseInt(firstGlobalMatch[0], 10);
+
+            scriptArray.forEach((script, index) => {
+                let catTextMatch = script.category.match(/^([^0-9]+)/);
+                let catText = catTextMatch ? catTextMatch[1].trim() : '기본';
+
+                if (index === 0) {
+                    let catNumMatch = script.category.match(/\d+/);
+                    prefixCounters[catText] = catNumMatch ? parseInt(catNumMatch[0], 10) : 1;
+                } else {
+                    if (prefixCounters[catText] === undefined) { prefixCounters[catText] = 1; }
+                }
+
+                let currentCatNum = prefixCounters[catText]++;
+                let currentGlobalNum = globalCounter++;
+
+                let catNumMatch = script.category.match(/\d+/);
+                if (/\d+/.test(script.category)) {
+                    script.category = script.category.replace(/\d+/, String(currentCatNum).padStart(Math.max(2, catNumMatch ? catNumMatch[0].length : 2), '0'));
+                } else {
+                    script.category = script.category + String(currentCatNum).padStart(2, '0');
+                }
+
+                let globalNumMatch = script.id.match(/\d+/);
+                if (/\d+/.test(script.id)) {
+                    script.id = script.id.replace(/\d+/, String(currentGlobalNum).padStart(Math.max(3, globalNumMatch ? globalNumMatch[0].length : 3), '0'));
+                } else {
+                    script.id = (script.id.replace(/[^a-zA-Z]/g, '') || 'Q') + String(currentGlobalNum).padStart(3, '0');
+                }
+            });
+        }
+
+        // ---------------- 반복 구간 ----------------
+        function isRangeMode() { return ['range', 'random'].includes(DOM.ttsModeSelect.value); }
+
+        function rangeBounds() {
+            const n = AppState.scripts.length;
+            if (!n) return null;
+            const clamp = (v) => Math.min(Math.max(parseInt(v, 10) || 1, 1), n);
+            let a = clamp(AppState.range.start), b = clamp(AppState.range.end);
+            if (a > b) { const t = a; a = b; b = t; }
+            return { a, b };
+        }
+
+        function updateRangeUI(rerenderList = true) {
+            const n = AppState.scripts.length;
+            const rb = rangeBounds();
+            DOM.rangePanel.classList.toggle('hidden', !isRangeMode());
+            if (!rb) { DOM.rangeInfo.textContent = ''; return; }
+            AppState.range.start = rb.a; AppState.range.end = rb.b;
+            DOM.rangeStart.value = rb.a; DOM.rangeEnd.value = rb.b;
+            DOM.rangeStart.max = n; DOM.rangeEnd.max = n;
+            DOM.rangeInfo.textContent = `${rb.b - rb.a + 1}개 / 전체 ${n}개`;
+            if (rerenderList) renderScriptList(DOM.searchInput.value.toLowerCase().trim());
+        }
+
+        /** 다음에 재생할 스크립트를 모드에 맞게 고릅니다. 없으면 null. */
+        function pickNextScript(mode, currentIndex) {
+            const n = AppState.scripts.length;
+            if (!n) return null;
+
+            if (mode === 'continuous') {
+                return currentIndex < n - 1 ? AppState.scripts[currentIndex + 1] : null;
+            }
+
+            const rb = rangeBounds();
+            if (!rb) return null;
+            const lo = rb.a - 1, hi = rb.b - 1;
+
+            if (mode === 'range') {
+                const next = (currentIndex < lo || currentIndex >= hi) ? lo : currentIndex + 1;
+                return AppState.scripts[next];
+            }
+
+            if (mode === 'random') {
+                if (hi === lo) return AppState.scripts[lo];
+                let next = currentIndex;
+                for (let i = 0; i < 12 && next === currentIndex; i++) {
+                    next = lo + Math.floor(Math.random() * (hi - lo + 1));
+                }
+                return AppState.scripts[next];
+            }
+            return null;
+        }
+
+        // ---------------- 스크립트 삽입 ----------------
+        function insertScript(offset) {
+            if (!AppState.currentFileId) { showToast("먼저 파일을 선택해주세요."); return; }
+
+            const cur = AppState.currentScript;
+            const curIndex = cur ? AppState.scripts.findIndex(s => s.uuid === cur.uuid) : -1;
+            const at = curIndex < 0 ? AppState.scripts.length : curIndex + offset;
+            const base = AppState.scripts[curIndex] || AppState.scripts[0];
+
+            const uuid = (window.crypto && window.crypto.randomUUID) ? window.crypto.randomUUID() : 'id-' + Math.random().toString(36).substring(2);
+            const fresh = {
+                uuid,
+                category: base ? base.category : '기본01',
+                id: base ? base.id : 'Q001',
+                title: '새 스크립트',
+                question: '',
+                answer: '',
+                keywords: ''
+            };
+
+            AppState.scripts.splice(Math.max(0, Math.min(at, AppState.scripts.length)), 0, fresh);
+            smartRenumber(AppState.scripts);   // 뒤쪽 번호가 자동으로 밀립니다
+            saveCurrentFileToCloud();
+            renderScriptList(DOM.searchInput.value.toLowerCase().trim());
+            updateRangeUI(false);
+
+            loadScriptToMain(fresh, true, true);
+            toggleEditMode(true);
+            DOM.eTitle.focus();
+            showToast(`${fresh.category} · ${fresh.id} 자리에 새 스크립트를 넣었습니다.`, "fa-plus-circle");
+        }
+
+        DOM.insertAboveBtn.onclick = () => insertScript(0);
+        DOM.insertBelowBtn.onclick = () => insertScript(1);
+        DOM.newScriptBtn.onclick = () => insertScript(1);
+
+        function renderScriptList(filter = "") {
+            DOM.scriptList.innerHTML = '';
+            if (AppState.scripts.length === 0) return;
+
+            const filtered = AppState.scripts.filter(s => s.id.toLowerCase().includes(filter) || s.category.toLowerCase().includes(filter) || s.title.toLowerCase().includes(filter));
+            if (filtered.length === 0) { DOM.scriptList.innerHTML = '<div class="p-4 text-center text-gray-500 text-sm">검색 결과 없음</div>'; return; }
+
+            const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || window.innerWidth < 1024;
+            const rb = isRangeMode() ? rangeBounds() : null;
+
+            filtered.forEach(script => {
+                const btn = document.createElement('button');
+                btn.type = "button";
+                if (!isTouch) btn.draggable = true;
+
+                const cursorClass = isTouch ? 'cursor-pointer' : 'cursor-grab active:cursor-grabbing';
+                btn.className = `w-full text-left script-item p-3 mb-2 rounded-lg transition-colors border hover:bg-white focus:outline-none bg-transparent ${cursorClass}`;
+                btn.dataset.uuid = script.uuid;
+
+                const pos = AppState.scripts.indexOf(script) + 1;
+                if (rb && pos >= rb.a && pos <= rb.b) btn.classList.add('in-range');
+
+                btn.innerHTML = `
+                    <div class="flex items-center gap-2 mb-1 pointer-events-none">
+                        <span class="pos-num">${pos}</span>
+                        <span class="text-xs font-bold text-blue-600 bg-blue-100 px-1.5 py-0.5 rounded">${script.category}</span>
+                        <span class="text-xs text-gray-500 font-mono">${script.id}</span>
+                    </div>
+                    <div class="text-sm font-semibold text-gray-700 truncate pointer-events-none pl-7">${script.title}</div>
+                `;
+
+                let isMoved = false;
+                btn.addEventListener('touchmove', () => { isMoved = true; }, { passive: true });
+                btn.addEventListener('touchend', (e) => {
+                    if (!isMoved) { e.preventDefault(); TTSManager.stop(true); handleScriptClick(e, script); }
+                    isMoved = false;
+                });
+
+                btn.addEventListener('click', (e) => { TTSManager.stop(true); handleScriptClick(e, script); });
+
+                if (!isTouch) {
+                    btn.addEventListener('dragstart', handleDragStart); btn.addEventListener('dragover', handleDragOver);
+                    btn.addEventListener('dragleave', handleDragLeave); btn.addEventListener('drop', handleDrop); btn.addEventListener('dragend', handleDragEnd);
+                }
+                DOM.scriptList.appendChild(btn);
+            });
+            updateSelectionUI();
+        }
+
+        function handleScriptClick(e, script) {
+            const clickedUuid = script.uuid; const allUuids = AppState.scripts.map(s => s.uuid);
+            if (e.shiftKey && AppState.lastSelectedUuid) {
+                const min = Math.min(allUuids.indexOf(AppState.lastSelectedUuid), allUuids.indexOf(clickedUuid));
+                const max = Math.max(allUuids.indexOf(AppState.lastSelectedUuid), allUuids.indexOf(clickedUuid));
+                AppState.selectedUuids = allUuids.slice(min, max + 1);
+            } else if (e.ctrlKey || e.metaKey) {
+                if (AppState.selectedUuids.includes(clickedUuid)) AppState.selectedUuids = AppState.selectedUuids.filter(id => id !== clickedUuid);
+                else AppState.selectedUuids.push(clickedUuid);
+                AppState.lastSelectedUuid = clickedUuid;
+            } else { AppState.selectedUuids = [clickedUuid]; AppState.lastSelectedUuid = clickedUuid; }
+            loadScriptToMain(script, false);
+        }
+
+        function handleDragStart(e) {
+            const uuid = this.dataset.uuid;
+            if (!AppState.selectedUuids.includes(uuid)) { AppState.selectedUuids = [uuid]; AppState.lastSelectedUuid = uuid; updateSelectionUI(); }
+            e.dataTransfer.setData('application/json', JSON.stringify(AppState.selectedUuids)); e.dataTransfer.effectAllowed = 'move';
+            if (AppState.selectedUuids.length > 1) {
+                const dragBadge = document.createElement('div'); dragBadge.id = 'dragBadge';
+                dragBadge.className = 'bg-blue-600 text-white px-3 py-1 rounded-lg font-bold shadow-lg fixed z-50 pointer-events-none';
+                dragBadge.style.top = '-1000px'; dragBadge.textContent = `${AppState.selectedUuids.length}개 이동`;
+                document.body.appendChild(dragBadge); e.dataTransfer.setDragImage(dragBadge, 15, 15);
+                setTimeout(() => { const badge = document.getElementById('dragBadge'); if (badge) document.body.removeChild(badge); }, 0);
+            }
+            setTimeout(() => { AppState.selectedUuids.forEach(id => { const el = DOM.scriptList.querySelector(`.script-item[data-uuid="${id}"]`); if (el) el.classList.add('opacity-50'); }); }, 0);
+        }
+
+        function handleDragOver(e) { e.preventDefault(); this.classList.add('drag-over'); }
+        function handleDragLeave(e) { this.classList.remove('drag-over'); }
+        function handleDrop(e) {
+            e.preventDefault(); this.classList.remove('drag-over');
+            const draggedUuidsStr = e.dataTransfer.getData('application/json'); if (!draggedUuidsStr) return;
+            let draggedUuids = []; try { draggedUuids = JSON.parse(draggedUuidsStr); } catch(err) { return; }
+            const targetUuid = this.dataset.uuid; if (draggedUuids.includes(targetUuid)) return;
+
+            const itemsToMove = AppState.scripts.filter(s => draggedUuids.includes(s.uuid));
+            let newScripts = AppState.scripts.filter(s => !draggedUuids.includes(s.uuid));
+            const insertIndex = newScripts.findIndex(s => s.uuid === targetUuid);
+
+            if (insertIndex > -1) {
+                newScripts.splice(insertIndex, 0, ...itemsToMove); AppState.scripts = newScripts;
+                smartRenumber(AppState.scripts); saveCurrentFileToCloud(); renderScriptList(DOM.searchInput.value); updateRangeUI(false);
+                if (AppState.currentScript) {
+                    const currentUpdated = AppState.scripts.find(s => s.uuid === AppState.currentScript.uuid);
+                    if (currentUpdated) loadScriptToMain(currentUpdated, false);
+                }
+            }
+        }
+        function handleDragEnd(e) { Array.from(DOM.scriptList.querySelectorAll('.script-item')).forEach(item => item.classList.remove('drag-over', 'opacity-50')); }
+
+        function updateSelectionUI() {
+            Array.from(DOM.scriptList.querySelectorAll('.script-item')).forEach(item => {
+                const uuid = item.dataset.uuid;
+                if (AppState.selectedUuids.includes(uuid)) { item.classList.remove('border-transparent', 'bg-transparent'); item.classList.add('bg-indigo-50', 'border-indigo-300'); }
+                else { item.classList.remove('bg-indigo-50', 'border-indigo-300'); item.classList.add('border-transparent', 'bg-transparent'); }
+                if (uuid === AppState.currentScript?.uuid) item.classList.add('active'); else item.classList.remove('active');
+            });
+        }
+
+        DOM.sidebar.addEventListener('wheel', (e) => { if (e.shiftKey) { e.preventDefault(); const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY; DOM.scriptList.scrollTop += delta * 1.5; } }, { passive: false });
+        DOM.scriptList.addEventListener('dragover', (e) => { const rect = DOM.scriptList.getBoundingClientRect(); if (e.clientY - rect.top < 60) DOM.scriptList.scrollTop -= 20; else if (rect.bottom - e.clientY < 60) DOM.scriptList.scrollTop += 20; });
+        DOM.searchInput.addEventListener('input', (e) => { renderScriptList(e.target.value.toLowerCase().trim()); });
+
+        function loadScriptToMain(script, resetSelection = false, isSilentLoad = false) {
+            if (!script) return;
+            AppState.currentScript = script;
+            if (resetSelection) { AppState.selectedUuids = [script.uuid]; AppState.lastSelectedUuid = script.uuid; }
+
+            TTSManager.stop(true);
+            updateSelectionUI();
+
+            DOM.emptyState.classList.add('hidden');
+            DOM.scriptPanel.classList.remove('hidden');
+            toggleEditMode(false);
+
+            DOM.dCategory.textContent = script.category; DOM.dId.textContent = script.id;
+            DOM.dTitle.textContent = script.title; DOM.dQuestion.textContent = script.question;
+
+            DOM.dKeywords.innerHTML = '';
+            if (script.keywords) {
+                script.keywords.split(',').map(k => k.trim()).filter(k => k).forEach(k => {
+                    const span = document.createElement('span'); span.className = 'px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm font-medium border border-gray-200'; span.textContent = k; DOM.dKeywords.appendChild(span);
+                });
+            } else { DOM.dKeywords.innerHTML = '<span class="text-gray-400 text-sm italic">키워드 없음</span>'; }
+
+            const sentences = script.answer.match(/[^.?!]+[.?!]+["']?|[^.?!]+$/g) || [script.answer];
+            DOM.dAnswer.innerHTML = sentences.map((s, i) => s.trim() ? `<span class="sentence block mb-2"><span class="sentence-num">${getCircledNumber(i+1)}</span>${s.trim()}</span>` : '').join('');
+
+            const currentIndex = AppState.scripts.findIndex(s => s.uuid === script.uuid);
+            const posText = `${currentIndex + 1} / ${AppState.scripts.length}`;
+            DOM.scriptPosition.textContent = posText;
+            DOM.scriptPositionTop.textContent = posText;
+            DOM.mobileTitle.textContent = script.title || '스크립트 내용';
+
+            const setNav = (btn, enabled) => {
+                btn.disabled = !enabled;
+                btn.classList.toggle('opacity-40', !enabled);
+                btn.classList.toggle('cursor-not-allowed', !enabled);
+            };
+            const hasPrev = currentIndex > 0;
+            const hasNext = currentIndex > -1 && currentIndex < AppState.scripts.length - 1;
+            setNav(DOM.prevScriptBtn, hasPrev);   setNav(DOM.prevScriptTopBtn, hasPrev);
+            setNav(DOM.nextScriptBtn, hasNext);   setNav(DOM.nextScriptTopBtn, hasNext);
+
+            if (!isSilentLoad) toggleSidebar(false);
+        }
+
+        function getCircledNumber(num) { return num <= 20 ? String.fromCharCode(9311 + num) : `(${num})`; }
+
+        function toggleEditMode(isEdit) {
+            DOM.topNav.classList.toggle('hidden', isEdit);
+            if (isEdit) {
+                DOM.viewMode.classList.add('hidden'); DOM.viewHeader.classList.add('hidden'); DOM.editMode.classList.remove('hidden'); DOM.editHeader.classList.remove('hidden');
+                const s = AppState.currentScript; DOM.eCategory.value = s.category; DOM.eId.value = s.id; DOM.eTitle.value = s.title; DOM.eQuestion.value = s.question; DOM.eKeywords.value = s.keywords; DOM.eAnswer.value = s.answer; DOM.autoCascade.checked = true;
+            } else {
+                DOM.editMode.classList.add('hidden'); DOM.editHeader.classList.add('hidden'); DOM.viewMode.classList.remove('hidden'); DOM.viewHeader.classList.remove('hidden');
+            }
+        }
+
+        // 이전/다음 이동 (위·아래 버튼이 같은 함수를 씁니다)
+        function navigateScript(delta) {
+            if (!AppState.currentScript) return;
+            const i = AppState.scripts.findIndex(s => s.uuid === AppState.currentScript.uuid);
+            const target = i + delta;
+            if (i < 0 || target < 0 || target >= AppState.scripts.length) return;
+            loadScriptToMain(AppState.scripts[target], true, true);   // 사이드바 상태는 건드리지 않음
+        }
+
+        DOM.prevScriptBtn.onclick = () => navigateScript(-1);
+        DOM.nextScriptBtn.onclick = () => navigateScript(1);
+        DOM.prevScriptTopBtn.onclick = () => navigateScript(-1);
+        DOM.nextScriptTopBtn.onclick = () => navigateScript(1);
+
+        // PC에서는 좌우 방향키로도 넘길 수 있게 (입력 중일 때는 제외)
+        document.addEventListener('keydown', (e) => {
+            const t = e.target;
+            if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+            if (DOM.editMode.classList.contains('hidden') === false) return;
+            if (e.key === 'ArrowLeft') navigateScript(-1);
+            else if (e.key === 'ArrowRight') navigateScript(1);
+        });
+
+        DOM.editBtn.onclick = () => toggleEditMode(true);
+        DOM.cancelEditBtn.onclick = () => toggleEditMode(false);
+
+        DOM.saveEditBtn.onclick = () => {
+            if (!AppState.currentScript) return;
+            const index = AppState.scripts.findIndex(s => s.uuid === AppState.currentScript.uuid);
+            if (index > -1) {
+                const updated = { ...AppState.currentScript, category: DOM.eCategory.value.trim(), id: DOM.eId.value.trim(), title: DOM.eTitle.value.trim(), question: DOM.eQuestion.value.trim(), keywords: DOM.eKeywords.value.trim(), answer: DOM.eAnswer.value.trim() };
+                AppState.scripts[index] = updated;
+
+                if (DOM.autoCascade.checked) { smartRenumber(AppState.scripts); }
+                saveCurrentFileToCloud(); renderScriptList(DOM.searchInput.value); loadScriptToMain(updated, true); showToast("수정 사항이 저장되었습니다.");
+            }
+        };
+
+        DOM.deleteScriptBtn.onclick = () => {
+            if (!AppState.currentScript) return;
+            CustomModal.show("스크립트 삭제", "현재 선택된 스크립트를 삭제하시겠습니까?", () => {
+                const index = AppState.scripts.findIndex(s => s.uuid === AppState.currentScript.uuid);
+                if (index > -1) {
+                    AppState.scripts.splice(index, 1);
+                    if (DOM.autoCascade.checked && AppState.scripts.length > 0) { smartRenumber(AppState.scripts); }
+                    saveCurrentFileToCloud(); renderScriptList(DOM.searchInput.value); updateRangeUI(false);
+                    if (AppState.scripts.length > 0) {
+                        const nextIndex = Math.min(index, AppState.scripts.length - 1); loadScriptToMain(AppState.scripts[nextIndex], true);
+                    } else {
+                        DOM.scriptPanel.classList.add('hidden'); DOM.emptyState.classList.remove('hidden'); toggleEditMode(false);
+                    }
+                    showToast("스크립트가 삭제되었습니다.", "fa-trash");
+                }
+            });
+        };
+
+        DOM.downloadBtn.onclick = () => {
+            if (AppState.scripts.length === 0) return;
+            let fileContent = "";
+            AppState.scripts.forEach(s => { fileContent += `${s.category}-${s.id}-${s.title}: ${s.question}\nA: ${s.answer}\n${s.keywords ? 'K: '+s.keywords+'\n' : ''}\n`; });
+            const blob = new Blob([fileContent], { type: "text/plain;charset=utf-8" });
+            const url = URL.createObjectURL(blob); const a = document.createElement("a");
+            a.href = url; a.download = AppState.originalFileName; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+            showToast('수정본 다운로드 완료!', 'fa-check');
+        };
+
+        // =========================================================================
+        //  TTS 매니저
+        //  - Edge / Gemini 는 Cloudflare Worker(TTS_PROXY_URL)를 통해 호출합니다.
+        //  - 브라우저에서 MS 서버에 직접 붙으면 헤더·토큰 문제로 403이 납니다.
+        // =========================================================================
+        const TTSManager = {
+            audioEl: null,
+            lastBlobUrl: null,
+            currentUtterance: null,
+            playToken: 0,
+            session: 0,     // 사용자가 정지하거나 다른 스크립트를 고르면 증가 -> 연속 재생 체인이 끊김
+            cache: new Map(),
+            plannedNext: null,
+            failStreak: 0,
+            wantPlaying: false,     // 지금 '재생 중이어야 하는' 상태인지
+            currentAdvance: null,   // 백그라운드에서 멈췄을 때 이어가기 위한 콜백
+
+            // iOS/안드로이드는 사용자가 직접 누른 순간에만 소리를 낼 수 있습니다.
+            // 오디오 엘리먼트 하나를 만들어 끝까지 재사용합니다. (중간에 새로 만들면 백그라운드에서 끊깁니다)
+            unlock: function() {
+                if (this.audioEl) return this.audioEl;
+                const el = new Audio();
+                el.preload = 'auto';
+                el.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=';
+                const p = el.play();
+                if (p && p.then) p.then(() => { el.pause(); try { el.currentTime = 0; } catch (e) {} }).catch(() => {});
+                this.audioEl = el;
+                return el;
+            },
+
+            setIcon: function(html) { if (DOM.ttsPlayBtn) DOM.ttsPlayBtn.innerHTML = html; },
+            idle: function() {
+                this.wantPlaying = false;
+                this.setIcon('<i class="fas fa-play text-sm"></i>');
+                if ('mediaSession' in navigator) { try { navigator.mediaSession.playbackState = 'paused'; } catch (e) {} }
+            },
+
+            releaseBlob: function() {
+                if (this.lastBlobUrl) { URL.revokeObjectURL(this.lastBlobUrl); this.lastBlobUrl = null; }
+            },
+
+            stop: function(isInternal = false) {
+                this.playToken++;   // 진행 중이던 비동기 재생을 모두 무효화
+                this.session++;     // 예약된 다음 항목 재생도 취소
+                if (this.audioEl) {
+                    this.audioEl.onended = null;
+                    this.audioEl.onerror = null;
+                    try { this.audioEl.pause(); this.audioEl.currentTime = 0; } catch (e) {}
+                }
+                if (window.speechSynthesis) {
+                    if (window.speechSynthesis.speaking || window.speechSynthesis.pending) window.speechSynthesis.cancel();
+                }
+                this.currentUtterance = null;
+                if (!isInternal) { this.plannedNext = null; this.currentAdvance = null; this.failStreak = 0; this.idle(); }
+            },
+
+            /** 앱으로 돌아왔을 때 백그라운드에서 멈춰 있었다면 알아서 이어서 재생합니다. */
+            recover: function() {
+                if (!this.wantPlaying) return;
+                const el = this.audioEl;
+                if (!el || !el.src) return;
+                if (el.ended) { if (this.currentAdvance) this.currentAdvance(); }
+                else if (el.paused) { el.play().catch(() => {}); }
+            },
+
+            // ---------------- 안드로이드 잠금화면 제어 ----------------
+            // 이걸 붙여두면 크롬이 이 탭을 '미디어 재생 중'으로 인식해서
+            // 백그라운드에서 정지시킬 확률이 크게 줄고, 잠금화면에서 조작도 됩니다.
+            updateMediaSession: function() {
+                if (!('mediaSession' in navigator)) return;
+                const s = AppState.currentScript;
+                try {
+                    if (window.MediaMetadata) {
+                        navigator.mediaSession.metadata = new MediaMetadata({
+                            title: (s && s.title) || '스크립트',
+                            artist: s ? `${s.category} · ${s.id}` : '',
+                            album: AppState.originalFileName || '스크립트 브라우저'
+                        });
+                    }
+                    navigator.mediaSession.playbackState = 'playing';
+
+                    const bind = (action, fn) => { try { navigator.mediaSession.setActionHandler(action, fn); } catch (e) {} };
+                    bind('play',          () => DOM.ttsPlayBtn.click());
+                    bind('pause',         () => this.stop(false));
+                    bind('stop',          () => this.stop(false));
+                    bind('nexttrack',     () => { navigateScript(1);  DOM.ttsPlayBtn.click(); });
+                    bind('previoustrack', () => { navigateScript(-1); DOM.ttsPlayBtn.click(); });
+                } catch (e) {}
+            },
+
+            // ---------------- 오디오 받아오기 (캐시 + 미리 받기) ----------------
+            cacheKey: function(text, engine) {
+                const voice = currentVoice(engine);
+                const rate = DOM.ttsRateSelect ? DOM.ttsRateSelect.value : '1';
+                return `${engine}|${voice}|${rate}|${text}`;
+            },
+
+            fetchAudioBlob: async function(text, engine) {
+                if (!TTS_PROXY_URL) throw new Error("TTS_PROXY_URL에 Cloudflare Worker 주소를 넣어주세요.");
+                const headers = { "Content-Type": "application/json" };
+                if (TTS_PROXY_TOKEN) headers["X-Auth-Token"] = TTS_PROXY_TOKEN;
+
+                if (engine === 'edge') {
+                    const res = await fetch(TTS_PROXY_URL + "/tts", {
+                        method: "POST", headers,
+                        body: JSON.stringify({
+                            text, voice: currentVoice('edge'), rate: edgeRateString(),
+                            pitch: EDGE_PITCH, gapMs: CHAIN_GAP_MS
+                        })
+                    });
+                    if (!res.ok) {
+                        let msg = "HTTP " + res.status;
+                        try { const j = await res.json(); if (j && j.error) msg = j.error; } catch (e) {}
+                        throw new Error(msg);
+                    }
+                    const blob = await res.blob();
+                    if (!blob || blob.size < 100) throw new Error("빈 오디오 응답");
+                    return blob;
+                }
+
+                const res = await fetch(TTS_PROXY_URL + "/gemini", {
+                    method: "POST", headers,
+                    body: JSON.stringify({ text, voice: currentVoice('gemini') })
+                });
+                const data = await res.json().catch(() => null);
+                if (!res.ok) {
+                    if (res.status === 429) throw new Error("무료 할당량 초과. 잠시 뒤 다시 시도하거나 Edge TTS를 쓰세요.");
+                    const e = data && data.error;
+                    throw new Error((e && (e.message || e)) || ("HTTP " + res.status));
+                }
+                const b64 = data?.candidates?.[0]?.content?.parts?.[0]?.inlineData?.data;
+                if (!b64) throw new Error("오디오 데이터를 받지 못했습니다.");
+                const bin = window.atob(b64);
+                const bytes = new Uint8Array(bin.length);
+                for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+                return new Blob([this.addWavHeader(bytes, 24000, 1, 16)], { type: 'audio/wav' });
+            },
+
+            getAudio: async function(text, engine) {
+                const key = this.cacheKey(text, engine);
+                if (this.cache.has(key)) return this.cache.get(key);
+                const blob = await this.fetchAudioBlob(text, engine);
+                this.cache.set(key, blob);
+                while (this.cache.size > 6) this.cache.delete(this.cache.keys().next().value);
+                return blob;
+            },
+
+            /** 다음에 들을 오디오를 지금 재생하는 동안 미리 받아둡니다. */
+            prefetch: function(script, engine) {
+                if (!script || !script.answer || !script.answer.trim()) return;
+                if (engine !== 'edge' && engine !== 'gemini') return;
+                const key = this.cacheKey(script.answer, engine);
+                if (this.cache.has(key)) return;
+                this.getAudio(script.answer, engine).catch(() => {});   // 실패해도 무시 (재생 때 다시 시도)
+            },
+
+            clearCache: function() { this.cache.clear(); },
+
+            // ---------------- 재생 ----------------
+            playWithMode: async function(text, mode, engine, skips = 0) {
+                this.stop(true);
+                const chaining = (mode === 'continuous' || mode === 'range' || mode === 'random');
+
+                // 다음에 재생할 항목을 미리 정해둡니다 (랜덤 모드도 미리 받기가 가능해집니다)
+                this.plannedNext = null;
+                if (chaining && AppState.currentScript) {
+                    const i = AppState.scripts.findIndex(s => s.uuid === AppState.currentScript.uuid);
+                    this.plannedNext = pickNextScript(mode, i);
+                }
+
+                if (!text || !text.trim()) {
+                    if (!chaining || skips > 30 || !this.plannedNext) { this.idle(); return; }
+                    const nxt = this.plannedNext;
+                    loadScriptToMain(nxt, true, true);
+                    const s0 = this.session;
+                    setTimeout(() => {
+                        if (s0 !== this.session) return;
+                        this.playWithMode(nxt.answer, mode, engine, skips + 1);
+                    }, 200);
+                    return;
+                }
+
+                const token = this.playToken;
+                this.setIcon('<div class="spinner"></div>');
+
+                const advance = () => {
+                    if (token !== this.playToken) return;
+
+                    if (mode === 'once') { this.idle(); return; }
+
+                    if (mode === 'repeat') {
+                        const s0 = this.session;
+                        const again = () => { if (s0 === this.session) this.playWithMode(text, mode, engine); };
+                        if (engine === 'browser') setTimeout(again, 600); else again();
+                        return;
+                    }
+
+                    const next = this.plannedNext;
+                    if (!next) { this.idle(); return; }
+
+                    loadScriptToMain(next, true, true);   // 이 안에서 stop()이 불려 session이 올라갑니다
+                    const s0 = this.session;              // 그래서 호출 '뒤에' 값을 잡습니다
+                    const go = () => {
+                        if (s0 !== this.session) return;  // 그 사이 정지/다른 항목 선택 시 중단
+                        this.playWithMode(next.answer, mode, engine);
+                    };
+                    // 내장 음성만 타이머가 필요합니다. Edge/Gemini는 쉼이 오디오 안에 들어있어
+                    // 곧바로 이어 붙입니다. (백그라운드에서 타이머가 지연돼도 안 끊깁니다)
+                    if (engine === 'browser') setTimeout(go, 600); else go();
+                };
+
+                if (engine === 'browser') { this.playBrowser(text, token, advance); return; }
+                await this.playRemote(text, token, engine, mode, chaining, advance);
+            },
+
+            playRemote: async function(text, token, engine, mode, chaining, advance) {
+                let blob = null;
+                for (let attempt = 0; attempt < 3 && !blob; attempt++) {
+                    try {
+                        blob = await this.getAudio(text, engine);
+                    } catch (err) {
+                        if (token !== this.playToken) return;
+                        if (attempt === 2) {
+                            this.failStreak++;
+                            console.error("TTS Error:", err);
+                            // 연속 재생 중이면 한 개 실패했다고 전체를 멈추지 않고 다음으로 넘어갑니다
+                            if (chaining && this.plannedNext && this.failStreak < 5) {
+                                showToast("한 항목을 건너뜁니다: " + err.message, "fa-forward");
+                                advance();
+                            } else {
+                                showToast("음성 재생 실패: " + err.message, "fa-exclamation-triangle");
+                                this.stop(false);
+                            }
+                            return;
+                        }
+                        await new Promise(r => setTimeout(r, 700 * (attempt + 1)));
+                    }
+                }
+                if (token !== this.playToken) return;
+                this.failStreak = 0;
+
+                const el = this.unlock();
+                this.releaseBlob();
+                const url = URL.createObjectURL(blob);
+                this.lastBlobUrl = url;
+
+                this.wantPlaying = true;
+                this.currentAdvance = advance;
+                el.onended = () => { if (token === this.playToken) advance(); };
+                el.onerror = () => {
+                    if (token !== this.playToken) return;
+                    if (chaining && this.plannedNext) advance(); else this.stop(false);
+                };
+                el.src = url;
+
+                try {
+                    await el.play();
+                } catch (e) {
+                    if (token !== this.playToken) return;
+                    showToast("재생이 차단되었습니다. 재생 버튼을 한 번 더 눌러주세요.", "fa-hand-pointer");
+                    this.stop(false);
+                    return;
+                }
+                if (token !== this.playToken) return;
+
+                this.setIcon('<i class="fas fa-volume-up text-sm"></i>');
+                this.updateMediaSession();
+                this.prefetch(this.plannedNext, engine);   // 재생하는 동안 다음 것을 미리 받아둡니다
+            },
+
+            playBrowser: function(text, token, advance) {
+                if (!window.speechSynthesis) {
+                    showToast("이 기기에서는 내장 음성 기능을 지원하지 않습니다.", "fa-volume-mute");
+                    this.stop(false); return;
+                }
+
+                // 크롬은 긴 문장 하나를 통째로 넘기면 15초쯤에서 끊깁니다.
+                // 문장 단위로 잘라 차례대로 읽습니다.
+                const chunks = (text.match(/[^.!?]+[.!?]*/g) || [text])
+                    .map(s => s.trim()).filter(Boolean)
+                    .reduce((acc, s) => {
+                        if (acc.length && (acc[acc.length - 1] + " " + s).length < 200) acc[acc.length - 1] += " " + s;
+                        else acc.push(s);
+                        return acc;
+                    }, []);
+
+                const voices = window.speechSynthesis.getVoices() || [];
+                const wanted = currentVoice('browser');
+                let voice = voices.find(v => v.voiceURI === wanted) || pickBestEnglishVoice(voices);
+                const rate = parseFloat(DOM.ttsRateSelect ? DOM.ttsRateSelect.value : "1") || 1;
+
+                const speakAt = (i) => {
+                    if (token !== this.playToken) return;
+                    if (i >= chunks.length) { advance(); return; }
+
+                    const u = new SpeechSynthesisUtterance(chunks[i]);
+                    this.currentUtterance = u;   // 크롬 GC 버그 방지
+                    u.lang = (voice && voice.lang) || 'en-US';
+                    if (voice) u.voice = voice;
+                    u.rate = rate;
+
+                    u.onstart = () => {
+                        if (token !== this.playToken) return;
+                        this.setIcon('<i class="fas fa-volume-up text-sm"></i>');
+                        if (i === 0) this.updateMediaSession();
+                    };
+                    u.onend = () => { if (token === this.playToken) speakAt(i + 1); };
+                    u.onerror = (e) => {
+                        if (e.error === 'interrupted' || e.error === 'canceled') return;
+                        console.error("내장 음성 에러:", e);
+                        if (token === this.playToken) speakAt(i + 1);   // 한 문장 실패해도 계속 진행
+                    };
+                    window.speechSynthesis.speak(u);
+                };
+
+                if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+                this.wantPlaying = true;
+                this.currentAdvance = advance;
+                speakAt(0);
+            },
+
+            addWavHeader: function(samples, sampleRate, numChannels, bitDepth) {
+                const buffer = new ArrayBuffer(44 + samples.length); const view = new DataView(buffer);
+                const writeStr = (o, str) => { for(let i=0; i<str.length; i++) view.setUint8(o+i, str.charCodeAt(i)); };
+                writeStr(0, 'RIFF'); view.setUint32(4, 36 + samples.length, true); writeStr(8, 'WAVE'); writeStr(12, 'fmt ');
+                view.setUint32(16, 16, true); view.setUint16(20, 1, true); view.setUint16(22, numChannels, true);
+                view.setUint32(24, sampleRate, true); view.setUint32(28, sampleRate * numChannels * (bitDepth / 8), true);
+                view.setUint16(32, numChannels * (bitDepth / 8), true); view.setUint16(34, bitDepth, true);
+                writeStr(36, 'data'); view.setUint32(40, samples.length, true);
+                new Uint8Array(buffer).set(samples, 44); return buffer;
+            }
+        };
+
+
+        // 같은 이름이라도 기기마다 품질 차이가 큽니다.
+        // Natural / Online / Neural 이 붙은 것이 마이크로소프트·구글의 신경망 음성입니다.
+        function voiceScore(v) {
+            const n = (v.name || "") + " " + (v.voiceURI || "");
+            let s = 0;
+            if (/Natural|Neural|Online/i.test(n)) s += 100;
+            if (/Google/i.test(n)) s += 40;
+            if (/Siri|Premium|Enhanced/i.test(n)) s += 60;
+            if (/Microsoft/i.test(n)) s += 20;
+            if (v.lang === 'en-US' || v.lang === 'en_US') s += 10;
+            if (/Aria|Jenny|Emma|Ava|Samantha/i.test(n)) s += 5;
+            return s;
+        }
+
+        function pickBestEnglishVoice(voices) {
+            const eng = voices.filter(v => (v.lang || "").toLowerCase().startsWith('en'));
+            if (!eng.length) return null;
+            return eng.sort((a, b) => voiceScore(b) - voiceScore(a))[0];
+        }
+
+        // 엔진마다 성우 목록이 다릅니다. 선택값은 엔진별로 따로 기억합니다.
+        function voiceStorageKey(engine) { return 'scriptBrowserVoice_' + engine; }
+
+        function currentVoice(engine) {
+            const saved = localStorage.getItem(voiceStorageKey(engine));
+            if (DOM.ttsEngineSelect.value === engine && DOM.ttsVoiceSelect.value) return DOM.ttsVoiceSelect.value;
+            if (saved) return saved;
+            if (engine === 'edge') return EDGE_VOICES[0].id;
+            if (engine === 'gemini') return GEMINI_VOICES[0].id;
+            return "";
+        }
+
+        function edgeRateString() {
+            const r = parseFloat(DOM.ttsRateSelect ? DOM.ttsRateSelect.value : "1") || 1;
+            const pct = Math.round((r - 1) * 100);
+            return (pct >= 0 ? '+' : '') + pct + '%';
+        }
+
+        function refreshVoiceOptions() {
+            if (!DOM.ttsVoiceSelect) return;
+            const engine = DOM.ttsEngineSelect.value;
+            const saved = localStorage.getItem(voiceStorageKey(engine));
+            let options = [];
+
+            if (engine === 'edge') {
+                options = EDGE_VOICES.map(v => ({ value: v.id, text: v.label }));
+            } else if (engine === 'gemini') {
+                options = GEMINI_VOICES.map(v => ({ value: v.id, text: v.label }));
+            } else {
+                if (!window.speechSynthesis) { DOM.ttsVoiceSelect.innerHTML = '<option value="">지원 안 함</option>'; return; }
+                const voices = (window.speechSynthesis.getVoices() || []).filter(v => (v.lang || "").toLowerCase().startsWith('en'));
+                if (!voices.length) { DOM.ttsVoiceSelect.innerHTML = '<option value="">영어 음성 없음</option>'; return; }
+                voices.sort((a, b) => voiceScore(b) - voiceScore(a));
+                options = voices.map(v => ({ value: v.voiceURI, text: (voiceScore(v) >= 60 ? '★ ' : '') + v.name }));
+            }
+
+            DOM.ttsVoiceSelect.innerHTML = options
+                .map(o => `<option value="${o.value}">${o.text}</option>`).join('');
+            if (saved && options.some(o => o.value === saved)) DOM.ttsVoiceSelect.value = saved;
+        }
+
+        DOM.ttsVoiceSelect.onchange = () => {
+            localStorage.setItem(voiceStorageKey(DOM.ttsEngineSelect.value), DOM.ttsVoiceSelect.value);
+            TTSManager.stop(false);
+        };
+        DOM.ttsRateSelect.onchange = () => TTSManager.stop(false);
+
+        function syncEngineUI() { refreshVoiceOptions(); }
+
+        DOM.ttsEngineSelect.onchange = () => {
+            TTSManager.stop(false);
+            localStorage.setItem('scriptBrowserEngine', DOM.ttsEngineSelect.value);
+            syncEngineUI();
+        };
+
+        DOM.ttsModeSelect.onchange = () => {
+            TTSManager.stop(false);
+            localStorage.setItem('scriptBrowserMode', DOM.ttsModeSelect.value);
+            updateRangeUI();
+        };
+
+        DOM.rangeStart.onchange = () => { AppState.range.start = parseInt(DOM.rangeStart.value, 10) || 1; updateRangeUI(); };
+        DOM.rangeEnd.onchange   = () => { AppState.range.end   = parseInt(DOM.rangeEnd.value, 10) || 1; updateRangeUI(); };
+        DOM.rangeFromCurrent.onclick = () => {
+            const i = AppState.currentScript ? AppState.scripts.findIndex(s => s.uuid === AppState.currentScript.uuid) : -1;
+            if (i > -1) { AppState.range.start = i + 1; updateRangeUI(); }
+        };
+        DOM.rangeToCurrent.onclick = () => {
+            const i = AppState.currentScript ? AppState.scripts.findIndex(s => s.uuid === AppState.currentScript.uuid) : -1;
+            if (i > -1) { AppState.range.end = i + 1; updateRangeUI(); }
+        };
+        DOM.rangeAll.onclick = () => {
+            AppState.range = { start: 1, end: Math.max(1, AppState.scripts.length) };
+            updateRangeUI();
+        };
+
+        DOM.ttsPlayBtn.onclick = () => {
+            TTSManager.unlock();   // 반드시 클릭 순간에 호출 (iOS 오디오 잠금 해제)
+            if (!AppState.currentScript) return;
+
+            const mode = DOM.ttsModeSelect.value || 'once';
+            const engine = DOM.ttsEngineSelect.value || 'browser';
+
+            // 구간 모드인데 지금 보고 있는 항목이 구간 밖이면 구간 처음으로 이동해서 시작
+            if (isRangeMode()) {
+                const rb = rangeBounds();
+                const i = AppState.scripts.findIndex(s => s.uuid === AppState.currentScript.uuid);
+                if (rb && (i + 1 < rb.a || i + 1 > rb.b)) {
+                    const startScript = AppState.scripts[rb.a - 1];
+                    loadScriptToMain(startScript, true, true);
+                    TTSManager.playWithMode(startScript.answer, mode, engine);
+                    return;
+                }
+            }
+            TTSManager.playWithMode(AppState.currentScript.answer, mode, engine);
+        };
+        DOM.ttsStopBtn.onclick = () => { TTSManager.stop(false); };
+
+        // 다른 앱을 쓰다 돌아왔을 때 재생이 멈춰 있으면 이어서 재생
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') TTSManager.recover();
+        });
+        window.addEventListener('focus', () => TTSManager.recover());
+
+        function showToast(message, iconClass = "fa-info-circle") {
+            DOM.toastMsg.textContent = message; DOM.toastIcon.className = `fas ${iconClass} text-blue-400`;
+            DOM.toast.classList.remove('opacity-0', 'translate-y-20'); DOM.toast.classList.add('opacity-100', 'translate-y-0');
+            setTimeout(() => { DOM.toast.classList.remove('opacity-100', 'translate-y-0'); DOM.toast.classList.add('opacity-0', 'translate-y-20'); }, 3000);
+        }
+
+        // [버그 수정] 예전에는 toggleSidebar(false)를 불러도, 사이드바가 이미 닫혀 있으면
+        // 두 번째 조건에 걸려 오히려 '열림'으로 처리됐습니다.
+        // 그래서 안드로이드에서 다음 스크립트로 넘길 때마다 메뉴가 튀어나왔습니다.
+        function toggleSidebar(forceShow) {
+            const isClosed = DOM.sidebar.classList.contains('-translate-x-full');
+            const shouldOpen = (forceShow === undefined) ? isClosed : forceShow === true;
+
+            if (shouldOpen) {
+                DOM.sidebar.classList.remove('-translate-x-full');
+                DOM.mobileOverlay.classList.remove('hidden');
+            } else {
+                DOM.sidebar.classList.add('-translate-x-full');
+                DOM.mobileOverlay.classList.add('hidden');
+            }
+        }
+
+        DOM.openSidebarBtn.onclick = () => toggleSidebar(true);
+        DOM.openListBtnBottom.onclick = () => toggleSidebar(true);
+        DOM.openListBtnTop.onclick = () => toggleSidebar(true);
+        DOM.closeSidebarBtn.onclick = () => toggleSidebar(false);
+        DOM.mobileOverlay.onclick = () => toggleSidebar(false);
+
+        // 모바일에서는 파일 관리 영역을 접어두어 스크립트 목록이 화면을 넓게 씁니다.
+        DOM.fileToolsToggle.onclick = () => {
+            const opened = DOM.fileTools.classList.toggle('hidden') === false;
+            DOM.fileToolsChevron.style.transform = opened ? 'rotate(180deg)' : '';
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.speechSynthesis) {
+                window.speechSynthesis.getVoices();
+                refreshVoiceOptions();
+                // 안드로이드/크롬은 음성 목록이 늦게 채워집니다. 내장 음성일 때만 다시 그립니다.
+                const reload = () => { if (DOM.ttsEngineSelect.value === 'browser') refreshVoiceOptions(); };
+                window.speechSynthesis.onvoiceschanged = reload;
+                setTimeout(reload, 800);
+            }
+
+            const savedEngine = localStorage.getItem('scriptBrowserEngine');
+            if (savedEngine) DOM.ttsEngineSelect.value = savedEngine;
+            const savedMode = localStorage.getItem('scriptBrowserMode');
+            if (savedMode) DOM.ttsModeSelect.value = savedMode;
+            syncEngineUI();
+
+            Storage.load(); renderFileList();
+            if (AppState.files.length > 0) loadFileContent(AppState.files[0].fileId, true);
+            updateRangeUI(false);
+            updateSyncUI(); initCloudSync();
+        });
+    </script>
+</body>
+</html>
