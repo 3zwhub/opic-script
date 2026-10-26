@@ -9,7 +9,7 @@
     --prune                    지금 목록에 없는 mp3 지우기 (내보낸 목록을 빠짐없이 넣었을 때만)
     --no-builtin               내장 문장을 빼고 내보낸 목록만
 
-결과: <프로젝트>/netlify_site/ (index.html + tts/) → 이 폴더를 Netlify 에 그대로 올립니다.
+결과: <프로젝트>/docs/ (index.html + tts/) → git push 하면 GitHub Pages 에 배포됩니다.
 필요: pip install edge-tts
 """
 import argparse, asyncio, hashlib, html, json, os, re, shutil, subprocess, sys, tempfile, unicodedata
@@ -108,7 +108,7 @@ def main():
 
     project = Path(args.project)
     app_html = project / 'opic_trainer.html'
-    site = project / 'netlify_site'
+    site = project / 'docs'
     tts_dir = site / 'tts'
 
     exports = [load_export(p) for p in args.exports]
@@ -160,7 +160,7 @@ def main():
     shutil.copyfile(app_html, site / 'opic_trainer.html')
     size = sum(f.stat().st_size for f in tts_dir.rglob('*.mp3'))
     print(f'완료: {site} (mp3 {sum(len(v) for v in manifest["voices"].values())}개, {size / 1048576:.1f}MB)')
-    print('이 폴더를 Netlify 에 올리세요 (Deploys → 폴더 끌어다 놓기).')
+    print('git push 하면 GitHub Pages 에 배포됩니다.')
 
 
 if __name__ == '__main__':

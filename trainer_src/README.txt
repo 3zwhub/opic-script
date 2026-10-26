@@ -19,7 +19,7 @@ combos.txt만 바뀐 경우에는 다시 만들 필요 없이 앱의 설정 > co
 스크립트를 바꾼 뒤 (프로젝트 폴더에서):
     python -I trainer_src/build.py .
     python trainer_src/tts_build.py .
-  → netlify_site 폴더(index.html + tts/)를 Netlify 에 끌어다 놓기
+  → docs 폴더(index.html + tts/)를 커밋하고 git push 하면 GitHub Pages 에 배포됨
 
 앱에서 직접 올린 답변 파일·막힌 표현까지 넣으려면:
   앱 설정 > '음성 문장 목록 내보내기' → tts_texts.json 을 받아서

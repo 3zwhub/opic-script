@@ -8939,7 +8939,7 @@ const UI = {
             $('setTest').onclick = () => TTS.play(TTS_SAMPLE, 'once');
             const showStatic = () => TtsStatic.status(currentVoice('edge')).then(r => {
                 const el = $('setTtsStatic'); if (!el) return;
-                if (!r.available) { el.textContent = '미리 만든 음성: 없음 (Netlify 주소로 열었을 때만 쓰입니다)'; return; }
+                if (!r.available) { el.textContent = '미리 만든 음성: 없음 (배포 주소로 열었을 때만 쓰입니다)'; return; }
                 const name = currentVoice('edge').replace(/^en-\w+-|Neural$/g, '');
                 el.textContent = r.ready
                     ? `미리 만든 음성(${name}): ${r.ready}/${r.total} 문장 준비됨${r.ready < r.total ? ' · 스크립트가 바뀌었다면 목록을 내보내 mp3를 새로 만드세요' : ''}`
